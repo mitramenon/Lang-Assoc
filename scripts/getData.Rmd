@@ -1,0 +1,138 @@
+---
+title: "Extracting data from raster and from polygons"
+Date: 19-jan
+output: html_notebook
+---
+
+
+
+```{r}
+library(raster)
+library(sp)
+library(rgdal)
+library(rgeos)
+library(prevR)
+
+#install.packages("remotes")
+#remotes::install_github("kapitzas/WorldClimTiles")
+library(WorldClimTiles) #if not install uncomment the above two lines and run them first
+```
+
+Load in your dataset containing lat-long information
+```{r}
+Landrace<-read.csv("~/Google Drive File Stream/My Drive/Language_assoc/LandraceInfo.csv")
+
+```
+
+# Getting worldClim bioclim data downloaded #
+
+*See here for what the variables mean: https://worldclim.org/data/bioclim.html*
+Data needs to be downloaded for 30 arc sec to your personal laptop. This is the finest resolution available and will take some time to download for the whole world. Since we only need a small area we can use the `tile_get` to determine what regions we need
+
+```{r}
+boundary <- getData("GADM", country = "MX", level = 0)
+tilenames <- tile_name(boundary, name = 'worldclim')
+tilenames
+
+setwd("~/Google Drive File Stream/My Drive/Language_assoc/")
+wctiles <- tile_get(tiles = tilenames, name = 'worldclim', var = "bio")
+```
+
+The command above will download to your current directory by creating a folder called wc0.5.
+Combine the three tiles for each bioclim variable
+```{r}
+setwd("~/Google Drive File Stream/My Drive/Language_assoc/wc0.5/")
+
+
+AllTiles<-vector("list",19)
+bioclims<-paste0(rep("bio",19),seq(1,19),"_")
+
+for (f in 1:length(AllTiles)){
+  
+  cat("working on bioClim", bioclims[f],"\n")
+  bio<-list.files("./",bioclims[f])
+  bio<-bio[grepl(".bil",bio)]
+  bio<-lapply(bio,function(X) raster(X))
+  AllTiles[[f]]<-do.call(merge,bio)
+}
+
+names(AllTiles)<-bioclims
+
+```
+
+Check if stuff looks as expected
+```{r}
+plot(AllTiles[[1]])
+```
+
+Create a raster stack and extract values for all lat-longs each raster
+```{r}
+S<-stack(AllTiles)
+pts<-SpatialPoints(Landrace[ ,c("Longitude","Latitude")])
+clim<-extract(S,pts)
+clim<-cbind(Landrace,clim)
+```
+
+
+# Getting language data.#
+*Still a work in progress.*
+
+Here the data is of the from SpatialPolygons, so we use a different set of commands to read in the dataset
+```{r}
+setwd("~/Google Drive File Stream/My Drive/Language_assoc")
+lang<-readOGR(dsn=path.expand("indigenousLanguages"))
+polys = attr(lang,'polygons')
+names(polys)<-lang$Name
+
+
+```
+
+Determine if point is within a polygon
+```{r}
+npolys = length(polys)
+polyID<-vector("list",npolys)
+for (i in 1:npolys){
+  poly = polys[[i]]
+  polys2 = attr(poly,'Polygons')
+  npolys2 = length(polys2)
+  for (j in 1:npolys2){
+     
+     coords = coordinates(polys2[[j]])
+     out<-point.in.polygon(Landrace$Longitude,Landrace$Latitude,coords[ ,1],coords[ ,2])
+     
+  }
+  polyID[[i]]<-out
+  
+  
+}
+```
+
+Extract the language of the sample location
+```{r}
+names(polyID)<-lang$Name
+polyID<-data.frame(do.call(cbind,polyID))
+rownames(polyID)<-Landrace$GBS.Taxon.ID
+loc<-apply(polyID,1,function(X) X[which(X==1)])#1 means completely inside the polygon 
+loc0ID<-lapply(loc,function(X) names(X))
+names(loc0ID)<-Landrace$GBS.Taxon.ID
+loc0ID<-do.call(rbind,loc0ID)
+#238 samples have matching language data
+```
+
+Now for samples which don't fall inside a polygon we'll look at fringe location of polygon
+```{r}
+forSet2<-Landrace[!(Landrace$GBS.Taxon.ID %in% rownames(loc0ID)), ]
+
+loc2<-apply(polyID,1,function(X) X[which(X==2)])
+loc2ID<-lapply(loc2,function(X) names(X)) #no matches
+
+
+
+loc3<-apply(polyID,1,function(X) X[which(X==3)])
+loc3ID<-lapply(loc3,function(X) names(X)) #no matches again
+
+
+#sp2   <- SpatialPoints(point)
+#gContains(lang,sp2)
+```
+
