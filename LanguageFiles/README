@@ -1,0 +1,5 @@
+Data for indigenous languages obtained from here:
+
+https://native-land.ca/coordinates/indigenousLanguages.json
+Change from JSON to shp using https://mapshaper.org/. 
+Can also directly using JSON in R.
