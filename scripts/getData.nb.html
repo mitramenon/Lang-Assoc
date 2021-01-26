@@ -1761,12 +1761,14 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyYXN0ZXIpXG5saWJyYXJ5KHNwKVxubGlicmFyeShyZ2RhbClcbmxpYnJhcnkocmdlb3MpXG5saWJyYXJ5KHByZXZSKVxuXG4jaW5zdGFsbC5wYWNrYWdlcyhcInJlbW90ZXNcIilcbiNyZW1vdGVzOjppbnN0YWxsX2dpdGh1YihcImthcGl0emFzL1dvcmxkQ2xpbVRpbGVzXCIpXG5saWJyYXJ5KFdvcmxkQ2xpbVRpbGVzKSAjaWYgbm90IGluc3RhbGwgdW5jb21tZW50IHRoZSBhYm92ZSB0d28gbGluZXMgYW5kIHJ1biB0aGVtIGZpcnN0XG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyYXN0ZXIpXG5saWJyYXJ5KHNwKVxubGlicmFyeShyZ2RhbClcbmxpYnJhcnkocmdlb3MpXG5saWJyYXJ5KHByZXZSKVxubGlicmFyeShhbWFwKVxubGlicmFyeShnZW9zcGhlcmUpXG5cbiNpbnN0YWxsLnBhY2thZ2VzKFwicmVtb3Rlc1wiKVxuI3JlbW90ZXM6Omluc3RhbGxfZ2l0aHViKFwia2FwaXR6YXMvV29ybGRDbGltVGlsZXNcIilcbmxpYnJhcnkoV29ybGRDbGltVGlsZXMpICNpZiBub3QgaW5zdGFsbCB1bmNvbW1lbnQgdGhlIGFib3ZlIHR3byBsaW5lcyBhbmQgcnVuIHRoZW0gZmlyc3RcbmBgYCJ9 -->
 <pre class="r"><code>library(raster)
 library(sp)
 library(rgdal)
 library(rgeos)
 library(prevR)
+library(amap)
+library(geosphere)
 
 #install.packages(&quot;remotes&quot;)
 #remotes::install_github(&quot;kapitzas/WorldClimTiles&quot;)
@@ -1801,23 +1803,23 @@ wctiles &lt;- tile_get(tiles = tilenames, name = &#39;worldclim&#39;, var = &quo
 <p>The command above will download to your current directory by creating a folder called wc0.5. Combine the three tiles for each bioclim variable</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS9cIilcbmBgYCJ9 -->
-<pre class="r"><code>setwd(&quot;~/Google Drive File Stream/My Drive/Language_assoc/wc0.5/&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIHdvcmtpbmcgZGlyZWN0b3J5IHdhcyBjaGFuZ2VkIHRvIC9Wb2x1bWVzL0dvb2dsZURyaXZlL015IERyaXZlL0xhbmd1YWdlX2Fzc29jL3djMC41IGluc2lkZSBhIG5vdGVib29rIGNodW5rLiBUaGUgd29ya2luZyBkaXJlY3Rvcnkgd2lsbCBiZSByZXNldCB3aGVuIHRoZSBjaHVuayBpcyBmaW5pc2hlZCBydW5uaW5nLiBVc2UgdGhlIGtuaXRyIHJvb3QuZGlyIG9wdGlvbiBpbiB0aGUgc2V0dXAgY2h1bmsgdG8gY2hhbmdlIHRoZSB3b3JraW5nIGRpcmVjdG9yeSBmb3Igbm90ZWJvb2sgY2h1bmtzLlxuIn0= -->
-<pre><code>The working directory was changed to /Volumes/GoogleDrive/My Drive/Language_assoc/wc0.5 inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQWxsVGlsZXM8LXZlY3RvcihcImxpc3RcIiwxOSlcbmJpb2NsaW1zPC1wYXN0ZTAocmVwKFwiYmlvXCIsMTkpLHNlcSgxLDE5KSxcIl9cIilcbiNuYW1lcyhBbGxUaWxlcyk8LXRpbGVuYW1lc1xuZm9yIChmIGluIDE6bGVuZ3RoKEFsbFRpbGVzKSl7XG4gIFxuICBiaW88LWxpc3QuZmlsZXMoXCIuL1wiLGJpb2NsaW1zW2ZdKVxuICBiaW88LWJpb1tncmVwbChcIi5iaWxcIixiaW8pXVxuICBiaW88LWxhcHBseShiaW8sZnVuY3Rpb24oWCkgcmFzdGVyKFgpKVxuICBBbGxUaWxlc1tbZl1dPC1kby5jYWxsKG1lcmdlLGJpbylcbn1cblxuXG5gYGAifQ== -->
-<pre class="r"><code>AllTiles&lt;-vector(&quot;list&quot;,19)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS9cIilcblxuXG5BbGxUaWxlczwtdmVjdG9yKFwibGlzdFwiLDE5KVxuYmlvY2xpbXM8LXBhc3RlMChyZXAoXCJiaW9cIiwxOSksc2VxKDEsMTkpLFwiX1wiKVxuXG5mb3IgKGYgaW4gMTpsZW5ndGgoQWxsVGlsZXMpKXtcbiAgXG4gIGNhdChcIndvcmtpbmcgb24gYmlvQ2xpbVwiLCBiaW9jbGltc1tmXSxcIlxcblwiKVxuICBiaW88LWxpc3QuZmlsZXMoXCIuL1wiLGJpb2NsaW1zW2ZdKVxuICBiaW88LWJpb1tncmVwbChcIi5iaWxcIixiaW8pXVxuICBiaW88LWxhcHBseShiaW8sZnVuY3Rpb24oWCkgcmFzdGVyKFgpKVxuICBBbGxUaWxlc1tbZl1dPC1kby5jYWxsKG1lcmdlLGJpbylcbn1cblxubmFtZXMoQWxsVGlsZXMpPC1iaW9jbGltc1xuXG5gYGAifQ== -->
+<pre class="r"><code>setwd(&quot;~/Google Drive File Stream/My Drive/Language_assoc/wc0.5/&quot;)
+
+
+AllTiles&lt;-vector(&quot;list&quot;,19)
 bioclims&lt;-paste0(rep(&quot;bio&quot;,19),seq(1,19),&quot;_&quot;)
-#names(AllTiles)&lt;-tilenames
+
 for (f in 1:length(AllTiles)){
   
+  cat(&quot;working on bioClim&quot;, bioclims[f],&quot;\n&quot;)
   bio&lt;-list.files(&quot;./&quot;,bioclims[f])
   bio&lt;-bio[grepl(&quot;.bil&quot;,bio)]
   bio&lt;-lapply(bio,function(X) raster(X))
   AllTiles[[f]]&lt;-do.call(merge,bio)
 }
+
+names(AllTiles)&lt;-bioclims
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
@@ -1844,7 +1846,6 @@ clim&lt;-cbind(Landrace,clim)</code></pre>
 </div>
 <div id="getting-language-data." class="section level1">
 <h1>Getting language data.</h1>
-<p><em>Still a work in progress.</em></p>
 <p>Here the data is of the from SpatialPolygons, so we use a different set of commands to read in the dataset</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1893,50 +1894,92 @@ for (i in 1:npolys){
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Extract the language of the sample location</p>
+<p>Extract the language of the sample location &amp; keep only languages are present in atleast one location</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMocG9seUlEKTwtbGFuZyROYW1lXG5wb2x5SUQ8LWRhdGEuZnJhbWUoZG8uY2FsbChjYmluZCxwb2x5SUQpKVxucm93bmFtZXMocG9seUlEKTwtTGFuZHJhY2UkR0JTLlRheG9uLklEXG5sb2M8LWFwcGx5KHBvbHlJRCwxLGZ1bmN0aW9uKFgpIFhbd2hpY2goWD09MSldKSMxIG1lYW5zIGNvbXBsZXRlbHkgaW5zaWRlIHRoZSBwb2x5Z29uIFxubG9jMElEPC1sYXBwbHkobG9jLGZ1bmN0aW9uKFgpIG5hbWVzKFgpKVxubmFtZXMobG9jMElEKTwtTGFuZHJhY2UkR0JTLlRheG9uLklEXG5sb2MwSUQ8LWRvLmNhbGwocmJpbmQsbG9jMElEKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMocG9seUlEKTwtbGFuZyROYW1lXG5wb2x5SUQ8LWRvLmNhbGwoY2JpbmQscG9seUlEKVxucG9seUlEX3ByPC1wb2x5SURbICxjb2xTdW1zKHBvbHlJRCkhPTBdXG5yb3duYW1lcyhwb2x5SURfcHIpPC1MYW5kcmFjZSRHQlMuVGF4b24uSURcbmhlYWQocG9seUlEX3ByKVxuYGBgIn0= -->
 <pre class="r"><code>names(polyID)&lt;-lang$Name
-polyID&lt;-data.frame(do.call(cbind,polyID))
-rownames(polyID)&lt;-Landrace$GBS.Taxon.ID
-loc&lt;-apply(polyID,1,function(X) X[which(X==1)])#1 means completely inside the polygon 
-loc0ID&lt;-lapply(loc,function(X) names(X))
-names(loc0ID)&lt;-Landrace$GBS.Taxon.ID
-loc0ID&lt;-do.call(rbind,loc0ID)</code></pre>
+polyID&lt;-do.call(cbind,polyID)
+polyID_pr&lt;-polyID[ ,colSums(polyID)!=0]
+rownames(polyID_pr)&lt;-Landrace$GBS.Taxon.ID
+head(polyID_pr)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoibnVtYmVyIG9mIGNvbHVtbnMgb2YgcmVzdWx0IGlzIG5vdCBhIG11bHRpcGxlIG9mIHZlY3RvciBsZW5ndGggKGFyZyAxMilcbiJ9 -->
-<pre><code>number of columns of result is not a multiple of vector length (arg 12)</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgICAgICAgICAgICAgIEd1YXJhbmkgVGVwZWh1w6FuIChOb3J0aGVybikgS+KAmWljaGXigJkgUXVlY2h1YSBHdWFtYXJlcyBRdWVjaHVhIFpvcXVlIFBvcW9tY2hp4oCZIFRlY3VleGUgTmFodWF0bCBUb3RvcmFtZXMgTWFtXG4xM1MwNTg5MDIuMjUwMzk0NDEyICAgICAgICAgMCAgICAgICAgICAgICAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgMCAgICAgICAwICAgICAwICAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgICAxICAgMFxuMTNTMDU4OTA0LjI1MDM5NDQxMyAgICAgICAgIDAgICAgICAgICAgICAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgIDAgICAgICAgMCAgICAgMCAgICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAgMSAgIDBcbjEzUzA1ODkwNS4yNTAzOTQ0MTQgICAgICAgICAwICAgICAgICAgICAgICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgIDAgICAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgIDEgICAwXG5SSU1NQTA2OTYuMS4yNTAwNDkxMjUgICAgICAgMCAgICAgICAgICAgICAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgMCAgICAgICAwICAgICAwICAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgICAwICAgMFxuUklNTUEwNzAzLjEuMjUwMDQ5MjA2ICAgICAgIDAgICAgICAgICAgICAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgIDAgICAgICAgMCAgICAgMCAgICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgIDBcblJJTU1BMDcyMC4xLjI1MDA0OTE0NyAgICAgICAwICAgICAgICAgICAgICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgIDAgICAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgIDAgICAwXG4gICAgICAgICAgICAgICAgICAgICAgVGVwZWh1w6FuIFlhcXVpIFRvdG9uYWMgTmFodWF0bCBDaOKAmW9ydGnigJkgUHVyZXBlY2hhIEd1bmEgKER1bGUpIFRvdG9uYWNvIFRhcGFjaHVsdGVjbyAobWl4ZS16b3F1ZSkgQ2F4Y2FuXG4xM1MwNTg5MDIuMjUwMzk0NDEyICAgICAgICAgIDAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAwICAgICAgICAgMCAgICAgICAgICAgMCAgICAgICAgMCAgICAgICAgICAgICAgICAgICAgICAgICAwICAgICAgMFxuMTNTMDU4OTA0LjI1MDM5NDQxMyAgICAgICAgICAwICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgMCAgICAgICAgIDAgICAgICAgICAgIDAgICAgICAgIDAgICAgICAgICAgICAgICAgICAgICAgICAgMCAgICAgIDBcbjEzUzA1ODkwNS4yNTAzOTQ0MTQgICAgICAgICAgMCAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgIDAgICAgICAgICAwICAgICAgICAgICAwICAgICAgICAwICAgICAgICAgICAgICAgICAgICAgICAgIDAgICAgICAwXG5SSU1NQTA2OTYuMS4yNTAwNDkxMjUgICAgICAgIDAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAwICAgICAgICAgMCAgICAgICAgICAgMCAgICAgICAgMCAgICAgICAgICAgICAgICAgICAgICAgICAwICAgICAgMFxuUklNTUEwNzAzLjEuMjUwMDQ5MjA2ICAgICAgICAwICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgMCAgICAgICAgIDAgICAgICAgICAgIDAgICAgICAgIDAgICAgICAgICAgICAgICAgICAgICAgICAgMCAgICAgIDBcblJJTU1BMDcyMC4xLjI1MDA0OTE0NyAgICAgICAgMCAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgIDAgICAgICAgICAwICAgICAgICAgICAwICAgICAgICAwICAgICAgICAgICAgICAgICAgICAgICAgIDAgICAgICAwXG4gICAgICAgICAgICAgICAgICAgICAgTmFodWF0bCBQb3FvbWFtIEthcWNoaWtlbCBPdG9taSBNYXlhIFl1Y2F0ZWNvIE1heW8gV2F5dXUgVGFtYXVsaXBlY28gdHJpYmVzIFJhcmFtdXJpIFR6b3R6aWwgQ2FoaXRhIE90b21pXG4xM1MwNTg5MDIuMjUwMzk0NDEyICAgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAwICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG4xM1MwNTg5MDQuMjUwMzk0NDEzICAgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAwICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG4xM1MwNTg5MDUuMjUwMzk0NDE0ICAgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAwICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG5SSU1NQTA2OTYuMS4yNTAwNDkxMjUgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAwICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG5SSU1NQTA3MDMuMS4yNTAwNDkyMDYgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAxICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG5SSU1NQTA3MjAuMS4yNTAwNDkxNDcgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAwICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG4gICAgICAgICAgICAgICAgICAgICAgWmFwb3RlY28gUeKAmWVxY2hp4oCZIE9vYiBObydvayAoTG93ZXIgUGltYSlcbjEzUzA1ODkwMi4yNTAzOTQ0MTIgICAgICAgICAgMCAgICAgICAgMCAgICAgICAgICAgICAgICAgICAgICAwXG4xM1MwNTg5MDQuMjUwMzk0NDEzICAgICAgICAgIDAgICAgICAgIDAgICAgICAgICAgICAgICAgICAgICAgMFxuMTNTMDU4OTA1LjI1MDM5NDQxNCAgICAgICAgICAwICAgICAgICAwICAgICAgICAgICAgICAgICAgICAgIDBcblJJTU1BMDY5Ni4xLjI1MDA0OTEyNSAgICAgICAgMCAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAwXG5SSU1NQTA3MDMuMS4yNTAwNDkyMDYgICAgICAgIDAgICAgICAgIDAgICAgICAgICAgICAgICAgICAgICAgMFxuUklNTUEwNzIwLjEuMjUwMDQ5MTQ3ICAgICAgICAwICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgIDBcbiJ9 -->
+<pre><code>                      Guarani Tepehuán (Northern) K’iche’ Quechua Guamares Quechua Zoque Poqomchi’ Tecuexe Nahuatl Totorames Mam
+13S058902.250394412         0                   0       0       0        0       0     0         0       0       0         1   0
+13S058904.250394413         0                   0       0       0        0       0     0         0       0       0         1   0
+13S058905.250394414         0                   0       0       0        0       0     0         0       0       0         1   0
+RIMMA0696.1.250049125       0                   0       0       0        0       0     0         0       0       0         0   0
+RIMMA0703.1.250049206       0                   0       0       0        0       0     0         0       0       0         0   0
+RIMMA0720.1.250049147       0                   0       0       0        0       0     0         0       0       0         0   0
+                      Tepehuán Yaqui Totonac Nahuatl Ch’orti’ Purepecha Guna (Dule) Totonaco Tapachulteco (mixe-zoque) Caxcan
+13S058902.250394412          0     0       0       0        0         0           0        0                         0      0
+13S058904.250394413          0     0       0       0        0         0           0        0                         0      0
+13S058905.250394414          0     0       0       0        0         0           0        0                         0      0
+RIMMA0696.1.250049125        0     0       0       0        0         0           0        0                         0      0
+RIMMA0703.1.250049206        0     0       0       0        0         0           0        0                         0      0
+RIMMA0720.1.250049147        0     0       0       0        0         0           0        0                         0      0
+                      Nahuatl Poqomam Kaqchikel Otomi Maya Yucateco Mayo Wayuu Tamaulipeco tribes Raramuri Tzotzil Cahita Otomi
+13S058902.250394412         0       0         0     0             0    0     0                  0        0       0      0     0
+13S058904.250394413         0       0         0     0             0    0     0                  0        0       0      0     0
+13S058905.250394414         0       0         0     0             0    0     0                  0        0       0      0     0
+RIMMA0696.1.250049125       0       0         0     0             0    0     0                  0        0       0      0     0
+RIMMA0703.1.250049206       0       0         0     0             1    0     0                  0        0       0      0     0
+RIMMA0720.1.250049147       0       0         0     0             0    0     0                  0        0       0      0     0
+                      Zapoteco Q’eqchi’ Oob No&#39;ok (Lower Pima)
+13S058902.250394412          0        0                      0
+13S058904.250394413          0        0                      0
+13S058905.250394414          0        0                      0
+RIMMA0696.1.250049125        0        1                      0
+RIMMA0703.1.250049206        0        0                      0
+RIMMA0720.1.250049147        0        1                      0</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIzIzOCBzYW1wbGVzIGhhdmUgbWF0Y2hpbmcgbGFuZ3VhZ2UgZGF0YVxuYGBgIn0= -->
-<pre class="r"><code>#238 samples have matching language data</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUudGFibGUocG9seUlEX3ByLGZpbGU9XCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5ndWFnZXNCeUxhbmRyYWNlLnR4dFwiLHNlcD1cIlxcdFwiLHJvdy5uYW1lcyA9IFQscXVvdGU9RilcblxuYGBgIn0= -->
+<pre class="r"><code>write.table(polyID_pr,file=&quot;~/Google Drive File Stream/My Drive/Language_assoc/LanguagesByLandrace.txt&quot;,sep=&quot;\t&quot;,row.names = T,quote=F)
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Now for samples which don’t fall inside a polygon we’ll look at fringe location of polygon</p>
+</div>
+<div id="caluclate-distance-measures-for-all-our-covariates" class="section level1">
+<h1>Caluclate distance measures for all our covariates</h1>
+<ol style="list-style-type: decimal">
+<li>Distance for climate data. This is numeric continous. We only need the 19 bioclims and elevation and we will use euclidean distance.</li>
+</ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZm9yU2V0MjwtTGFuZHJhY2VbIShMYW5kcmFjZSRHQlMuVGF4b24uSUQgJWluJSByb3duYW1lcyhsb2MwSUQpKSwgXVxuXG5sb2MyPC1hcHBseShwb2x5SUQsMSxmdW5jdGlvbihYKSBYW3doaWNoKFg9PTIpXSlcbmxvYzJJRDwtbGFwcGx5KGxvYzIsZnVuY3Rpb24oWCkgbmFtZXMoWCkpICNubyBtYXRjaGVzXG5cblxuXG5sb2MzPC1hcHBseShwb2x5SUQsMSxmdW5jdGlvbihYKSBYW3doaWNoKFg9PTMpXSlcbmxvYzNJRDwtbGFwcGx5KGxvYzMsZnVuY3Rpb24oWCkgbmFtZXMoWCkpICNubyBtYXRjaGVzIGFnYWluXG5cblxuI3NwMiAgIDwtIFNwYXRpYWxQb2ludHMocG9pbnQpXG4jZ0NvbnRhaW5zKGxhbmcsc3AyKVxuYGBgIn0= -->
-<pre class="r"><code>forSet2&lt;-Landrace[!(Landrace$GBS.Taxon.ID %in% rownames(loc0ID)), ]
-
-loc2&lt;-apply(polyID,1,function(X) X[which(X==2)])
-loc2ID&lt;-lapply(loc2,function(X) names(X)) #no matches
-
-
-
-loc3&lt;-apply(polyID,1,function(X) X[which(X==3)])
-loc3ID&lt;-lapply(loc3,function(X) names(X)) #no matches again
-
-
-#sp2   &lt;- SpatialPoints(point)
-#gContains(lang,sp2)</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<ol start="2" style="list-style-type: decimal">
+<li>Distance metric to use for ordinal data such as the 0,1,2,3 from language. Several approaches : -Recode 0 as 4 and use kendall distance. -Recode all values other than 1 to 0 and use euclidean -Recode 2 &amp; 3 as 0.5 and then use euclidean</li>
+</ol>
+<p><em>Let’s go with the 3rd approach for now</em></p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="3" style="list-style-type: decimal">
+<li>Geodesic Distance metric for lat-long on WGS84</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGYgPSBjbGltWyAsYyhcIkxvbmdpdHVkZVwiLFwiTGF0aXR1ZGVcIildICMgdGhlIG9yZGVyIHNob3VsZCBiZSBsb25naXR1ZGUsIGxhdGl0dWRlIVxuR2VvRGlzdDwtZGlzdG0oZGYsIGRmLCBkaXN0R2VvKVxucm93bmFtZXMoR2VvRGlzdCk8LWNvbG5hbWVzKEdlb0Rpc3QpXG5kaW0oR2VvRGlzdClcbmBgYCJ9 -->
+<pre class="r"><code>df = clim[ ,c(&quot;Longitude&quot;,&quot;Latitude&quot;)] # the order should be longitude, latitude!
+GeoDist&lt;-distm(df, df, distGeo)
+rownames(GeoDist)&lt;-colnames(GeoDist)
+dim(GeoDist)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI5NCAyOTRcbiJ9 -->
+<pre><code>[1] 294 294</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGVzdDwtR2VvRGlzdFtsb3dlci50cmkoR2VvRGlzdCldXG5cbmBgYCJ9 -->
+<pre class="r"><code>test&lt;-GeoDist[lower.tri(GeoDist)]
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRXh0cmFjdGluZyBkYXRhIGZyb20gcmFzdGVyIGFuZCBmcm9tIHBvbHlnb25zIgpEYXRlOiAxOS1qYW4Kb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgpgYGB7cn0KbGlicmFyeShyYXN0ZXIpCmxpYnJhcnkoc3ApCmxpYnJhcnkocmdkYWwpCmxpYnJhcnkocmdlb3MpCmxpYnJhcnkocHJldlIpCgojaW5zdGFsbC5wYWNrYWdlcygicmVtb3RlcyIpCiNyZW1vdGVzOjppbnN0YWxsX2dpdGh1Yigia2FwaXR6YXMvV29ybGRDbGltVGlsZXMiKQpsaWJyYXJ5KFdvcmxkQ2xpbVRpbGVzKSAjaWYgbm90IGluc3RhbGwgdW5jb21tZW50IHRoZSBhYm92ZSB0d28gbGluZXMgYW5kIHJ1biB0aGVtIGZpcnN0CmBgYAoKTG9hZCBpbiB5b3VyIGRhdGFzZXQgY29udGFpbmluZyBsYXQtbG9uZyBpbmZvcm1hdGlvbgpgYGB7cn0KTGFuZHJhY2U8LXJlYWQuY3N2KCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5kcmFjZUluZm8uY3N2IikKCmBgYAoKIyBHZXR0aW5nIHdvcmxkQ2xpbSBiaW9jbGltIGRhdGEgZG93bmxvYWRlZCAjCgoqU2VlIGhlcmUgZm9yIHdoYXQgdGhlIHZhcmlhYmxlcyBtZWFuOiBodHRwczovL3dvcmxkY2xpbS5vcmcvZGF0YS9iaW9jbGltLmh0bWwqCkRhdGEgbmVlZHMgdG8gYmUgZG93bmxvYWRlZCBmb3IgMzAgYXJjIHNlYyB0byB5b3VyIHBlcnNvbmFsIGxhcHRvcC4gVGhpcyBpcyB0aGUgZmluZXN0IHJlc29sdXRpb24gYXZhaWxhYmxlIGFuZCB3aWxsIHRha2Ugc29tZSB0aW1lIHRvIGRvd25sb2FkIGZvciB0aGUgd2hvbGUgd29ybGQuIFNpbmNlIHdlIG9ubHkgbmVlZCBhIHNtYWxsIGFyZWEgd2UgY2FuIHVzZSB0aGUgYHRpbGVfZ2V0YCB0byBkZXRlcm1pbmUgd2hhdCByZWdpb25zIHdlIG5lZWQKCmBgYHtyfQpib3VuZGFyeSA8LSBnZXREYXRhKCJHQURNIiwgY291bnRyeSA9ICJNWCIsIGxldmVsID0gMCkKdGlsZW5hbWVzIDwtIHRpbGVfbmFtZShib3VuZGFyeSwgbmFtZSA9ICd3b3JsZGNsaW0nKQp0aWxlbmFtZXMKCnNldHdkKCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy8iKQp3Y3RpbGVzIDwtIHRpbGVfZ2V0KHRpbGVzID0gdGlsZW5hbWVzLCBuYW1lID0gJ3dvcmxkY2xpbScsIHZhciA9ICJiaW8iKQpgYGAKClRoZSBjb21tYW5kIGFib3ZlIHdpbGwgZG93bmxvYWQgdG8geW91ciBjdXJyZW50IGRpcmVjdG9yeSBieSBjcmVhdGluZyBhIGZvbGRlciBjYWxsZWQgd2MwLjUuCkNvbWJpbmUgdGhlIHRocmVlIHRpbGVzIGZvciBlYWNoIGJpb2NsaW0gdmFyaWFibGUKYGBge3J9CnNldHdkKCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS8iKQoKCkFsbFRpbGVzPC12ZWN0b3IoImxpc3QiLDE5KQpiaW9jbGltczwtcGFzdGUwKHJlcCgiYmlvIiwxOSksc2VxKDEsMTkpLCJfIikKCmZvciAoZiBpbiAxOmxlbmd0aChBbGxUaWxlcykpewogIAogIGNhdCgid29ya2luZyBvbiBiaW9DbGltIiwgYmlvY2xpbXNbZl0sIlxuIikKICBiaW88LWxpc3QuZmlsZXMoIi4vIixiaW9jbGltc1tmXSkKICBiaW88LWJpb1tncmVwbCgiLmJpbCIsYmlvKV0KICBiaW88LWxhcHBseShiaW8sZnVuY3Rpb24oWCkgcmFzdGVyKFgpKQogIEFsbFRpbGVzW1tmXV08LWRvLmNhbGwobWVyZ2UsYmlvKQp9CgpuYW1lcyhBbGxUaWxlcyk8LWJpb2NsaW1zCgpgYGAKCkNoZWNrIGlmIHN0dWZmIGxvb2tzIGFzIGV4cGVjdGVkCmBgYHtyfQpwbG90KEFsbFRpbGVzW1sxXV0pCmBgYAoKQ3JlYXRlIGEgcmFzdGVyIHN0YWNrIGFuZCBleHRyYWN0IHZhbHVlcyBmb3IgYWxsIGxhdC1sb25ncyBlYWNoIHJhc3RlcgpgYGB7cn0KUzwtc3RhY2soQWxsVGlsZXMpCnB0czwtU3BhdGlhbFBvaW50cyhMYW5kcmFjZVsgLGMoIkxvbmdpdHVkZSIsIkxhdGl0dWRlIildKQpjbGltPC1leHRyYWN0KFMscHRzKQpjbGltPC1jYmluZChMYW5kcmFjZSxjbGltKQpgYGAKCgojIEdldHRpbmcgbGFuZ3VhZ2UgZGF0YS4jCipTdGlsbCBhIHdvcmsgaW4gcHJvZ3Jlc3MuKgoKSGVyZSB0aGUgZGF0YSBpcyBvZiB0aGUgZnJvbSBTcGF0aWFsUG9seWdvbnMsIHNvIHdlIHVzZSBhIGRpZmZlcmVudCBzZXQgb2YgY29tbWFuZHMgdG8gcmVhZCBpbiB0aGUgZGF0YXNldApgYGB7cn0Kc2V0d2QoIn4vR29vZ2xlIERyaXZlIEZpbGUgU3RyZWFtL015IERyaXZlL0xhbmd1YWdlX2Fzc29jIikKbGFuZzwtcmVhZE9HUihkc249cGF0aC5leHBhbmQoImluZGlnZW5vdXNMYW5ndWFnZXMiKSkKcG9seXMgPSBhdHRyKGxhbmcsJ3BvbHlnb25zJykKbmFtZXMocG9seXMpPC1sYW5nJE5hbWUKCgpgYGAKCkRldGVybWluZSBpZiBwb2ludCBpcyB3aXRoaW4gYSBwb2x5Z29uCmBgYHtyfQpucG9seXMgPSBsZW5ndGgocG9seXMpCnBvbHlJRDwtdmVjdG9yKCJsaXN0IixucG9seXMpCmZvciAoaSBpbiAxOm5wb2x5cyl7CiAgcG9seSA9IHBvbHlzW1tpXV0KICBwb2x5czIgPSBhdHRyKHBvbHksJ1BvbHlnb25zJykKICBucG9seXMyID0gbGVuZ3RoKHBvbHlzMikKICBmb3IgKGogaW4gMTpucG9seXMyKXsKICAgICAKICAgICBjb29yZHMgPSBjb29yZGluYXRlcyhwb2x5czJbW2pdXSkKICAgICBvdXQ8LXBvaW50LmluLnBvbHlnb24oTGFuZHJhY2UkTG9uZ2l0dWRlLExhbmRyYWNlJExhdGl0dWRlLGNvb3Jkc1sgLDFdLGNvb3Jkc1sgLDJdKQogICAgIAogIH0KICBwb2x5SURbW2ldXTwtb3V0CiAgCiAgCn0KYGBgCgpFeHRyYWN0IHRoZSBsYW5ndWFnZSBvZiB0aGUgc2FtcGxlIGxvY2F0aW9uCmBgYHtyfQpuYW1lcyhwb2x5SUQpPC1sYW5nJE5hbWUKcG9seUlEPC1kYXRhLmZyYW1lKGRvLmNhbGwoY2JpbmQscG9seUlEKSkKcm93bmFtZXMocG9seUlEKTwtTGFuZHJhY2UkR0JTLlRheG9uLklECmxvYzwtYXBwbHkocG9seUlELDEsZnVuY3Rpb24oWCkgWFt3aGljaChYPT0xKV0pIzEgbWVhbnMgY29tcGxldGVseSBpbnNpZGUgdGhlIHBvbHlnb24gCmxvYzBJRDwtbGFwcGx5KGxvYyxmdW5jdGlvbihYKSBuYW1lcyhYKSkKbmFtZXMobG9jMElEKTwtTGFuZHJhY2UkR0JTLlRheG9uLklECmxvYzBJRDwtZG8uY2FsbChyYmluZCxsb2MwSUQpCiMyMzggc2FtcGxlcyBoYXZlIG1hdGNoaW5nIGxhbmd1YWdlIGRhdGEKYGBgCgpOb3cgZm9yIHNhbXBsZXMgd2hpY2ggZG9uJ3QgZmFsbCBpbnNpZGUgYSBwb2x5Z29uIHdlJ2xsIGxvb2sgYXQgZnJpbmdlIGxvY2F0aW9uIG9mIHBvbHlnb24KYGBge3J9CmZvclNldDI8LUxhbmRyYWNlWyEoTGFuZHJhY2UkR0JTLlRheG9uLklEICVpbiUgcm93bmFtZXMobG9jMElEKSksIF0KCmxvYzI8LWFwcGx5KHBvbHlJRCwxLGZ1bmN0aW9uKFgpIFhbd2hpY2goWD09MildKQpsb2MySUQ8LWxhcHBseShsb2MyLGZ1bmN0aW9uKFgpIG5hbWVzKFgpKSAjbm8gbWF0Y2hlcwoKCgpsb2MzPC1hcHBseShwb2x5SUQsMSxmdW5jdGlvbihYKSBYW3doaWNoKFg9PTMpXSkKbG9jM0lEPC1sYXBwbHkobG9jMyxmdW5jdGlvbihYKSBuYW1lcyhYKSkgI25vIG1hdGNoZXMgYWdhaW4KCgojc3AyICAgPC0gU3BhdGlhbFBvaW50cyhwb2ludCkKI2dDb250YWlucyhsYW5nLHNwMikKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRXh0cmFjdGluZyBkYXRhIGZyb20gcmFzdGVyIGFuZCBmcm9tIHBvbHlnb25zIgpEYXRlOiAxOS1qYW4Kb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgpgYGB7cn0KbGlicmFyeShyYXN0ZXIpCmxpYnJhcnkoc3ApCmxpYnJhcnkocmdkYWwpCmxpYnJhcnkocmdlb3MpCmxpYnJhcnkocHJldlIpCmxpYnJhcnkoYW1hcCkKbGlicmFyeShnZW9zcGhlcmUpCgojaW5zdGFsbC5wYWNrYWdlcygicmVtb3RlcyIpCiNyZW1vdGVzOjppbnN0YWxsX2dpdGh1Yigia2FwaXR6YXMvV29ybGRDbGltVGlsZXMiKQpsaWJyYXJ5KFdvcmxkQ2xpbVRpbGVzKSAjaWYgbm90IGluc3RhbGwgdW5jb21tZW50IHRoZSBhYm92ZSB0d28gbGluZXMgYW5kIHJ1biB0aGVtIGZpcnN0CmBgYAoKTG9hZCBpbiB5b3VyIGRhdGFzZXQgY29udGFpbmluZyBsYXQtbG9uZyBpbmZvcm1hdGlvbgpgYGB7cn0KTGFuZHJhY2U8LXJlYWQuY3N2KCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5kcmFjZUluZm8uY3N2IikKCmBgYAoKIyBHZXR0aW5nIHdvcmxkQ2xpbSBiaW9jbGltIGRhdGEgZG93bmxvYWRlZCAjCgoqU2VlIGhlcmUgZm9yIHdoYXQgdGhlIHZhcmlhYmxlcyBtZWFuOiBodHRwczovL3dvcmxkY2xpbS5vcmcvZGF0YS9iaW9jbGltLmh0bWwqCkRhdGEgbmVlZHMgdG8gYmUgZG93bmxvYWRlZCBmb3IgMzAgYXJjIHNlYyB0byB5b3VyIHBlcnNvbmFsIGxhcHRvcC4gVGhpcyBpcyB0aGUgZmluZXN0IHJlc29sdXRpb24gYXZhaWxhYmxlIGFuZCB3aWxsIHRha2Ugc29tZSB0aW1lIHRvIGRvd25sb2FkIGZvciB0aGUgd2hvbGUgd29ybGQuIFNpbmNlIHdlIG9ubHkgbmVlZCBhIHNtYWxsIGFyZWEgd2UgY2FuIHVzZSB0aGUgYHRpbGVfZ2V0YCB0byBkZXRlcm1pbmUgd2hhdCByZWdpb25zIHdlIG5lZWQKCmBgYHtyfQpib3VuZGFyeSA8LSBnZXREYXRhKCJHQURNIiwgY291bnRyeSA9ICJNWCIsIGxldmVsID0gMCkKdGlsZW5hbWVzIDwtIHRpbGVfbmFtZShib3VuZGFyeSwgbmFtZSA9ICd3b3JsZGNsaW0nKQp0aWxlbmFtZXMKCnNldHdkKCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy8iKQp3Y3RpbGVzIDwtIHRpbGVfZ2V0KHRpbGVzID0gdGlsZW5hbWVzLCBuYW1lID0gJ3dvcmxkY2xpbScsIHZhciA9ICJiaW8iKQpgYGAKClRoZSBjb21tYW5kIGFib3ZlIHdpbGwgZG93bmxvYWQgdG8geW91ciBjdXJyZW50IGRpcmVjdG9yeSBieSBjcmVhdGluZyBhIGZvbGRlciBjYWxsZWQgd2MwLjUuCkNvbWJpbmUgdGhlIHRocmVlIHRpbGVzIGZvciBlYWNoIGJpb2NsaW0gdmFyaWFibGUKYGBge3J9CnNldHdkKCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS8iKQoKCkFsbFRpbGVzPC12ZWN0b3IoImxpc3QiLDE5KQpiaW9jbGltczwtcGFzdGUwKHJlcCgiYmlvIiwxOSksc2VxKDEsMTkpLCJfIikKCmZvciAoZiBpbiAxOmxlbmd0aChBbGxUaWxlcykpewogIAogIGNhdCgid29ya2luZyBvbiBiaW9DbGltIiwgYmlvY2xpbXNbZl0sIlxuIikKICBiaW88LWxpc3QuZmlsZXMoIi4vIixiaW9jbGltc1tmXSkKICBiaW88LWJpb1tncmVwbCgiLmJpbCIsYmlvKV0KICBiaW88LWxhcHBseShiaW8sZnVuY3Rpb24oWCkgcmFzdGVyKFgpKQogIEFsbFRpbGVzW1tmXV08LWRvLmNhbGwobWVyZ2UsYmlvKQp9CgpuYW1lcyhBbGxUaWxlcyk8LWJpb2NsaW1zCgpgYGAKCkNoZWNrIGlmIHN0dWZmIGxvb2tzIGFzIGV4cGVjdGVkCmBgYHtyfQpwbG90KEFsbFRpbGVzW1sxXV0pCmBgYAoKQ3JlYXRlIGEgcmFzdGVyIHN0YWNrIGFuZCBleHRyYWN0IHZhbHVlcyBmb3IgYWxsIGxhdC1sb25ncyBlYWNoIHJhc3RlcgpgYGB7cn0KUzwtc3RhY2soQWxsVGlsZXMpCnB0czwtU3BhdGlhbFBvaW50cyhMYW5kcmFjZVsgLGMoIkxvbmdpdHVkZSIsIkxhdGl0dWRlIildKQpjbGltPC1leHRyYWN0KFMscHRzKQpjbGltPC1jYmluZChMYW5kcmFjZSxjbGltKQpgYGAKCgojIEdldHRpbmcgbGFuZ3VhZ2UgZGF0YS4jCgoKSGVyZSB0aGUgZGF0YSBpcyBvZiB0aGUgZnJvbSBTcGF0aWFsUG9seWdvbnMsIHNvIHdlIHVzZSBhIGRpZmZlcmVudCBzZXQgb2YgY29tbWFuZHMgdG8gcmVhZCBpbiB0aGUgZGF0YXNldApgYGB7cn0Kc2V0d2QoIn4vR29vZ2xlIERyaXZlIEZpbGUgU3RyZWFtL015IERyaXZlL0xhbmd1YWdlX2Fzc29jIikKbGFuZzwtcmVhZE9HUihkc249cGF0aC5leHBhbmQoImluZGlnZW5vdXNMYW5ndWFnZXMiKSkKcG9seXMgPSBhdHRyKGxhbmcsJ3BvbHlnb25zJykKbmFtZXMocG9seXMpPC1sYW5nJE5hbWUKCgpgYGAKCkRldGVybWluZSBpZiBwb2ludCBpcyB3aXRoaW4gYSBwb2x5Z29uCmBgYHtyfQpucG9seXMgPSBsZW5ndGgocG9seXMpCnBvbHlJRDwtdmVjdG9yKCJsaXN0IixucG9seXMpCmZvciAoaSBpbiAxOm5wb2x5cyl7CiAgcG9seSA9IHBvbHlzW1tpXV0KICBwb2x5czIgPSBhdHRyKHBvbHksJ1BvbHlnb25zJykKICBucG9seXMyID0gbGVuZ3RoKHBvbHlzMikKICBmb3IgKGogaW4gMTpucG9seXMyKXsKICAgICAKICAgICBjb29yZHMgPSBjb29yZGluYXRlcyhwb2x5czJbW2pdXSkKICAgICBvdXQ8LXBvaW50LmluLnBvbHlnb24oTGFuZHJhY2UkTG9uZ2l0dWRlLExhbmRyYWNlJExhdGl0dWRlLGNvb3Jkc1sgLDFdLGNvb3Jkc1sgLDJdKQogICAgIAogIH0KICBwb2x5SURbW2ldXTwtb3V0CiAgCiAgCn0KYGBgCgpFeHRyYWN0IHRoZSBsYW5ndWFnZSBvZiB0aGUgc2FtcGxlIGxvY2F0aW9uICYga2VlcCBvbmx5IGxhbmd1YWdlcyBhcmUgcHJlc2VudCBpbiBhdGxlYXN0IG9uZSBsb2NhdGlvbgpgYGB7cn0KbmFtZXMocG9seUlEKTwtbGFuZyROYW1lCnBvbHlJRDwtZG8uY2FsbChjYmluZCxwb2x5SUQpCnBvbHlJRF9wcjwtcG9seUlEWyAsY29sU3Vtcyhwb2x5SUQpIT0wXQpyb3duYW1lcyhwb2x5SURfcHIpPC1MYW5kcmFjZSRHQlMuVGF4b24uSUQKaGVhZChwb2x5SURfcHIpCndyaXRlLnRhYmxlKHBvbHlJRF9wcixmaWxlPSJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5ndWFnZXNCeUxhbmRyYWNlLnR4dCIsc2VwPSJcdCIscm93Lm5hbWVzID0gVCxxdW90ZT1GKQoKYGBgCgojIENhbHVjbGF0ZSBkaXN0YW5jZSBtZWFzdXJlcyBmb3IgYWxsIG91ciBjb3ZhcmlhdGVzICMgCgoxKSBEaXN0YW5jZSBmb3IgY2xpbWF0ZSBkYXRhLiBUaGlzIGlzIG51bWVyaWMgY29udGlub3VzLiBXZSBvbmx5IG5lZWQgdGhlIDE5IGJpb2NsaW1zIGFuZCBlbGV2YXRpb24gYW5kIHdlIHdpbGwgdXNlIGV1Y2xpZGVhbiBkaXN0YW5jZS4KYGBge3J9CgpgYGAKCjIpIERpc3RhbmNlIG1ldHJpYyB0byB1c2UgZm9yIG9yZGluYWwgZGF0YSBzdWNoIGFzIHRoZSAwLDEsMiwzIGZyb20gbGFuZ3VhZ2UuIApTZXZlcmFsIGFwcHJvYWNoZXMgOgotUmVjb2RlIDAgYXMgNCBhbmQgdXNlIGtlbmRhbGwgZGlzdGFuY2UuCi1SZWNvZGUgYWxsIHZhbHVlcyBvdGhlciB0aGFuIDEgdG8gMCBhbmQgdXNlIGV1Y2xpZGVhbgotUmVjb2RlIDIgJiAzIGFzIDAuNSBhbmQgdGhlbiB1c2UgZXVjbGlkZWFuCgoqTGV0J3MgZ28gd2l0aCB0aGUgM3JkIGFwcHJvYWNoIGZvciBub3cqCmBgYHtyfQoKYGBgCgozKSBHZW9kZXNpYyBEaXN0YW5jZSBtZXRyaWMgZm9yIGxhdC1sb25nIG9uIFdHUzg0CmBgYHtyfQpkZiA9IGNsaW1bICxjKCJMb25naXR1ZGUiLCJMYXRpdHVkZSIpXSAjIHRoZSBvcmRlciBzaG91bGQgYmUgbG9uZ2l0dWRlLCBsYXRpdHVkZQpHZW9EaXN0PC1kaXN0bShkZiwgZGYsIGRpc3RHZW8pCnJvd25hbWVzKEdlb0Rpc3QpPC1jb2xuYW1lcyhHZW9EaXN0KQpkaW0oR2VvRGlzdCkKCgpgYGAK</div>
 
 
 

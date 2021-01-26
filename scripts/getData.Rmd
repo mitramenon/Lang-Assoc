@@ -12,6 +12,8 @@ library(sp)
 library(rgdal)
 library(rgeos)
 library(prevR)
+library(amap)
+library(geosphere)
 
 #install.packages("remotes")
 #remotes::install_github("kapitzas/WorldClimTiles")
@@ -75,7 +77,7 @@ clim<-cbind(Landrace,clim)
 
 
 # Getting language data.#
-*Still a work in progress.*
+
 
 Here the data is of the from SpatialPolygons, so we use a different set of commands to read in the dataset
 ```{r}
@@ -107,32 +109,41 @@ for (i in 1:npolys){
 }
 ```
 
-Extract the language of the sample location
+Extract the language of the sample location & keep only languages are present in atleast one location
 ```{r}
 names(polyID)<-lang$Name
-polyID<-data.frame(do.call(cbind,polyID))
-rownames(polyID)<-Landrace$GBS.Taxon.ID
-loc<-apply(polyID,1,function(X) X[which(X==1)])#1 means completely inside the polygon 
-loc0ID<-lapply(loc,function(X) names(X))
-names(loc0ID)<-Landrace$GBS.Taxon.ID
-loc0ID<-do.call(rbind,loc0ID)
-#238 samples have matching language data
+polyID<-do.call(cbind,polyID)
+polyID_pr<-polyID[ ,colSums(polyID)!=0]
+rownames(polyID_pr)<-Landrace$GBS.Taxon.ID
+head(polyID_pr)
+write.table(polyID_pr,file="~/Google Drive File Stream/My Drive/Language_assoc/LanguagesByLandrace.txt",sep="\t",row.names = T,quote=F)
+
 ```
 
-Now for samples which don't fall inside a polygon we'll look at fringe location of polygon
+# Caluclate distance measures for all our covariates # 
+
+1) Distance for climate data. This is numeric continous. We only need the 19 bioclims and elevation and we will use euclidean distance.
 ```{r}
-forSet2<-Landrace[!(Landrace$GBS.Taxon.ID %in% rownames(loc0ID)), ]
 
-loc2<-apply(polyID,1,function(X) X[which(X==2)])
-loc2ID<-lapply(loc2,function(X) names(X)) #no matches
-
-
-
-loc3<-apply(polyID,1,function(X) X[which(X==3)])
-loc3ID<-lapply(loc3,function(X) names(X)) #no matches again
-
-
-#sp2   <- SpatialPoints(point)
-#gContains(lang,sp2)
 ```
 
+2) Distance metric to use for ordinal data such as the 0,1,2,3 from language. 
+Several approaches :
+-Recode 0 as 4 and use kendall distance.
+-Recode all values other than 1 to 0 and use euclidean
+-Recode 2 & 3 as 0.5 and then use euclidean
+
+*Let's go with the 3rd approach for now*
+```{r}
+
+```
+
+3) Geodesic Distance metric for lat-long on WGS84
+```{r}
+df = clim[ ,c("Longitude","Latitude")] # the order should be longitude, latitude
+GeoDist<-distm(df, df, distGeo)
+rownames(GeoDist)<-colnames(GeoDist)
+dim(GeoDist)
+
+
+```
