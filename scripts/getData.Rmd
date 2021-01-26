@@ -124,7 +124,12 @@ write.table(polyID_pr,file="~/Google Drive File Stream/My Drive/Language_assoc/L
 
 1) Distance for climate data. This is numeric continous. We only need the 19 bioclims and elevation and we will use euclidean distance.
 ```{r}
-
+climOnly<-clim[ ,-c(1:5,7:10)]
+head(climOnly)
+rownames(climOnly)<-clim$GBS.Taxon.ID
+clim.dist<-dist(climOnly,method = "euclidean")
+#convert to square matrix
+clim.dist<-as.matrix(clim.dist)
 ```
 
 2) Distance metric to use for ordinal data such as the 0,1,2,3 from language. 
@@ -134,9 +139,6 @@ Several approaches :
 -Recode 2 & 3 as 0.5 and then use euclidean
 
 *Let's go with the 3rd approach for now*
-```{r}
-
-```
 
 3) Geodesic Distance metric for lat-long on WGS84
 ```{r}

@@ -1761,19 +1761,63 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyYXN0ZXIpXG5saWJyYXJ5KHNwKVxubGlicmFyeShyZ2RhbClcbmxpYnJhcnkocmdlb3MpXG5saWJyYXJ5KHByZXZSKVxubGlicmFyeShhbWFwKVxubGlicmFyeShnZW9zcGhlcmUpXG5cbiNpbnN0YWxsLnBhY2thZ2VzKFwicmVtb3Rlc1wiKVxuI3JlbW90ZXM6Omluc3RhbGxfZ2l0aHViKFwia2FwaXR6YXMvV29ybGRDbGltVGlsZXNcIilcbmxpYnJhcnkoV29ybGRDbGltVGlsZXMpICNpZiBub3QgaW5zdGFsbCB1bmNvbW1lbnQgdGhlIGFib3ZlIHR3byBsaW5lcyBhbmQgcnVuIHRoZW0gZmlyc3RcbmBgYCJ9 -->
-<pre class="r"><code>library(raster)
-library(sp)
-library(rgdal)
-library(rgeos)
-library(prevR)
-library(amap)
-library(geosphere)
-
-#install.packages(&quot;remotes&quot;)
-#remotes::install_github(&quot;kapitzas/WorldClimTiles&quot;)
-library(WorldClimTiles) #if not install uncomment the above two lines and run them first</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyYXN0ZXIpXG5gYGAifQ== -->
+<pre class="r"><code>library(raster)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBzcFxuXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYcmFzdGVy4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6ZGF0YS50YWJsZeKAmTpcblxuICAgIHNoaWZ0XG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6V0dDTkHigJk6XG5cbiAgICBibG9ja1NpemVcbiJ9 -->
+<pre><code>Loading required package: sp
+
+Attaching package: ‘raster’
+
+The following object is masked from ‘package:data.table’:
+
+    shift
+
+The following object is masked from ‘package:WGCNA’:
+
+    blockSize</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzcClcbmxpYnJhcnkocmdkYWwpXG5gYGAifQ== -->
+<pre class="r"><code>library(sp)
+library(rgdal)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoicmdkYWw6IHZlcnNpb246IDEuNS0xOSwgKFNWTiByZXZpc2lvbiAxMDkyKVxuR2Vvc3BhdGlhbCBEYXRhIEFic3RyYWN0aW9uIExpYnJhcnkgZXh0ZW5zaW9ucyB0byBSIHN1Y2Nlc3NmdWxseSBsb2FkZWRcbkxvYWRlZCBHREFMIHJ1bnRpbWU6IEdEQUwgMy4xLjQsIHJlbGVhc2VkIDIwMjAvMTAvMjBcblBhdGggdG8gR0RBTCBzaGFyZWQgZmlsZXM6IC9MaWJyYXJ5L0ZyYW1ld29ya3MvUi5mcmFtZXdvcmsvVmVyc2lvbnMvNC4wL1Jlc291cmNlcy9saWJyYXJ5L3JnZGFsL2dkYWxcbkdEQUwgYmluYXJ5IGJ1aWx0IHdpdGggR0VPUzogVFJVRSBcbkxvYWRlZCBQUk9KIHJ1bnRpbWU6IFJlbC4gNi4zLjEsIEZlYnJ1YXJ5IDEwdGgsIDIwMjAsIFtQSl9WRVJTSU9OOiA2MzFdXG5QYXRoIHRvIFBST0ogc2hhcmVkIGZpbGVzOiAvTGlicmFyeS9GcmFtZXdvcmtzL1IuZnJhbWV3b3JrL1ZlcnNpb25zLzQuMC9SZXNvdXJjZXMvbGlicmFyeS9yZ2RhbC9wcm9qXG5MaW5raW5nIHRvIHNwIHZlcnNpb246MS40LTRcblRvIG11dGUgd2FybmluZ3Mgb2YgcG9zc2libGUgR0RBTC9PU1IgZXhwb3J0VG9Qcm9qNCgpIGRlZ3JhZGF0aW9uLFxudXNlIG9wdGlvbnMoXCJyZ2RhbF9zaG93X2V4cG9ydFRvUHJvajRfd2FybmluZ3NcIj1cIm5vbmVcIikgYmVmb3JlIGxvYWRpbmcgcmdkYWwuXG4ifQ== -->
+<pre><code>rgdal: version: 1.5-19, (SVN revision 1092)
+Geospatial Data Abstraction Library extensions to R successfully loaded
+Loaded GDAL runtime: GDAL 3.1.4, released 2020/10/20
+Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rgdal/gdal
+GDAL binary built with GEOS: TRUE 
+Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
+Path to PROJ shared files: /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rgdal/proj
+Linking to sp version:1.4-4
+To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+use options(&quot;rgdal_show_exportToProj4_warnings&quot;=&quot;none&quot;) before loading rgdal.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZ2VvcylcbmBgYCJ9 -->
+<pre class="r"><code>library(rgeos)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoicmdlb3MgdmVyc2lvbjogMC41LTUsIChTVk4gcmV2aXNpb24gNjQwKVxuIEdFT1MgcnVudGltZSB2ZXJzaW9uOiAzLjguMS1DQVBJLTEuMTMuMyBcbiBMaW5raW5nIHRvIHNwIHZlcnNpb246IDEuNC0yIFxuIFBvbHlnb24gY2hlY2tpbmc6IFRSVUUgXG5cblxuQXR0YWNoaW5nIHBhY2thZ2U6IOKAmHJnZW9z4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6c2VxaW5y4oCZOlxuXG4gICAgdHJhbnNsYXRlXG4ifQ== -->
+<pre><code>rgeos version: 0.5-5, (SVN revision 640)
+ GEOS runtime version: 3.8.1-CAPI-1.13.3 
+ Linking to sp version: 1.4-2 
+ Polygon checking: TRUE 
+
+
+Attaching package: ‘rgeos’
+
+The following object is masked from ‘package:seqinr’:
+
+    translate</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwcmV2UilcbmBgYCJ9 -->
+<pre class="r"><code>library(prevR)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IHBhY2thZ2Ugb3IgbmFtZXNwYWNlIGxvYWQgZmFpbGVkIGZvciDigJhwcmV2UuKAmTpcbiBwYWNrYWdlIHNsb3QgbWlzc2luZyBmcm9tIHNpZ25hdHVyZSBmb3IgZ2VuZXJpYyDigJhjb2VyY2XigJlcbmFuZCBjbGFzc2VzIFNURkRGLCBSYXN0ZXJCcmlja1xuY2Fubm90IHVzZSB3aXRoIGR1cGxpY2F0ZSBjbGFzcyBuYW1lcyAodGhlIHBhY2thZ2UgbWF5IG5lZWQgdG8gYmUgcmUtaW5zdGFsbGVkKVxuIn0= -->
+<pre><code>Error: package or namespace load failed for ‘prevR’:
+ package slot missing from signature for generic ‘coerce’
+and classes STFDF, RasterBrick
+cannot use with duplicate class names (the package may need to be re-installed)</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Load in your dataset containing lat-long information</p>
@@ -1803,11 +1847,14 @@ wctiles &lt;- tile_get(tiles = tilenames, name = &#39;worldclim&#39;, var = &quo
 <p>The command above will download to your current directory by creating a folder called wc0.5. Combine the three tiles for each bioclim variable</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS9cIilcblxuXG5BbGxUaWxlczwtdmVjdG9yKFwibGlzdFwiLDE5KVxuYmlvY2xpbXM8LXBhc3RlMChyZXAoXCJiaW9cIiwxOSksc2VxKDEsMTkpLFwiX1wiKVxuXG5mb3IgKGYgaW4gMTpsZW5ndGgoQWxsVGlsZXMpKXtcbiAgXG4gIGNhdChcIndvcmtpbmcgb24gYmlvQ2xpbVwiLCBiaW9jbGltc1tmXSxcIlxcblwiKVxuICBiaW88LWxpc3QuZmlsZXMoXCIuL1wiLGJpb2NsaW1zW2ZdKVxuICBiaW88LWJpb1tncmVwbChcIi5iaWxcIixiaW8pXVxuICBiaW88LWxhcHBseShiaW8sZnVuY3Rpb24oWCkgcmFzdGVyKFgpKVxuICBBbGxUaWxlc1tbZl1dPC1kby5jYWxsKG1lcmdlLGJpbylcbn1cblxubmFtZXMoQWxsVGlsZXMpPC1iaW9jbGltc1xuXG5gYGAifQ== -->
-<pre class="r"><code>setwd(&quot;~/Google Drive File Stream/My Drive/Language_assoc/wc0.5/&quot;)
-
-
-AllTiles&lt;-vector(&quot;list&quot;,19)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS9cIilcbmBgYCJ9 -->
+<pre class="r"><code>setwd(&quot;~/Google Drive File Stream/My Drive/Language_assoc/wc0.5/&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiVGhlIHdvcmtpbmcgZGlyZWN0b3J5IHdhcyBjaGFuZ2VkIHRvIC9Wb2x1bWVzL0dvb2dsZURyaXZlL015IERyaXZlL0xhbmd1YWdlX2Fzc29jL3djMC41IGluc2lkZSBhIG5vdGVib29rIGNodW5rLiBUaGUgd29ya2luZyBkaXJlY3Rvcnkgd2lsbCBiZSByZXNldCB3aGVuIHRoZSBjaHVuayBpcyBmaW5pc2hlZCBydW5uaW5nLiBVc2UgdGhlIGtuaXRyIHJvb3QuZGlyIG9wdGlvbiBpbiB0aGUgc2V0dXAgY2h1bmsgdG8gY2hhbmdlIHRoZSB3b3JraW5nIGRpcmVjdG9yeSBmb3Igbm90ZWJvb2sgY2h1bmtzLlxuIn0= -->
+<pre><code>The working directory was changed to /Volumes/GoogleDrive/My Drive/Language_assoc/wc0.5 inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks.</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQWxsVGlsZXM8LXZlY3RvcihcImxpc3RcIiwxOSlcbmJpb2NsaW1zPC1wYXN0ZTAocmVwKFwiYmlvXCIsMTkpLHNlcSgxLDE5KSxcIl9cIilcblxuZm9yIChmIGluIDE6bGVuZ3RoKEFsbFRpbGVzKSl7XG4gIFxuICBjYXQoXCJ3b3JraW5nIG9uIGJpb0NsaW1cIiwgYmlvY2xpbXNbZl0sXCJcXG5cIilcbiAgYmlvPC1saXN0LmZpbGVzKFwiLi9cIixiaW9jbGltc1tmXSlcbiAgYmlvPC1iaW9bZ3JlcGwoXCIuYmlsXCIsYmlvKV1cbiAgYmlvPC1sYXBwbHkoYmlvLGZ1bmN0aW9uKFgpIHJhc3RlcihYKSlcbiAgQWxsVGlsZXNbW2ZdXTwtZG8uY2FsbChtZXJnZSxiaW8pXG59XG5gYGAifQ== -->
+<pre class="r"><code>AllTiles&lt;-vector(&quot;list&quot;,19)
 bioclims&lt;-paste0(rep(&quot;bio&quot;,19),seq(1,19),&quot;_&quot;)
 
 for (f in 1:length(AllTiles)){
@@ -1817,9 +1864,31 @@ for (f in 1:length(AllTiles)){
   bio&lt;-bio[grepl(&quot;.bil&quot;,bio)]
   bio&lt;-lapply(bio,function(X) raster(X))
   AllTiles[[f]]&lt;-do.call(merge,bio)
-}
-
-names(AllTiles)&lt;-bioclims
+}</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoid29ya2luZyBvbiBiaW9DbGltIGJpbzFfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzJfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzNfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzRfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzVfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzZfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzdfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzhfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzlfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzEwXyBcbndvcmtpbmcgb24gYmlvQ2xpbSBiaW8xMV8gXG53b3JraW5nIG9uIGJpb0NsaW0gYmlvMTJfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzEzXyBcbndvcmtpbmcgb24gYmlvQ2xpbSBiaW8xNF8gXG53b3JraW5nIG9uIGJpb0NsaW0gYmlvMTVfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzE2XyBcbndvcmtpbmcgb24gYmlvQ2xpbSBiaW8xN18gXG53b3JraW5nIG9uIGJpb0NsaW0gYmlvMThfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzE5XyBcbiJ9 -->
+<pre><code>working on bioClim bio1_ 
+working on bioClim bio2_ 
+working on bioClim bio3_ 
+working on bioClim bio4_ 
+working on bioClim bio5_ 
+working on bioClim bio6_ 
+working on bioClim bio7_ 
+working on bioClim bio8_ 
+working on bioClim bio9_ 
+working on bioClim bio10_ 
+working on bioClim bio11_ 
+working on bioClim bio12_ 
+working on bioClim bio13_ 
+working on bioClim bio14_ 
+working on bioClim bio15_ 
+working on bioClim bio16_ 
+working on bioClim bio17_ 
+working on bioClim bio18_ 
+working on bioClim bio19_ </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMoQWxsVGlsZXMpPC1iaW9jbGltc1xuXG5gYGAifQ== -->
+<pre class="r"><code>names(AllTiles)&lt;-bioclims
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
@@ -1948,23 +2017,55 @@ RIMMA0720.1.250049147        0        1                      0</code></pre>
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2xpbU9ubHk8LWNsaW1bICwtYygxOjUsNzoxMCldXG5oZWFkKGNsaW1Pbmx5KVxuYGBgIn0= -->
+<pre class="r"><code>climOnly&lt;-clim[ ,-c(1:5,7:10)]
+head(climOnly)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6MjB9LCJyZGYiOiJINHNJQUFBQUFBQUFBMldVUFc4VFFSQ0dONWVjU1N3bEJKRWFwWVBHVmh6bnc2bHlrWUFDSVRCUmdpSkE0UE5INGd2bjI3VjlGaEVJWkJvYUdrdFVDQ1FRQlJVRlB5RS9nWXFLSWo4aEpWVmcxek5yN2N5ZHRIcjJuZDEzZG1aUDJ0MmJCK1g4UVY0SU1TMW1oQ2VtZlQwVi92N2U3VUpGaUJsUGl5bTlNR2Q0b2pkZDFaTWxQZWIxeU9seHhSblhjRnpYWThHc0IzTFpaQk5aMW9CcUVUa1UrSUh2U1FCeHpvZXdLYWpCL21DZitlN2hlb2E0L3dIcWFrQjkzMzlEblBQVEh2RExEK0RIdTlTWGZvVjRoaXZBd1RtSlQzemhHY1E1RDJ2QXhpbXdmVXA5UjdqT1djZSsyc3RBdkorSnI0djljeXJjMzdVTXFLK0RkWEJLUEsrRC9Tcm02NDR3SDZNNlIxMUZLdW83aGp3WnhwWllkeUtvYjRUMWMzNytBL3dRQTcvVnFFOWkvWndLKzR3d1QzOUVmTnZRaHVBTWJpRjNzTTdkZ0o3M0NQdmd2SU8rK3piUGtQcmV6VUk4dzcvQUlSUVF2R2Y5M2NCOG5IWHM4ekgyR1o5UjM5c1RpSE8rUXQ5cjdPL05UK3FyWWo1T05RSSt4Zk5mL2tJYmVXRDhKT3kwK25xeUtNd2pBOEhablRpTjBrR3paVGZWSTFsNjVvaFZWNVJkc2VhS2RWZHN1R0xURlJWWGJGbVJNNGV1RUZVaWFwV29NbEZyUkswVHRVSFVKbEVWb25RdDlMYm1ldkpGMGQ2WWVZNDkrQ25tV2FiWDJvakR2cjFXRzh3M3d6UXNIdmEwWDZzTFpya2tWUnJKUkpzODgrRDd6RHpWWTRITGc4UlUwaXcwMm9Qa2VhRmtEaGd2dzVoSDVwejVFaHpwL2NOVXZtMjJsUnhGeWVSdngyRzlGYU5ZMEIyUEd5NnFYcFNrdGhNZDdSZFRtWVoyWDc0aFl4c1o5eVl1L2dNWDl0SW01d1lBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Altitude"],"name":[1],"type":["int"],"align":["right"]},{"label":["bio1_"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["bio2_"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["bio3_"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["bio4_"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["bio5_"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["bio6_"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["bio7_"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["bio8_"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["bio9_"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["bio10_"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["bio11_"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["bio12_"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["bio13_"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["bio14_"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["bio15_"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["bio16_"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["bio17_"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["bio18_"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["bio19_"],"name":[20],"type":["dbl"],"align":["right"]}],"data":[{"1":"17","2":"249","3":"113","4":"60","5":"2923","6":"330","7":"143","8":"187","9":"280","10":"238","11":"281","12":"210","13":"1032","14":"253","15":"1","16":"105","17":"705","18":"12","19":"559","20":"67","_rn_":"1"},{"1":"17","2":"249","3":"113","4":"60","5":"2923","6":"330","7":"143","8":"187","9":"280","10":"238","11":"281","12":"210","13":"1032","14":"253","15":"1","16":"105","17":"705","18":"12","19":"559","20":"67","_rn_":"2"},{"1":"17","2":"249","3":"113","4":"60","5":"2923","6":"330","7":"143","8":"187","9":"280","10":"238","11":"281","12":"210","13":"1032","14":"253","15":"1","16":"105","17":"705","18":"12","19":"559","20":"67","_rn_":"3"},{"1":"30","2":"251","3":"88","4":"61","5":"1749","6":"323","7":"179","8":"144","9":"258","10":"248","11":"271","12":"226","13":"1847","14":"268","15":"42","16":"52","17":"735","18":"149","19":"442","20":"265","_rn_":"4"},{"1":"30","2":"257","3":"132","4":"68","5":"2027","6":"351","7":"158","8":"193","9":"274","10":"237","11":"277","12":"228","13":"1243","14":"201","15":"35","16":"62","17":"542","18":"111","19":"472","20":"120","_rn_":"5"},{"1":"39","2":"264","3":"86","4":"65","5":"1619","6":"330","7":"198","8":"132","9":"276","10":"260","11":"279","12":"240","13":"2352","14":"313","15":"73","16":"43","17":"876","18":"231","19":"491","20":"429","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[20]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucm93bmFtZXMoY2xpbU9ubHkpPC1jbGltJEdCUy5UYXhvbi5JRFxuY2xpbS5kaXN0PC1kaXN0KGNsaW1Pbmx5LG1ldGhvZCA9IFwiZXVjbGlkZWFuXCIpXG5gYGAifQ== -->
+<pre class="r"><code>rownames(climOnly)&lt;-clim$GBS.Taxon.ID
+clim.dist&lt;-dist(climOnly,method = &quot;euclidean&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRm91bmQgbW9yZSB0aGFuIG9uZSBjbGFzcyBcImRpc3RcIiBpbiBjYWNoZTsgdXNpbmcgdGhlIGZpcnN0LCBmcm9tIG5hbWVzcGFjZSAnQmlvY0dlbmVyaWNzJ1xuQWxzbyBkZWZpbmVkIGJ5IOKAmHNwYW3igJlcbkZvdW5kIG1vcmUgdGhhbiBvbmUgY2xhc3MgXCJkaXN0XCIgaW4gY2FjaGU7IHVzaW5nIHRoZSBmaXJzdCwgZnJvbSBuYW1lc3BhY2UgJ0Jpb2NHZW5lcmljcydcbkFsc28gZGVmaW5lZCBieSDigJhzcGFt4oCZXG5Gb3VuZCBtb3JlIHRoYW4gb25lIGNsYXNzIFwiZGlzdFwiIGluIGNhY2hlOyB1c2luZyB0aGUgZmlyc3QsIGZyb20gbmFtZXNwYWNlICdCaW9jR2VuZXJpY3MnXG5BbHNvIGRlZmluZWQgYnkg4oCYc3BhbeKAmVxuRm91bmQgbW9yZSB0aGFuIG9uZSBjbGFzcyBcImRpc3RcIiBpbiBjYWNoZTsgdXNpbmcgdGhlIGZpcnN0LCBmcm9tIG5hbWVzcGFjZSAnQmlvY0dlbmVyaWNzJ1xuQWxzbyBkZWZpbmVkIGJ5IOKAmHNwYW3igJlcbkZvdW5kIG1vcmUgdGhhbiBvbmUgY2xhc3MgXCJkaXN0XCIgaW4gY2FjaGU7IHVzaW5nIHRoZSBmaXJzdCwgZnJvbSBuYW1lc3BhY2UgJ0Jpb2NHZW5lcmljcydcbkFsc28gZGVmaW5lZCBieSDigJhzcGFt4oCZXG4ifQ== -->
+<pre><code>Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
+Also defined by ‘spam’
+Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
+Also defined by ‘spam’
+Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
+Also defined by ‘spam’
+Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
+Also defined by ‘spam’
+Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
+Also defined by ‘spam’</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2xpbS5kaXN0PC1hcy5tYXRyaXgoY2xpbS5kaXN0KVxuYGBgIn0= -->
+<pre class="r"><code>clim.dist&lt;-as.matrix(clim.dist)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRm91bmQgbW9yZSB0aGFuIG9uZSBjbGFzcyBcImRpc3RcIiBpbiBjYWNoZTsgdXNpbmcgdGhlIGZpcnN0LCBmcm9tIG5hbWVzcGFjZSAnQmlvY0dlbmVyaWNzJ1xuQWxzbyBkZWZpbmVkIGJ5IOKAmHNwYW3igJlcbkZvdW5kIG1vcmUgdGhhbiBvbmUgY2xhc3MgXCJkaXN0XCIgaW4gY2FjaGU7IHVzaW5nIHRoZSBmaXJzdCwgZnJvbSBuYW1lc3BhY2UgJ0Jpb2NHZW5lcmljcydcbkFsc28gZGVmaW5lZCBieSDigJhzcGFt4oCZXG4ifQ== -->
+<pre><code>Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
+Also defined by ‘spam’
+Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
+Also defined by ‘spam’</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <ol start="2" style="list-style-type: decimal">
 <li>Distance metric to use for ordinal data such as the 0,1,2,3 from language. Several approaches : -Recode 0 as 4 and use kendall distance. -Recode all values other than 1 to 0 and use euclidean -Recode 2 &amp; 3 as 0.5 and then use euclidean</li>
 </ol>
 <p><em>Let’s go with the 3rd approach for now</em></p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
 <ol start="3" style="list-style-type: decimal">
 <li>Geodesic Distance metric for lat-long on WGS84</li>
 </ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGYgPSBjbGltWyAsYyhcIkxvbmdpdHVkZVwiLFwiTGF0aXR1ZGVcIildICMgdGhlIG9yZGVyIHNob3VsZCBiZSBsb25naXR1ZGUsIGxhdGl0dWRlIVxuR2VvRGlzdDwtZGlzdG0oZGYsIGRmLCBkaXN0R2VvKVxucm93bmFtZXMoR2VvRGlzdCk8LWNvbG5hbWVzKEdlb0Rpc3QpXG5kaW0oR2VvRGlzdClcbmBgYCJ9 -->
-<pre class="r"><code>df = clim[ ,c(&quot;Longitude&quot;,&quot;Latitude&quot;)] # the order should be longitude, latitude!
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGYgPSBjbGltWyAsYyhcIkxvbmdpdHVkZVwiLFwiTGF0aXR1ZGVcIildICMgdGhlIG9yZGVyIHNob3VsZCBiZSBsb25naXR1ZGUsIGxhdGl0dWRlXG5HZW9EaXN0PC1kaXN0bShkZiwgZGYsIGRpc3RHZW8pXG5yb3duYW1lcyhHZW9EaXN0KTwtY29sbmFtZXMoR2VvRGlzdClcbmRpbShHZW9EaXN0KVxuYGBgIn0= -->
+<pre class="r"><code>df = clim[ ,c(&quot;Longitude&quot;,&quot;Latitude&quot;)] # the order should be longitude, latitude
 GeoDist&lt;-distm(df, df, distGeo)
 rownames(GeoDist)&lt;-colnames(GeoDist)
 dim(GeoDist)</code></pre>
@@ -1972,14 +2073,10 @@ dim(GeoDist)</code></pre>
 <!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI5NCAyOTRcbiJ9 -->
 <pre><code>[1] 294 294</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGVzdDwtR2VvRGlzdFtsb3dlci50cmkoR2VvRGlzdCldXG5cbmBgYCJ9 -->
-<pre class="r"><code>test&lt;-GeoDist[lower.tri(GeoDist)]
-</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRXh0cmFjdGluZyBkYXRhIGZyb20gcmFzdGVyIGFuZCBmcm9tIHBvbHlnb25zIgpEYXRlOiAxOS1qYW4Kb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgpgYGB7cn0KbGlicmFyeShyYXN0ZXIpCmxpYnJhcnkoc3ApCmxpYnJhcnkocmdkYWwpCmxpYnJhcnkocmdlb3MpCmxpYnJhcnkocHJldlIpCmxpYnJhcnkoYW1hcCkKbGlicmFyeShnZW9zcGhlcmUpCgojaW5zdGFsbC5wYWNrYWdlcygicmVtb3RlcyIpCiNyZW1vdGVzOjppbnN0YWxsX2dpdGh1Yigia2FwaXR6YXMvV29ybGRDbGltVGlsZXMiKQpsaWJyYXJ5KFdvcmxkQ2xpbVRpbGVzKSAjaWYgbm90IGluc3RhbGwgdW5jb21tZW50IHRoZSBhYm92ZSB0d28gbGluZXMgYW5kIHJ1biB0aGVtIGZpcnN0CmBgYAoKTG9hZCBpbiB5b3VyIGRhdGFzZXQgY29udGFpbmluZyBsYXQtbG9uZyBpbmZvcm1hdGlvbgpgYGB7cn0KTGFuZHJhY2U8LXJlYWQuY3N2KCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5kcmFjZUluZm8uY3N2IikKCmBgYAoKIyBHZXR0aW5nIHdvcmxkQ2xpbSBiaW9jbGltIGRhdGEgZG93bmxvYWRlZCAjCgoqU2VlIGhlcmUgZm9yIHdoYXQgdGhlIHZhcmlhYmxlcyBtZWFuOiBodHRwczovL3dvcmxkY2xpbS5vcmcvZGF0YS9iaW9jbGltLmh0bWwqCkRhdGEgbmVlZHMgdG8gYmUgZG93bmxvYWRlZCBmb3IgMzAgYXJjIHNlYyB0byB5b3VyIHBlcnNvbmFsIGxhcHRvcC4gVGhpcyBpcyB0aGUgZmluZXN0IHJlc29sdXRpb24gYXZhaWxhYmxlIGFuZCB3aWxsIHRha2Ugc29tZSB0aW1lIHRvIGRvd25sb2FkIGZvciB0aGUgd2hvbGUgd29ybGQuIFNpbmNlIHdlIG9ubHkgbmVlZCBhIHNtYWxsIGFyZWEgd2UgY2FuIHVzZSB0aGUgYHRpbGVfZ2V0YCB0byBkZXRlcm1pbmUgd2hhdCByZWdpb25zIHdlIG5lZWQKCmBgYHtyfQpib3VuZGFyeSA8LSBnZXREYXRhKCJHQURNIiwgY291bnRyeSA9ICJNWCIsIGxldmVsID0gMCkKdGlsZW5hbWVzIDwtIHRpbGVfbmFtZShib3VuZGFyeSwgbmFtZSA9ICd3b3JsZGNsaW0nKQp0aWxlbmFtZXMKCnNldHdkKCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy8iKQp3Y3RpbGVzIDwtIHRpbGVfZ2V0KHRpbGVzID0gdGlsZW5hbWVzLCBuYW1lID0gJ3dvcmxkY2xpbScsIHZhciA9ICJiaW8iKQpgYGAKClRoZSBjb21tYW5kIGFib3ZlIHdpbGwgZG93bmxvYWQgdG8geW91ciBjdXJyZW50IGRpcmVjdG9yeSBieSBjcmVhdGluZyBhIGZvbGRlciBjYWxsZWQgd2MwLjUuCkNvbWJpbmUgdGhlIHRocmVlIHRpbGVzIGZvciBlYWNoIGJpb2NsaW0gdmFyaWFibGUKYGBge3J9CnNldHdkKCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS8iKQoKCkFsbFRpbGVzPC12ZWN0b3IoImxpc3QiLDE5KQpiaW9jbGltczwtcGFzdGUwKHJlcCgiYmlvIiwxOSksc2VxKDEsMTkpLCJfIikKCmZvciAoZiBpbiAxOmxlbmd0aChBbGxUaWxlcykpewogIAogIGNhdCgid29ya2luZyBvbiBiaW9DbGltIiwgYmlvY2xpbXNbZl0sIlxuIikKICBiaW88LWxpc3QuZmlsZXMoIi4vIixiaW9jbGltc1tmXSkKICBiaW88LWJpb1tncmVwbCgiLmJpbCIsYmlvKV0KICBiaW88LWxhcHBseShiaW8sZnVuY3Rpb24oWCkgcmFzdGVyKFgpKQogIEFsbFRpbGVzW1tmXV08LWRvLmNhbGwobWVyZ2UsYmlvKQp9CgpuYW1lcyhBbGxUaWxlcyk8LWJpb2NsaW1zCgpgYGAKCkNoZWNrIGlmIHN0dWZmIGxvb2tzIGFzIGV4cGVjdGVkCmBgYHtyfQpwbG90KEFsbFRpbGVzW1sxXV0pCmBgYAoKQ3JlYXRlIGEgcmFzdGVyIHN0YWNrIGFuZCBleHRyYWN0IHZhbHVlcyBmb3IgYWxsIGxhdC1sb25ncyBlYWNoIHJhc3RlcgpgYGB7cn0KUzwtc3RhY2soQWxsVGlsZXMpCnB0czwtU3BhdGlhbFBvaW50cyhMYW5kcmFjZVsgLGMoIkxvbmdpdHVkZSIsIkxhdGl0dWRlIildKQpjbGltPC1leHRyYWN0KFMscHRzKQpjbGltPC1jYmluZChMYW5kcmFjZSxjbGltKQpgYGAKCgojIEdldHRpbmcgbGFuZ3VhZ2UgZGF0YS4jCgoKSGVyZSB0aGUgZGF0YSBpcyBvZiB0aGUgZnJvbSBTcGF0aWFsUG9seWdvbnMsIHNvIHdlIHVzZSBhIGRpZmZlcmVudCBzZXQgb2YgY29tbWFuZHMgdG8gcmVhZCBpbiB0aGUgZGF0YXNldApgYGB7cn0Kc2V0d2QoIn4vR29vZ2xlIERyaXZlIEZpbGUgU3RyZWFtL015IERyaXZlL0xhbmd1YWdlX2Fzc29jIikKbGFuZzwtcmVhZE9HUihkc249cGF0aC5leHBhbmQoImluZGlnZW5vdXNMYW5ndWFnZXMiKSkKcG9seXMgPSBhdHRyKGxhbmcsJ3BvbHlnb25zJykKbmFtZXMocG9seXMpPC1sYW5nJE5hbWUKCgpgYGAKCkRldGVybWluZSBpZiBwb2ludCBpcyB3aXRoaW4gYSBwb2x5Z29uCmBgYHtyfQpucG9seXMgPSBsZW5ndGgocG9seXMpCnBvbHlJRDwtdmVjdG9yKCJsaXN0IixucG9seXMpCmZvciAoaSBpbiAxOm5wb2x5cyl7CiAgcG9seSA9IHBvbHlzW1tpXV0KICBwb2x5czIgPSBhdHRyKHBvbHksJ1BvbHlnb25zJykKICBucG9seXMyID0gbGVuZ3RoKHBvbHlzMikKICBmb3IgKGogaW4gMTpucG9seXMyKXsKICAgICAKICAgICBjb29yZHMgPSBjb29yZGluYXRlcyhwb2x5czJbW2pdXSkKICAgICBvdXQ8LXBvaW50LmluLnBvbHlnb24oTGFuZHJhY2UkTG9uZ2l0dWRlLExhbmRyYWNlJExhdGl0dWRlLGNvb3Jkc1sgLDFdLGNvb3Jkc1sgLDJdKQogICAgIAogIH0KICBwb2x5SURbW2ldXTwtb3V0CiAgCiAgCn0KYGBgCgpFeHRyYWN0IHRoZSBsYW5ndWFnZSBvZiB0aGUgc2FtcGxlIGxvY2F0aW9uICYga2VlcCBvbmx5IGxhbmd1YWdlcyBhcmUgcHJlc2VudCBpbiBhdGxlYXN0IG9uZSBsb2NhdGlvbgpgYGB7cn0KbmFtZXMocG9seUlEKTwtbGFuZyROYW1lCnBvbHlJRDwtZG8uY2FsbChjYmluZCxwb2x5SUQpCnBvbHlJRF9wcjwtcG9seUlEWyAsY29sU3Vtcyhwb2x5SUQpIT0wXQpyb3duYW1lcyhwb2x5SURfcHIpPC1MYW5kcmFjZSRHQlMuVGF4b24uSUQKaGVhZChwb2x5SURfcHIpCndyaXRlLnRhYmxlKHBvbHlJRF9wcixmaWxlPSJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5ndWFnZXNCeUxhbmRyYWNlLnR4dCIsc2VwPSJcdCIscm93Lm5hbWVzID0gVCxxdW90ZT1GKQoKYGBgCgojIENhbHVjbGF0ZSBkaXN0YW5jZSBtZWFzdXJlcyBmb3IgYWxsIG91ciBjb3ZhcmlhdGVzICMgCgoxKSBEaXN0YW5jZSBmb3IgY2xpbWF0ZSBkYXRhLiBUaGlzIGlzIG51bWVyaWMgY29udGlub3VzLiBXZSBvbmx5IG5lZWQgdGhlIDE5IGJpb2NsaW1zIGFuZCBlbGV2YXRpb24gYW5kIHdlIHdpbGwgdXNlIGV1Y2xpZGVhbiBkaXN0YW5jZS4KYGBge3J9CgpgYGAKCjIpIERpc3RhbmNlIG1ldHJpYyB0byB1c2UgZm9yIG9yZGluYWwgZGF0YSBzdWNoIGFzIHRoZSAwLDEsMiwzIGZyb20gbGFuZ3VhZ2UuIApTZXZlcmFsIGFwcHJvYWNoZXMgOgotUmVjb2RlIDAgYXMgNCBhbmQgdXNlIGtlbmRhbGwgZGlzdGFuY2UuCi1SZWNvZGUgYWxsIHZhbHVlcyBvdGhlciB0aGFuIDEgdG8gMCBhbmQgdXNlIGV1Y2xpZGVhbgotUmVjb2RlIDIgJiAzIGFzIDAuNSBhbmQgdGhlbiB1c2UgZXVjbGlkZWFuCgoqTGV0J3MgZ28gd2l0aCB0aGUgM3JkIGFwcHJvYWNoIGZvciBub3cqCmBgYHtyfQoKYGBgCgozKSBHZW9kZXNpYyBEaXN0YW5jZSBtZXRyaWMgZm9yIGxhdC1sb25nIG9uIFdHUzg0CmBgYHtyfQpkZiA9IGNsaW1bICxjKCJMb25naXR1ZGUiLCJMYXRpdHVkZSIpXSAjIHRoZSBvcmRlciBzaG91bGQgYmUgbG9uZ2l0dWRlLCBsYXRpdHVkZQpHZW9EaXN0PC1kaXN0bShkZiwgZGYsIGRpc3RHZW8pCnJvd25hbWVzKEdlb0Rpc3QpPC1jb2xuYW1lcyhHZW9EaXN0KQpkaW0oR2VvRGlzdCkKCgpgYGAK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRXh0cmFjdGluZyBkYXRhIGZyb20gcmFzdGVyIGFuZCBmcm9tIHBvbHlnb25zIgpEYXRlOiAxOS1qYW4Kb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgpgYGB7cn0KbGlicmFyeShyYXN0ZXIpCmxpYnJhcnkoc3ApCmxpYnJhcnkocmdkYWwpCmxpYnJhcnkocmdlb3MpCmxpYnJhcnkocHJldlIpCmxpYnJhcnkoYW1hcCkKbGlicmFyeShnZW9zcGhlcmUpCgojaW5zdGFsbC5wYWNrYWdlcygicmVtb3RlcyIpCiNyZW1vdGVzOjppbnN0YWxsX2dpdGh1Yigia2FwaXR6YXMvV29ybGRDbGltVGlsZXMiKQpsaWJyYXJ5KFdvcmxkQ2xpbVRpbGVzKSAjaWYgbm90IGluc3RhbGwgdW5jb21tZW50IHRoZSBhYm92ZSB0d28gbGluZXMgYW5kIHJ1biB0aGVtIGZpcnN0CmBgYAoKTG9hZCBpbiB5b3VyIGRhdGFzZXQgY29udGFpbmluZyBsYXQtbG9uZyBpbmZvcm1hdGlvbgpgYGB7cn0KTGFuZHJhY2U8LXJlYWQuY3N2KCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5kcmFjZUluZm8uY3N2IikKCmBgYAoKIyBHZXR0aW5nIHdvcmxkQ2xpbSBiaW9jbGltIGRhdGEgZG93bmxvYWRlZCAjCgoqU2VlIGhlcmUgZm9yIHdoYXQgdGhlIHZhcmlhYmxlcyBtZWFuOiBodHRwczovL3dvcmxkY2xpbS5vcmcvZGF0YS9iaW9jbGltLmh0bWwqCkRhdGEgbmVlZHMgdG8gYmUgZG93bmxvYWRlZCBmb3IgMzAgYXJjIHNlYyB0byB5b3VyIHBlcnNvbmFsIGxhcHRvcC4gVGhpcyBpcyB0aGUgZmluZXN0IHJlc29sdXRpb24gYXZhaWxhYmxlIGFuZCB3aWxsIHRha2Ugc29tZSB0aW1lIHRvIGRvd25sb2FkIGZvciB0aGUgd2hvbGUgd29ybGQuIFNpbmNlIHdlIG9ubHkgbmVlZCBhIHNtYWxsIGFyZWEgd2UgY2FuIHVzZSB0aGUgYHRpbGVfZ2V0YCB0byBkZXRlcm1pbmUgd2hhdCByZWdpb25zIHdlIG5lZWQKCmBgYHtyfQpib3VuZGFyeSA8LSBnZXREYXRhKCJHQURNIiwgY291bnRyeSA9ICJNWCIsIGxldmVsID0gMCkKdGlsZW5hbWVzIDwtIHRpbGVfbmFtZShib3VuZGFyeSwgbmFtZSA9ICd3b3JsZGNsaW0nKQp0aWxlbmFtZXMKCnNldHdkKCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy8iKQp3Y3RpbGVzIDwtIHRpbGVfZ2V0KHRpbGVzID0gdGlsZW5hbWVzLCBuYW1lID0gJ3dvcmxkY2xpbScsIHZhciA9ICJiaW8iKQpgYGAKClRoZSBjb21tYW5kIGFib3ZlIHdpbGwgZG93bmxvYWQgdG8geW91ciBjdXJyZW50IGRpcmVjdG9yeSBieSBjcmVhdGluZyBhIGZvbGRlciBjYWxsZWQgd2MwLjUuCkNvbWJpbmUgdGhlIHRocmVlIHRpbGVzIGZvciBlYWNoIGJpb2NsaW0gdmFyaWFibGUKYGBge3J9CnNldHdkKCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS8iKQoKCkFsbFRpbGVzPC12ZWN0b3IoImxpc3QiLDE5KQpiaW9jbGltczwtcGFzdGUwKHJlcCgiYmlvIiwxOSksc2VxKDEsMTkpLCJfIikKCmZvciAoZiBpbiAxOmxlbmd0aChBbGxUaWxlcykpewogIAogIGNhdCgid29ya2luZyBvbiBiaW9DbGltIiwgYmlvY2xpbXNbZl0sIlxuIikKICBiaW88LWxpc3QuZmlsZXMoIi4vIixiaW9jbGltc1tmXSkKICBiaW88LWJpb1tncmVwbCgiLmJpbCIsYmlvKV0KICBiaW88LWxhcHBseShiaW8sZnVuY3Rpb24oWCkgcmFzdGVyKFgpKQogIEFsbFRpbGVzW1tmXV08LWRvLmNhbGwobWVyZ2UsYmlvKQp9CgpuYW1lcyhBbGxUaWxlcyk8LWJpb2NsaW1zCgpgYGAKCkNoZWNrIGlmIHN0dWZmIGxvb2tzIGFzIGV4cGVjdGVkCmBgYHtyfQpwbG90KEFsbFRpbGVzW1sxXV0pCmBgYAoKQ3JlYXRlIGEgcmFzdGVyIHN0YWNrIGFuZCBleHRyYWN0IHZhbHVlcyBmb3IgYWxsIGxhdC1sb25ncyBlYWNoIHJhc3RlcgpgYGB7cn0KUzwtc3RhY2soQWxsVGlsZXMpCnB0czwtU3BhdGlhbFBvaW50cyhMYW5kcmFjZVsgLGMoIkxvbmdpdHVkZSIsIkxhdGl0dWRlIildKQpjbGltPC1leHRyYWN0KFMscHRzKQpjbGltPC1jYmluZChMYW5kcmFjZSxjbGltKQpgYGAKCgojIEdldHRpbmcgbGFuZ3VhZ2UgZGF0YS4jCgoKSGVyZSB0aGUgZGF0YSBpcyBvZiB0aGUgZnJvbSBTcGF0aWFsUG9seWdvbnMsIHNvIHdlIHVzZSBhIGRpZmZlcmVudCBzZXQgb2YgY29tbWFuZHMgdG8gcmVhZCBpbiB0aGUgZGF0YXNldApgYGB7cn0Kc2V0d2QoIn4vR29vZ2xlIERyaXZlIEZpbGUgU3RyZWFtL015IERyaXZlL0xhbmd1YWdlX2Fzc29jIikKbGFuZzwtcmVhZE9HUihkc249cGF0aC5leHBhbmQoImluZGlnZW5vdXNMYW5ndWFnZXMiKSkKcG9seXMgPSBhdHRyKGxhbmcsJ3BvbHlnb25zJykKbmFtZXMocG9seXMpPC1sYW5nJE5hbWUKCgpgYGAKCkRldGVybWluZSBpZiBwb2ludCBpcyB3aXRoaW4gYSBwb2x5Z29uCmBgYHtyfQpucG9seXMgPSBsZW5ndGgocG9seXMpCnBvbHlJRDwtdmVjdG9yKCJsaXN0IixucG9seXMpCmZvciAoaSBpbiAxOm5wb2x5cyl7CiAgcG9seSA9IHBvbHlzW1tpXV0KICBwb2x5czIgPSBhdHRyKHBvbHksJ1BvbHlnb25zJykKICBucG9seXMyID0gbGVuZ3RoKHBvbHlzMikKICBmb3IgKGogaW4gMTpucG9seXMyKXsKICAgICAKICAgICBjb29yZHMgPSBjb29yZGluYXRlcyhwb2x5czJbW2pdXSkKICAgICBvdXQ8LXBvaW50LmluLnBvbHlnb24oTGFuZHJhY2UkTG9uZ2l0dWRlLExhbmRyYWNlJExhdGl0dWRlLGNvb3Jkc1sgLDFdLGNvb3Jkc1sgLDJdKQogICAgIAogIH0KICBwb2x5SURbW2ldXTwtb3V0CiAgCiAgCn0KYGBgCgpFeHRyYWN0IHRoZSBsYW5ndWFnZSBvZiB0aGUgc2FtcGxlIGxvY2F0aW9uICYga2VlcCBvbmx5IGxhbmd1YWdlcyBhcmUgcHJlc2VudCBpbiBhdGxlYXN0IG9uZSBsb2NhdGlvbgpgYGB7cn0KbmFtZXMocG9seUlEKTwtbGFuZyROYW1lCnBvbHlJRDwtZG8uY2FsbChjYmluZCxwb2x5SUQpCnBvbHlJRF9wcjwtcG9seUlEWyAsY29sU3Vtcyhwb2x5SUQpIT0wXQpyb3duYW1lcyhwb2x5SURfcHIpPC1MYW5kcmFjZSRHQlMuVGF4b24uSUQKaGVhZChwb2x5SURfcHIpCndyaXRlLnRhYmxlKHBvbHlJRF9wcixmaWxlPSJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5ndWFnZXNCeUxhbmRyYWNlLnR4dCIsc2VwPSJcdCIscm93Lm5hbWVzID0gVCxxdW90ZT1GKQoKYGBgCgojIENhbHVjbGF0ZSBkaXN0YW5jZSBtZWFzdXJlcyBmb3IgYWxsIG91ciBjb3ZhcmlhdGVzICMgCgoxKSBEaXN0YW5jZSBmb3IgY2xpbWF0ZSBkYXRhLiBUaGlzIGlzIG51bWVyaWMgY29udGlub3VzLiBXZSBvbmx5IG5lZWQgdGhlIDE5IGJpb2NsaW1zIGFuZCBlbGV2YXRpb24gYW5kIHdlIHdpbGwgdXNlIGV1Y2xpZGVhbiBkaXN0YW5jZS4KYGBge3J9CmNsaW1Pbmx5PC1jbGltWyAsLWMoMTo1LDc6MTApXQpoZWFkKGNsaW1Pbmx5KQpyb3duYW1lcyhjbGltT25seSk8LWNsaW0kR0JTLlRheG9uLklECmNsaW0uZGlzdDwtZGlzdChjbGltT25seSxtZXRob2QgPSAiZXVjbGlkZWFuIikKI2NvbnZlcnQgdG8gc3F1YXJlIG1hdHJpeApjbGltLmRpc3Q8LWFzLm1hdHJpeChjbGltLmRpc3QpCmBgYAoKMikgRGlzdGFuY2UgbWV0cmljIHRvIHVzZSBmb3Igb3JkaW5hbCBkYXRhIHN1Y2ggYXMgdGhlIDAsMSwyLDMgZnJvbSBsYW5ndWFnZS4gClNldmVyYWwgYXBwcm9hY2hlcyA6Ci1SZWNvZGUgMCBhcyA0IGFuZCB1c2Uga2VuZGFsbCBkaXN0YW5jZS4KLVJlY29kZSBhbGwgdmFsdWVzIG90aGVyIHRoYW4gMSB0byAwIGFuZCB1c2UgZXVjbGlkZWFuCi1SZWNvZGUgMiAmIDMgYXMgMC41IGFuZCB0aGVuIHVzZSBldWNsaWRlYW4KCipMZXQncyBnbyB3aXRoIHRoZSAzcmQgYXBwcm9hY2ggZm9yIG5vdyoKCjMpIEdlb2Rlc2ljIERpc3RhbmNlIG1ldHJpYyBmb3IgbGF0LWxvbmcgb24gV0dTODQKYGBge3J9CmRmID0gY2xpbVsgLGMoIkxvbmdpdHVkZSIsIkxhdGl0dWRlIildICMgdGhlIG9yZGVyIHNob3VsZCBiZSBsb25naXR1ZGUsIGxhdGl0dWRlCkdlb0Rpc3Q8LWRpc3RtKGRmLCBkZiwgZGlzdEdlbykKcm93bmFtZXMoR2VvRGlzdCk8LWNvbG5hbWVzKEdlb0Rpc3QpCmRpbShHZW9EaXN0KQoKCmBgYAo=</div>
 
 
 
