@@ -1,0 +1,7 @@
+These genotypes were obtained from Dan Gate's github [https://github.com/danjgates/AdaptationScripts2/tree/master/Genotypes] used for his preprint. 
+
+Since the IDs here are different from those in SeeDs_info.csv file, to get lat-long I merged the genotype file and the .csv file using only the SEEDGWAS* part of the sampleID.
+There were ~37 duplicate SampleIDs, so I retained only the individual with least missing data. 
+All chromosomes were combined and converted to a hapmap format file and then to vcf. 
+vcf was filtered to randomly retain 5% of the SNPs to hopefully get rid of most of the LD. 
+Other basic filtering also done. 
