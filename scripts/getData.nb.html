@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Mitra Menon" />
 
+<meta name="date" content="2021-02-12" />
 
-<title>Extracting data from raster and from polygons</title>
+<title>Extract from raster &amp; poly and get distMats</title>
 
 <script>/*! jQuery v1.11.3 | (c) 2005, 2015 jQuery Foundation, Inc. | jquery.org/license */
 !function(a,b){"object"==typeof module&&"object"==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error("jQuery requires a window with a document");return b(a)}:b(a)}("undefined"!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l="1.11.3",m=function(a,b){return new m.fn.init(a,b)},n=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,o=/^-ms-/,p=/-([\da-z])/gi,q=function(a,b){return b.toUpperCase()};m.fn=m.prototype={jquery:l,constructor:m,selector:"",length:0,toArray:function(){return d.call(this)},get:function(a){return null!=a?0>a?this[a+this.length]:this[a]:d.call(this)},pushStack:function(a){var b=m.merge(this.constructor(),a);return b.prevObject=this,b.context=this.context,b},each:function(a,b){return m.each(this,a,b)},map:function(a){return this.pushStack(m.map(this,function(b,c){return a.call(b,c,b)}))},slice:function(){return this.pushStack(d.apply(this,arguments))},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},eq:function(a){var b=this.length,c=+a+(0>a?b:0);return this.pushStack(c>=0&&b>c?[this[c]]:[])},end:function(){return this.prevObject||this.constructor(null)},push:f,sort:c.sort,splice:c.splice},m.extend=m.fn.extend=function(){var a,b,c,d,e,f,g=arguments[0]||{},h=1,i=arguments.length,j=!1;for("boolean"==typeof g&&(j=g,g=arguments[h]||{},h++),"object"==typeof g||m.isFunction(g)||(g={}),h===i&&(g=this,h--);i>h;h++)if(null!=(e=arguments[h]))for(d in e)a=g[d],c=e[d],g!==c&&(j&&c&&(m.isPlainObject(c)||(b=m.isArray(c)))?(b?(b=!1,f=a&&m.isArray(a)?a:[]):f=a&&m.isPlainObject(a)?a:{},g[d]=m.extend(j,f,c)):void 0!==c&&(g[d]=c));return g},m.extend({expando:"jQuery"+(l+Math.random()).replace(/\D/g,""),isReady:!0,error:function(a){throw new Error(a)},noop:function(){},isFunction:function(a){return"function"===m.type(a)},isArray:Array.isArray||function(a){return"array"===m.type(a)},isWindow:function(a){return null!=a&&a==a.window},isNumeric:function(a){return!m.isArray(a)&&a-parseFloat(a)+1>=0},isEmptyObject:function(a){var b;for(b in a)return!1;return!0},isPlainObject:function(a){var b;if(!a||"object"!==m.type(a)||a.nodeType||m.isWindow(a))return!1;try{if(a.constructor&&!j.call(a,"constructor")&&!j.call(a.constructor.prototype,"isPrototypeOf"))return!1}catch(c){return!1}if(k.ownLast)for(b in a)return j.call(a,b);for(b in a);return void 0===b||j.call(a,b)},type:function(a){return null==a?a+"":"object"==typeof a||"function"==typeof a?h[i.call(a)]||"object":typeof a},globalEval:function(b){b&&m.trim(b)&&(a.execScript||function(b){a.eval.call(a,b)})(b)},camelCase:function(a){return a.replace(o,"ms-").replace(p,q)},nodeName:function(a,b){return a.nodeName&&a.nodeName.toLowerCase()===b.toLowerCase()},each:function(a,b,c){var d,e=0,f=a.length,g=r(a);if(c){if(g){for(;f>e;e++)if(d=b.apply(a[e],c),d===!1)break}else for(e in a)if(d=b.apply(a[e],c),d===!1)break}else if(g){for(;f>e;e++)if(d=b.call(a[e],e,a[e]),d===!1)break}else for(e in a)if(d=b.call(a[e],e,a[e]),d===!1)break;return a},trim:function(a){return null==a?"":(a+"").replace(n,"")},makeArray:function(a,b){var c=b||[];return null!=a&&(r(Object(a))?m.merge(c,"string"==typeof a?[a]:a):f.call(c,a)),c},inArray:function(a,b,c){var d;if(b){if(g)return g.call(b,a,c);for(d=b.length,c=c?0>c?Math.max(0,d+c):c:0;d>c;c++)if(c in b&&b[c]===a)return c}return-1},merge:function(a,b){var c=+b.length,d=0,e=a.length;while(c>d)a[e++]=b[d++];if(c!==c)while(void 0!==b[d])a[e++]=b[d++];return a.length=e,a},grep:function(a,b,c){for(var d,e=[],f=0,g=a.length,h=!c;g>f;f++)d=!b(a[f],f),d!==h&&e.push(a[f]);return e},map:function(a,b,c){var d,f=0,g=a.length,h=r(a),i=[];if(h)for(;g>f;f++)d=b(a[f],f,c),null!=d&&i.push(d);else for(f in a)d=b(a[f],f,c),null!=d&&i.push(d);return e.apply([],i)},guid:1,proxy:function(a,b){var c,e,f;return"string"==typeof b&&(f=a[b],b=a,a=f),m.isFunction(a)?(c=d.call(arguments,2),e=function(){return a.apply(b||this,c.concat(d.call(arguments)))},e.guid=a.guid=a.guid||m.guid++,e):void 0},now:function(){return+new Date},support:k}),m.each("Boolean Number String Function Array Date RegExp Object Error".split(" "),function(a,b){h["[object "+b+"]"]=b.toLowerCase()});function r(a){var b="length"in a&&a.length,c=m.type(a);return"function"===c||m.isWindow(a)?!1:1===a.nodeType&&b?!0:"array"===c||0===b||"number"==typeof b&&b>0&&b-1 in a}var s=function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u="sizzle"+1*new Date,v=a.document,w=0,x=0,y=ha(),z=ha(),A=ha(),B=function(a,b){return a===b&&(l=!0),0},C=1<<31,D={}.hasOwnProperty,E=[],F=E.pop,G=E.push,H=E.push,I=E.slice,J=function(a,b){for(var c=0,d=a.length;d>c;c++)if(a[c]===b)return c;return-1},K="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",L="[\\x20\\t\\r\\n\\f]",M="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",N=M.replace("w","w#"),O="\\["+L+"*("+M+")(?:"+L+"*([*^$|!~]?=)"+L+"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|("+N+"))|)"+L+"*\\]",P=":("+M+")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|"+O+")*)|.*)\\)|)",Q=new RegExp(L+"+","g"),R=new RegExp("^"+L+"+|((?:^|[^\\\\])(?:\\\\.)*)"+L+"+$","g"),S=new RegExp("^"+L+"*,"+L+"*"),T=new RegExp("^"+L+"*([>+~]|"+L+")"+L+"*"),U=new RegExp("="+L+"*([^\\]'\"]*?)"+L+"*\\]","g"),V=new RegExp(P),W=new RegExp("^"+N+"$"),X={ID:new RegExp("^#("+M+")"),CLASS:new RegExp("^\\.("+M+")"),TAG:new RegExp("^("+M.replace("w","w*")+")"),ATTR:new RegExp("^"+O),PSEUDO:new RegExp("^"+P),CHILD:new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\("+L+"*(even|odd|(([+-]|)(\\d*)n|)"+L+"*(?:([+-]|)"+L+"*(\\d+)|))"+L+"*\\)|)","i"),bool:new RegExp("^(?:"+K+")$","i"),needsContext:new RegExp("^"+L+"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\("+L+"*((?:-\\d)?\\d*)"+L+"*\\)|)(?=[^-]|$)","i")},Y=/^(?:input|select|textarea|button)$/i,Z=/^h\d$/i,$=/^[^{]+\{\s*\[native \w/,_=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,aa=/[+~]/,ba=/'|\\/g,ca=new RegExp("\\\\([\\da-f]{1,6}"+L+"?|("+L+")|.)","ig"),da=function(a,b,c){var d="0x"+b-65536;return d!==d||c?b:0>d?String.fromCharCode(d+65536):String.fromCharCode(d>>10|55296,1023&d|56320)},ea=function(){m()};try{H.apply(E=I.call(v.childNodes),v.childNodes),E[v.childNodes.length].nodeType}catch(fa){H={apply:E.length?function(a,b){G.apply(a,I.call(b))}:function(a,b){var c=a.length,d=0;while(a[c++]=b[d++]);a.length=c-1}}}function ga(a,b,d,e){var f,h,j,k,l,o,r,s,w,x;if((b?b.ownerDocument||b:v)!==n&&m(b),b=b||n,d=d||[],k=b.nodeType,"string"!=typeof a||!a||1!==k&&9!==k&&11!==k)return d;if(!e&&p){if(11!==k&&(f=_.exec(a)))if(j=f[1]){if(9===k){if(h=b.getElementById(j),!h||!h.parentNode)return d;if(h.id===j)return d.push(h),d}else if(b.ownerDocument&&(h=b.ownerDocument.getElementById(j))&&t(b,h)&&h.id===j)return d.push(h),d}else{if(f[2])return H.apply(d,b.getElementsByTagName(a)),d;if((j=f[3])&&c.getElementsByClassName)return H.apply(d,b.getElementsByClassName(j)),d}if(c.qsa&&(!q||!q.test(a))){if(s=r=u,w=b,x=1!==k&&a,1===k&&"object"!==b.nodeName.toLowerCase()){o=g(a),(r=b.getAttribute("id"))?s=r.replace(ba,"\\$&"):b.setAttribute("id",s),s="[id='"+s+"'] ",l=o.length;while(l--)o[l]=s+ra(o[l]);w=aa.test(a)&&pa(b.parentNode)||b,x=o.join(",")}if(x)try{return H.apply(d,w.querySelectorAll(x)),d}catch(y){}finally{r||b.removeAttribute("id")}}}return i(a.replace(R,"$1"),b,d,e)}function ha(){var a=[];function b(c,e){return a.push(c+" ")>d.cacheLength&&delete b[a.shift()],b[c+" "]=e}return b}function ia(a){return a[u]=!0,a}function ja(a){var b=n.createElement("div");try{return!!a(b)}catch(c){return!1}finally{b.parentNode&&b.parentNode.removeChild(b),b=null}}function ka(a,b){var c=a.split("|"),e=a.length;while(e--)d.attrHandle[c[e]]=b}function la(a,b){var c=b&&a,d=c&&1===a.nodeType&&1===b.nodeType&&(~b.sourceIndex||C)-(~a.sourceIndex||C);if(d)return d;if(c)while(c=c.nextSibling)if(c===b)return-1;return a?1:-1}function ma(a){return function(b){var c=b.nodeName.toLowerCase();return"input"===c&&b.type===a}}function na(a){return function(b){var c=b.nodeName.toLowerCase();return("input"===c||"button"===c)&&b.type===a}}function oa(a){return ia(function(b){return b=+b,ia(function(c,d){var e,f=a([],c.length,b),g=f.length;while(g--)c[e=f[g]]&&(c[e]=!(d[e]=c[e]))})})}function pa(a){return a&&"undefined"!=typeof a.getElementsByTagName&&a}c=ga.support={},f=ga.isXML=function(a){var b=a&&(a.ownerDocument||a).documentElement;return b?"HTML"!==b.nodeName:!1},m=ga.setDocument=function(a){var b,e,g=a?a.ownerDocument||a:v;return g!==n&&9===g.nodeType&&g.documentElement?(n=g,o=g.documentElement,e=g.defaultView,e&&e!==e.top&&(e.addEventListener?e.addEventListener("unload",ea,!1):e.attachEvent&&e.attachEvent("onunload",ea)),p=!f(g),c.attributes=ja(function(a){return a.className="i",!a.getAttribute("className")}),c.getElementsByTagName=ja(function(a){return a.appendChild(g.createComment("")),!a.getElementsByTagName("*").length}),c.getElementsByClassName=$.test(g.getElementsByClassName),c.getById=ja(function(a){return o.appendChild(a).id=u,!g.getElementsByName||!g.getElementsByName(u).length}),c.getById?(d.find.ID=function(a,b){if("undefined"!=typeof b.getElementById&&p){var c=b.getElementById(a);return c&&c.parentNode?[c]:[]}},d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){return a.getAttribute("id")===b}}):(delete d.find.ID,d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){var c="undefined"!=typeof a.getAttributeNode&&a.getAttributeNode("id");return c&&c.value===b}}),d.find.TAG=c.getElementsByTagName?function(a,b){return"undefined"!=typeof b.getElementsByTagName?b.getElementsByTagName(a):c.qsa?b.querySelectorAll(a):void 0}:function(a,b){var c,d=[],e=0,f=b.getElementsByTagName(a);if("*"===a){while(c=f[e++])1===c.nodeType&&d.push(c);return d}return f},d.find.CLASS=c.getElementsByClassName&&function(a,b){return p?b.getElementsByClassName(a):void 0},r=[],q=[],(c.qsa=$.test(g.querySelectorAll))&&(ja(function(a){o.appendChild(a).innerHTML="<a id='"+u+"'></a><select id='"+u+"-\f]' msallowcapture=''><option selected=''></option></select>",a.querySelectorAll("[msallowcapture^='']").length&&q.push("[*^$]="+L+"*(?:''|\"\")"),a.querySelectorAll("[selected]").length||q.push("\\["+L+"*(?:value|"+K+")"),a.querySelectorAll("[id~="+u+"-]").length||q.push("~="),a.querySelectorAll(":checked").length||q.push(":checked"),a.querySelectorAll("a#"+u+"+*").length||q.push(".#.+[+~]")}),ja(function(a){var b=g.createElement("input");b.setAttribute("type","hidden"),a.appendChild(b).setAttribute("name","D"),a.querySelectorAll("[name=d]").length&&q.push("name"+L+"*[*^$|!~]?="),a.querySelectorAll(":enabled").length||q.push(":enabled",":disabled"),a.querySelectorAll("*,:x"),q.push(",.*:")})),(c.matchesSelector=$.test(s=o.matches||o.webkitMatchesSelector||o.mozMatchesSelector||o.oMatchesSelector||o.msMatchesSelector))&&ja(function(a){c.disconnectedMatch=s.call(a,"div"),s.call(a,"[s!='']:x"),r.push("!=",P)}),q=q.length&&new RegExp(q.join("|")),r=r.length&&new RegExp(r.join("|")),b=$.test(o.compareDocumentPosition),t=b||$.test(o.contains)?function(a,b){var c=9===a.nodeType?a.documentElement:a,d=b&&b.parentNode;return a===d||!(!d||1!==d.nodeType||!(c.contains?c.contains(d):a.compareDocumentPosition&&16&a.compareDocumentPosition(d)))}:function(a,b){if(b)while(b=b.parentNode)if(b===a)return!0;return!1},B=b?function(a,b){if(a===b)return l=!0,0;var d=!a.compareDocumentPosition-!b.compareDocumentPosition;return d?d:(d=(a.ownerDocument||a)===(b.ownerDocument||b)?a.compareDocumentPosition(b):1,1&d||!c.sortDetached&&b.compareDocumentPosition(a)===d?a===g||a.ownerDocument===v&&t(v,a)?-1:b===g||b.ownerDocument===v&&t(v,b)?1:k?J(k,a)-J(k,b):0:4&d?-1:1)}:function(a,b){if(a===b)return l=!0,0;var c,d=0,e=a.parentNode,f=b.parentNode,h=[a],i=[b];if(!e||!f)return a===g?-1:b===g?1:e?-1:f?1:k?J(k,a)-J(k,b):0;if(e===f)return la(a,b);c=a;while(c=c.parentNode)h.unshift(c);c=b;while(c=c.parentNode)i.unshift(c);while(h[d]===i[d])d++;return d?la(h[d],i[d]):h[d]===v?-1:i[d]===v?1:0},g):n},ga.matches=function(a,b){return ga(a,null,null,b)},ga.matchesSelector=function(a,b){if((a.ownerDocument||a)!==n&&m(a),b=b.replace(U,"='$1']"),!(!c.matchesSelector||!p||r&&r.test(b)||q&&q.test(b)))try{var d=s.call(a,b);if(d||c.disconnectedMatch||a.document&&11!==a.document.nodeType)return d}catch(e){}return ga(b,n,null,[a]).length>0},ga.contains=function(a,b){return(a.ownerDocument||a)!==n&&m(a),t(a,b)},ga.attr=function(a,b){(a.ownerDocument||a)!==n&&m(a);var e=d.attrHandle[b.toLowerCase()],f=e&&D.call(d.attrHandle,b.toLowerCase())?e(a,b,!p):void 0;return void 0!==f?f:c.attributes||!p?a.getAttribute(b):(f=a.getAttributeNode(b))&&f.specified?f.value:null},ga.error=function(a){throw new Error("Syntax error, unrecognized expression: "+a)},ga.uniqueSort=function(a){var b,d=[],e=0,f=0;if(l=!c.detectDuplicates,k=!c.sortStable&&a.slice(0),a.sort(B),l){while(b=a[f++])b===a[f]&&(e=d.push(f));while(e--)a.splice(d[e],1)}return k=null,a},e=ga.getText=function(a){var b,c="",d=0,f=a.nodeType;if(f){if(1===f||9===f||11===f){if("string"==typeof a.textContent)return a.textContent;for(a=a.firstChild;a;a=a.nextSibling)c+=e(a)}else if(3===f||4===f)return a.nodeValue}else while(b=a[d++])c+=e(b);return c},d=ga.selectors={cacheLength:50,createPseudo:ia,match:X,attrHandle:{},find:{},relative:{">":{dir:"parentNode",first:!0}," ":{dir:"parentNode"},"+":{dir:"previousSibling",first:!0},"~":{dir:"previousSibling"}},preFilter:{ATTR:function(a){return a[1]=a[1].replace(ca,da),a[3]=(a[3]||a[4]||a[5]||"").replace(ca,da),"~="===a[2]&&(a[3]=" "+a[3]+" "),a.slice(0,4)},CHILD:function(a){return a[1]=a[1].toLowerCase(),"nth"===a[1].slice(0,3)?(a[3]||ga.error(a[0]),a[4]=+(a[4]?a[5]+(a[6]||1):2*("even"===a[3]||"odd"===a[3])),a[5]=+(a[7]+a[8]||"odd"===a[3])):a[3]&&ga.error(a[0]),a},PSEUDO:function(a){var b,c=!a[6]&&a[2];return X.CHILD.test(a[0])?null:(a[3]?a[2]=a[4]||a[5]||"":c&&V.test(c)&&(b=g(c,!0))&&(b=c.indexOf(")",c.length-b)-c.length)&&(a[0]=a[0].slice(0,b),a[2]=c.slice(0,b)),a.slice(0,3))}},filter:{TAG:function(a){var b=a.replace(ca,da).toLowerCase();return"*"===a?function(){return!0}:function(a){return a.nodeName&&a.nodeName.toLowerCase()===b}},CLASS:function(a){var b=y[a+" "];return b||(b=new RegExp("(^|"+L+")"+a+"("+L+"|$)"))&&y(a,function(a){return b.test("string"==typeof a.className&&a.className||"undefined"!=typeof a.getAttribute&&a.getAttribute("class")||"")})},ATTR:function(a,b,c){return function(d){var e=ga.attr(d,a);return null==e?"!="===b:b?(e+="","="===b?e===c:"!="===b?e!==c:"^="===b?c&&0===e.indexOf(c):"*="===b?c&&e.indexOf(c)>-1:"$="===b?c&&e.slice(-c.length)===c:"~="===b?(" "+e.replace(Q," ")+" ").indexOf(c)>-1:"|="===b?e===c||e.slice(0,c.length+1)===c+"-":!1):!0}},CHILD:function(a,b,c,d,e){var f="nth"!==a.slice(0,3),g="last"!==a.slice(-4),h="of-type"===b;return 1===d&&0===e?function(a){return!!a.parentNode}:function(b,c,i){var j,k,l,m,n,o,p=f!==g?"nextSibling":"previousSibling",q=b.parentNode,r=h&&b.nodeName.toLowerCase(),s=!i&&!h;if(q){if(f){while(p){l=b;while(l=l[p])if(h?l.nodeName.toLowerCase()===r:1===l.nodeType)return!1;o=p="only"===a&&!o&&"nextSibling"}return!0}if(o=[g?q.firstChild:q.lastChild],g&&s){k=q[u]||(q[u]={}),j=k[a]||[],n=j[0]===w&&j[1],m=j[0]===w&&j[2],l=n&&q.childNodes[n];while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if(1===l.nodeType&&++m&&l===b){k[a]=[w,n,m];break}}else if(s&&(j=(b[u]||(b[u]={}))[a])&&j[0]===w)m=j[1];else while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if((h?l.nodeName.toLowerCase()===r:1===l.nodeType)&&++m&&(s&&((l[u]||(l[u]={}))[a]=[w,m]),l===b))break;return m-=e,m===d||m%d===0&&m/d>=0}}},PSEUDO:function(a,b){var c,e=d.pseudos[a]||d.setFilters[a.toLowerCase()]||ga.error("unsupported pseudo: "+a);return e[u]?e(b):e.length>1?(c=[a,a,"",b],d.setFilters.hasOwnProperty(a.toLowerCase())?ia(function(a,c){var d,f=e(a,b),g=f.length;while(g--)d=J(a,f[g]),a[d]=!(c[d]=f[g])}):function(a){return e(a,0,c)}):e}},pseudos:{not:ia(function(a){var b=[],c=[],d=h(a.replace(R,"$1"));return d[u]?ia(function(a,b,c,e){var f,g=d(a,null,e,[]),h=a.length;while(h--)(f=g[h])&&(a[h]=!(b[h]=f))}):function(a,e,f){return b[0]=a,d(b,null,f,c),b[0]=null,!c.pop()}}),has:ia(function(a){return function(b){return ga(a,b).length>0}}),contains:ia(function(a){return a=a.replace(ca,da),function(b){return(b.textContent||b.innerText||e(b)).indexOf(a)>-1}}),lang:ia(function(a){return W.test(a||"")||ga.error("unsupported lang: "+a),a=a.replace(ca,da).toLowerCase(),function(b){var c;do if(c=p?b.lang:b.getAttribute("xml:lang")||b.getAttribute("lang"))return c=c.toLowerCase(),c===a||0===c.indexOf(a+"-");while((b=b.parentNode)&&1===b.nodeType);return!1}}),target:function(b){var c=a.location&&a.location.hash;return c&&c.slice(1)===b.id},root:function(a){return a===o},focus:function(a){return a===n.activeElement&&(!n.hasFocus||n.hasFocus())&&!!(a.type||a.href||~a.tabIndex)},enabled:function(a){return a.disabled===!1},disabled:function(a){return a.disabled===!0},checked:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&!!a.checked||"option"===b&&!!a.selected},selected:function(a){return a.parentNode&&a.parentNode.selectedIndex,a.selected===!0},empty:function(a){for(a=a.firstChild;a;a=a.nextSibling)if(a.nodeType<6)return!1;return!0},parent:function(a){return!d.pseudos.empty(a)},header:function(a){return Z.test(a.nodeName)},input:function(a){return Y.test(a.nodeName)},button:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&"button"===a.type||"button"===b},text:function(a){var b;return"input"===a.nodeName.toLowerCase()&&"text"===a.type&&(null==(b=a.getAttribute("type"))||"text"===b.toLowerCase())},first:oa(function(){return[0]}),last:oa(function(a,b){return[b-1]}),eq:oa(function(a,b,c){return[0>c?c+b:c]}),even:oa(function(a,b){for(var c=0;b>c;c+=2)a.push(c);return a}),odd:oa(function(a,b){for(var c=1;b>c;c+=2)a.push(c);return a}),lt:oa(function(a,b,c){for(var d=0>c?c+b:c;--d>=0;)a.push(d);return a}),gt:oa(function(a,b,c){for(var d=0>c?c+b:c;++d<b;)a.push(d);return a})}},d.pseudos.nth=d.pseudos.eq;for(b in{radio:!0,checkbox:!0,file:!0,password:!0,image:!0})d.pseudos[b]=ma(b);for(b in{submit:!0,reset:!0})d.pseudos[b]=na(b);function qa(){}qa.prototype=d.filters=d.pseudos,d.setFilters=new qa,g=ga.tokenize=function(a,b){var c,e,f,g,h,i,j,k=z[a+" "];if(k)return b?0:k.slice(0);h=a,i=[],j=d.preFilter;while(h){(!c||(e=S.exec(h)))&&(e&&(h=h.slice(e[0].length)||h),i.push(f=[])),c=!1,(e=T.exec(h))&&(c=e.shift(),f.push({value:c,type:e[0].replace(R," ")}),h=h.slice(c.length));for(g in d.filter)!(e=X[g].exec(h))||j[g]&&!(e=j[g](e))||(c=e.shift(),f.push({value:c,type:g,matches:e}),h=h.slice(c.length));if(!c)break}return b?h.length:h?ga.error(a):z(a,i).slice(0)};function ra(a){for(var b=0,c=a.length,d="";c>b;b++)d+=a[b].value;return d}function sa(a,b,c){var d=b.dir,e=c&&"parentNode"===d,f=x++;return b.first?function(b,c,f){while(b=b[d])if(1===b.nodeType||e)return a(b,c,f)}:function(b,c,g){var h,i,j=[w,f];if(g){while(b=b[d])if((1===b.nodeType||e)&&a(b,c,g))return!0}else while(b=b[d])if(1===b.nodeType||e){if(i=b[u]||(b[u]={}),(h=i[d])&&h[0]===w&&h[1]===f)return j[2]=h[2];if(i[d]=j,j[2]=a(b,c,g))return!0}}}function ta(a){return a.length>1?function(b,c,d){var e=a.length;while(e--)if(!a[e](b,c,d))return!1;return!0}:a[0]}function ua(a,b,c){for(var d=0,e=b.length;e>d;d++)ga(a,b[d],c);return c}function va(a,b,c,d,e){for(var f,g=[],h=0,i=a.length,j=null!=b;i>h;h++)(f=a[h])&&(!c||c(f,d,e))&&(g.push(f),j&&b.push(h));return g}function wa(a,b,c,d,e,f){return d&&!d[u]&&(d=wa(d)),e&&!e[u]&&(e=wa(e,f)),ia(function(f,g,h,i){var j,k,l,m=[],n=[],o=g.length,p=f||ua(b||"*",h.nodeType?[h]:h,[]),q=!a||!f&&b?p:va(p,m,a,h,i),r=c?e||(f?a:o||d)?[]:g:q;if(c&&c(q,r,h,i),d){j=va(r,n),d(j,[],h,i),k=j.length;while(k--)(l=j[k])&&(r[n[k]]=!(q[n[k]]=l))}if(f){if(e||a){if(e){j=[],k=r.length;while(k--)(l=r[k])&&j.push(q[k]=l);e(null,r=[],j,i)}k=r.length;while(k--)(l=r[k])&&(j=e?J(f,l):m[k])>-1&&(f[j]=!(g[j]=l))}}else r=va(r===g?r.splice(o,r.length):r),e?e(null,g,r,i):H.apply(g,r)})}function xa(a){for(var b,c,e,f=a.length,g=d.relative[a[0].type],h=g||d.relative[" "],i=g?1:0,k=sa(function(a){return a===b},h,!0),l=sa(function(a){return J(b,a)>-1},h,!0),m=[function(a,c,d){var e=!g&&(d||c!==j)||((b=c).nodeType?k(a,c,d):l(a,c,d));return b=null,e}];f>i;i++)if(c=d.relative[a[i].type])m=[sa(ta(m),c)];else{if(c=d.filter[a[i].type].apply(null,a[i].matches),c[u]){for(e=++i;f>e;e++)if(d.relative[a[e].type])break;return wa(i>1&&ta(m),i>1&&ra(a.slice(0,i-1).concat({value:" "===a[i-2].type?"*":""})).replace(R,"$1"),c,e>i&&xa(a.slice(i,e)),f>e&&xa(a=a.slice(e)),f>e&&ra(a))}m.push(c)}return ta(m)}function ya(a,b){var c=b.length>0,e=a.length>0,f=function(f,g,h,i,k){var l,m,o,p=0,q="0",r=f&&[],s=[],t=j,u=f||e&&d.find.TAG("*",k),v=w+=null==t?1:Math.random()||.1,x=u.length;for(k&&(j=g!==n&&g);q!==x&&null!=(l=u[q]);q++){if(e&&l){m=0;while(o=a[m++])if(o(l,g,h)){i.push(l);break}k&&(w=v)}c&&((l=!o&&l)&&p--,f&&r.push(l))}if(p+=q,c&&q!==p){m=0;while(o=b[m++])o(r,s,g,h);if(f){if(p>0)while(q--)r[q]||s[q]||(s[q]=F.call(i));s=va(s)}H.apply(i,s),k&&!f&&s.length>0&&p+b.length>1&&ga.uniqueSort(i)}return k&&(w=v,j=t),r};return c?ia(f):f}return h=ga.compile=function(a,b){var c,d=[],e=[],f=A[a+" "];if(!f){b||(b=g(a)),c=b.length;while(c--)f=xa(b[c]),f[u]?d.push(f):e.push(f);f=A(a,ya(e,d)),f.selector=a}return f},i=ga.select=function(a,b,e,f){var i,j,k,l,m,n="function"==typeof a&&a,o=!f&&g(a=n.selector||a);if(e=e||[],1===o.length){if(j=o[0]=o[0].slice(0),j.length>2&&"ID"===(k=j[0]).type&&c.getById&&9===b.nodeType&&p&&d.relative[j[1].type]){if(b=(d.find.ID(k.matches[0].replace(ca,da),b)||[])[0],!b)return e;n&&(b=b.parentNode),a=a.slice(j.shift().value.length)}i=X.needsContext.test(a)?0:j.length;while(i--){if(k=j[i],d.relative[l=k.type])break;if((m=d.find[l])&&(f=m(k.matches[0].replace(ca,da),aa.test(j[0].type)&&pa(b.parentNode)||b))){if(j.splice(i,1),a=f.length&&ra(j),!a)return H.apply(e,f),e;break}}}return(n||h(a,o))(f,b,!p,e,aa.test(a)&&pa(b.parentNode)||b),e},c.sortStable=u.split("").sort(B).join("")===u,c.detectDuplicates=!!l,m(),c.sortDetached=ja(function(a){return 1&a.compareDocumentPosition(n.createElement("div"))}),ja(function(a){return a.innerHTML="<a href='#'></a>","#"===a.firstChild.getAttribute("href")})||ka("type|href|height|width",function(a,b,c){return c?void 0:a.getAttribute(b,"type"===b.toLowerCase()?1:2)}),c.attributes&&ja(function(a){return a.innerHTML="<input/>",a.firstChild.setAttribute("value",""),""===a.firstChild.getAttribute("value")})||ka("value",function(a,b,c){return c||"input"!==a.nodeName.toLowerCase()?void 0:a.defaultValue}),ja(function(a){return null==a.getAttribute("disabled")})||ka(K,function(a,b,c){var d;return c?void 0:a[b]===!0?b.toLowerCase():(d=a.getAttributeNode(b))&&d.specified?d.value:null}),ga}(a);m.find=s,m.expr=s.selectors,m.expr[":"]=m.expr.pseudos,m.unique=s.uniqueSort,m.text=s.getText,m.isXMLDoc=s.isXML,m.contains=s.contains;var t=m.expr.match.needsContext,u=/^<(\w+)\s*\/?>(?:<\/\1>|)$/,v=/^.[^:#\[\.,]*$/;function w(a,b,c){if(m.isFunction(b))return m.grep(a,function(a,d){return!!b.call(a,d,a)!==c});if(b.nodeType)return m.grep(a,function(a){return a===b!==c});if("string"==typeof b){if(v.test(b))return m.filter(b,a,c);b=m.filter(b,a)}return m.grep(a,function(a){return m.inArray(a,b)>=0!==c})}m.filter=function(a,b,c){var d=b[0];return c&&(a=":not("+a+")"),1===b.length&&1===d.nodeType?m.find.matchesSelector(d,a)?[d]:[]:m.find.matches(a,m.grep(b,function(a){return 1===a.nodeType}))},m.fn.extend({find:function(a){var b,c=[],d=this,e=d.length;if("string"!=typeof a)return this.pushStack(m(a).filter(function(){for(b=0;e>b;b++)if(m.contains(d[b],this))return!0}));for(b=0;e>b;b++)m.find(a,d[b],c);return c=this.pushStack(e>1?m.unique(c):c),c.selector=this.selector?this.selector+" "+a:a,c},filter:function(a){return this.pushStack(w(this,a||[],!1))},not:function(a){return this.pushStack(w(this,a||[],!0))},is:function(a){return!!w(this,"string"==typeof a&&t.test(a)?m(a):a||[],!1).length}});var x,y=a.document,z=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,A=m.fn.init=function(a,b){var c,d;if(!a)return this;if("string"==typeof a){if(c="<"===a.charAt(0)&&">"===a.charAt(a.length-1)&&a.length>=3?[null,a,null]:z.exec(a),!c||!c[1]&&b)return!b||b.jquery?(b||x).find(a):this.constructor(b).find(a);if(c[1]){if(b=b instanceof m?b[0]:b,m.merge(this,m.parseHTML(c[1],b&&b.nodeType?b.ownerDocument||b:y,!0)),u.test(c[1])&&m.isPlainObject(b))for(c in b)m.isFunction(this[c])?this[c](b[c]):this.attr(c,b[c]);return this}if(d=y.getElementById(c[2]),d&&d.parentNode){if(d.id!==c[2])return x.find(a);this.length=1,this[0]=d}return this.context=y,this.selector=a,this}return a.nodeType?(this.context=this[0]=a,this.length=1,this):m.isFunction(a)?"undefined"!=typeof x.ready?x.ready(a):a(m):(void 0!==a.selector&&(this.selector=a.selector,this.context=a.context),m.makeArray(a,this))};A.prototype=m.fn,x=m(y);var B=/^(?:parents|prev(?:Until|All))/,C={children:!0,contents:!0,next:!0,prev:!0};m.extend({dir:function(a,b,c){var d=[],e=a[b];while(e&&9!==e.nodeType&&(void 0===c||1!==e.nodeType||!m(e).is(c)))1===e.nodeType&&d.push(e),e=e[b];return d},sibling:function(a,b){for(var c=[];a;a=a.nextSibling)1===a.nodeType&&a!==b&&c.push(a);return c}}),m.fn.extend({has:function(a){var b,c=m(a,this),d=c.length;return this.filter(function(){for(b=0;d>b;b++)if(m.contains(this,c[b]))return!0})},closest:function(a,b){for(var c,d=0,e=this.length,f=[],g=t.test(a)||"string"!=typeof a?m(a,b||this.context):0;e>d;d++)for(c=this[d];c&&c!==b;c=c.parentNode)if(c.nodeType<11&&(g?g.index(c)>-1:1===c.nodeType&&m.find.matchesSelector(c,a))){f.push(c);break}return this.pushStack(f.length>1?m.unique(f):f)},index:function(a){return a?"string"==typeof a?m.inArray(this[0],m(a)):m.inArray(a.jquery?a[0]:a,this):this[0]&&this[0].parentNode?this.first().prevAll().length:-1},add:function(a,b){return this.pushStack(m.unique(m.merge(this.get(),m(a,b))))},addBack:function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))}});function D(a,b){do a=a[b];while(a&&1!==a.nodeType);return a}m.each({parent:function(a){var b=a.parentNode;return b&&11!==b.nodeType?b:null},parents:function(a){return m.dir(a,"parentNode")},parentsUntil:function(a,b,c){return m.dir(a,"parentNode",c)},next:function(a){return D(a,"nextSibling")},prev:function(a){return D(a,"previousSibling")},nextAll:function(a){return m.dir(a,"nextSibling")},prevAll:function(a){return m.dir(a,"previousSibling")},nextUntil:function(a,b,c){return m.dir(a,"nextSibling",c)},prevUntil:function(a,b,c){return m.dir(a,"previousSibling",c)},siblings:function(a){return m.sibling((a.parentNode||{}).firstChild,a)},children:function(a){return m.sibling(a.firstChild)},contents:function(a){return m.nodeName(a,"iframe")?a.contentDocument||a.contentWindow.document:m.merge([],a.childNodes)}},function(a,b){m.fn[a]=function(c,d){var e=m.map(this,b,c);return"Until"!==a.slice(-5)&&(d=c),d&&"string"==typeof d&&(e=m.filter(d,e)),this.length>1&&(C[a]||(e=m.unique(e)),B.test(a)&&(e=e.reverse())),this.pushStack(e)}});var E=/\S+/g,F={};function G(a){var b=F[a]={};return m.each(a.match(E)||[],function(a,c){b[c]=!0}),b}m.Callbacks=function(a){a="string"==typeof a?F[a]||G(a):m.extend({},a);var b,c,d,e,f,g,h=[],i=!a.once&&[],j=function(l){for(c=a.memory&&l,d=!0,f=g||0,g=0,e=h.length,b=!0;h&&e>f;f++)if(h[f].apply(l[0],l[1])===!1&&a.stopOnFalse){c=!1;break}b=!1,h&&(i?i.length&&j(i.shift()):c?h=[]:k.disable())},k={add:function(){if(h){var d=h.length;!function f(b){m.each(b,function(b,c){var d=m.type(c);"function"===d?a.unique&&k.has(c)||h.push(c):c&&c.length&&"string"!==d&&f(c)})}(arguments),b?e=h.length:c&&(g=d,j(c))}return this},remove:function(){return h&&m.each(arguments,function(a,c){var d;while((d=m.inArray(c,h,d))>-1)h.splice(d,1),b&&(e>=d&&e--,f>=d&&f--)}),this},has:function(a){return a?m.inArray(a,h)>-1:!(!h||!h.length)},empty:function(){return h=[],e=0,this},disable:function(){return h=i=c=void 0,this},disabled:function(){return!h},lock:function(){return i=void 0,c||k.disable(),this},locked:function(){return!i},fireWith:function(a,c){return!h||d&&!i||(c=c||[],c=[a,c.slice?c.slice():c],b?i.push(c):j(c)),this},fire:function(){return k.fireWith(this,arguments),this},fired:function(){return!!d}};return k},m.extend({Deferred:function(a){var b=[["resolve","done",m.Callbacks("once memory"),"resolved"],["reject","fail",m.Callbacks("once memory"),"rejected"],["notify","progress",m.Callbacks("memory")]],c="pending",d={state:function(){return c},always:function(){return e.done(arguments).fail(arguments),this},then:function(){var a=arguments;return m.Deferred(function(c){m.each(b,function(b,f){var g=m.isFunction(a[b])&&a[b];e[f[1]](function(){var a=g&&g.apply(this,arguments);a&&m.isFunction(a.promise)?a.promise().done(c.resolve).fail(c.reject).progress(c.notify):c[f[0]+"With"](this===d?c.promise():this,g?[a]:arguments)})}),a=null}).promise()},promise:function(a){return null!=a?m.extend(a,d):d}},e={};return d.pipe=d.then,m.each(b,function(a,f){var g=f[2],h=f[3];d[f[1]]=g.add,h&&g.add(function(){c=h},b[1^a][2].disable,b[2][2].lock),e[f[0]]=function(){return e[f[0]+"With"](this===e?d:this,arguments),this},e[f[0]+"With"]=g.fireWith}),d.promise(e),a&&a.call(e,e),e},when:function(a){var b=0,c=d.call(arguments),e=c.length,f=1!==e||a&&m.isFunction(a.promise)?e:0,g=1===f?a:m.Deferred(),h=function(a,b,c){return function(e){b[a]=this,c[a]=arguments.length>1?d.call(arguments):e,c===i?g.notifyWith(b,c):--f||g.resolveWith(b,c)}},i,j,k;if(e>1)for(i=new Array(e),j=new Array(e),k=new Array(e);e>b;b++)c[b]&&m.isFunction(c[b].promise)?c[b].promise().done(h(b,k,c)).fail(g.reject).progress(h(b,j,i)):--f;return f||g.resolveWith(k,c),g.promise()}});var H;m.fn.ready=function(a){return m.ready.promise().done(a),this},m.extend({isReady:!1,readyWait:1,holdReady:function(a){a?m.readyWait++:m.ready(!0)},ready:function(a){if(a===!0?!--m.readyWait:!m.isReady){if(!y.body)return setTimeout(m.ready);m.isReady=!0,a!==!0&&--m.readyWait>0||(H.resolveWith(y,[m]),m.fn.triggerHandler&&(m(y).triggerHandler("ready"),m(y).off("ready")))}}});function I(){y.addEventListener?(y.removeEventListener("DOMContentLoaded",J,!1),a.removeEventListener("load",J,!1)):(y.detachEvent("onreadystatechange",J),a.detachEvent("onload",J))}function J(){(y.addEventListener||"load"===event.type||"complete"===y.readyState)&&(I(),m.ready())}m.ready.promise=function(b){if(!H)if(H=m.Deferred(),"complete"===y.readyState)setTimeout(m.ready);else if(y.addEventListener)y.addEventListener("DOMContentLoaded",J,!1),a.addEventListener("load",J,!1);else{y.attachEvent("onreadystatechange",J),a.attachEvent("onload",J);var c=!1;try{c=null==a.frameElement&&y.documentElement}catch(d){}c&&c.doScroll&&!function e(){if(!m.isReady){try{c.doScroll("left")}catch(a){return setTimeout(e,50)}I(),m.ready()}}()}return H.promise(b)};var K="undefined",L;for(L in m(k))break;k.ownLast="0"!==L,k.inlineBlockNeedsLayout=!1,m(function(){var a,b,c,d;c=y.getElementsByTagName("body")[0],c&&c.style&&(b=y.createElement("div"),d=y.createElement("div"),d.style.cssText="position:absolute;border:0;width:0;height:0;top:0;left:-9999px",c.appendChild(d).appendChild(b),typeof b.style.zoom!==K&&(b.style.cssText="display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1",k.inlineBlockNeedsLayout=a=3===b.offsetWidth,a&&(c.style.zoom=1)),c.removeChild(d))}),function(){var a=y.createElement("div");if(null==k.deleteExpando){k.deleteExpando=!0;try{delete a.test}catch(b){k.deleteExpando=!1}}a=null}(),m.acceptData=function(a){var b=m.noData[(a.nodeName+" ").toLowerCase()],c=+a.nodeType||1;return 1!==c&&9!==c?!1:!b||b!==!0&&a.getAttribute("classid")===b};var M=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,N=/([A-Z])/g;function O(a,b,c){if(void 0===c&&1===a.nodeType){var d="data-"+b.replace(N,"-$1").toLowerCase();if(c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:M.test(c)?m.parseJSON(c):c}catch(e){}m.data(a,b,c)}else c=void 0}return c}function P(a){var b;for(b in a)if(("data"!==b||!m.isEmptyObject(a[b]))&&"toJSON"!==b)return!1;
@@ -1753,108 +1755,104 @@ summary {
 
 
 
-<h1 class="title toc-ignore">Extracting data from raster and from polygons</h1>
+<h1 class="title toc-ignore">Extract from raster &amp; poly and get distMats</h1>
+<h4 class="author">Mitra Menon</h4>
+<h4 class="date">2021-02-12</h4>
 
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#load-r-libraries">Load R libraries</a></li>
+<li><a href="#load-in-your-dataset-containing-lat-long-information">Load in your dataset containing lat-long information</a><ul>
+<li><a href="#determine-tiles">1.1 Determine tiles</a><ul>
+<li><a href="#merge-rasters-from-different-tiles">1.1.1 Merge rasters from different tiles</a></li>
+<li><a href="#checks">1.1.2 Checks</a></li>
+</ul></li>
+<li><a href="#extract-values-from-raster">1.2 Extract values from raster</a></li>
+</ul></li>
+<li><a href="#getting-language-data">2 Getting language data</a><ul>
+<li><a href="#pulling-out-languages-by-each-point">2.1 Pulling out languages by each point</a></li>
+</ul></li>
+<li><a href="#check-that-the-dimensions-of-the-two-datasets-are-equal.-if-not-adjust-it">3. Check that the dimensions of the two datasets are equal. If not adjust it</a></li>
+<li><a href="#caluclate-distance-measures-for-all-our-covariates">4. Caluclate distance measures for all our covariates</a><ul>
+<li><a href="#climate-data">4.1 Climate data</a></li>
+<li><a href="#altitude-as-this-has-been-shown-to-be-imp-for-maize">4.2 Altitude (as this has been shown to be imp for Maize)</a></li>
+<li><a href="#language-data">4.3 Language data</a></li>
+<li><a href="#geography">4.4 Geography</a></li>
+</ul></li>
+</ul>
+</div>
 
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyYXN0ZXIpXG5gYGAifQ== -->
-<pre class="r"><code>library(raster)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBzcFxuXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYcmFzdGVy4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6ZGF0YS50YWJsZeKAmTpcblxuICAgIHNoaWZ0XG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6V0dDTkHigJk6XG5cbiAgICBibG9ja1NpemVcbiJ9 -->
-<pre><code>Loading required package: sp
-
-Attaching package: ‘raster’
-
-The following object is masked from ‘package:data.table’:
-
-    shift
-
-The following object is masked from ‘package:WGCNA’:
-
-    blockSize</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShzcClcbmxpYnJhcnkocmdkYWwpXG5gYGAifQ== -->
-<pre class="r"><code>library(sp)
-library(rgdal)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicmdkYWw6IHZlcnNpb246IDEuNS0xOSwgKFNWTiByZXZpc2lvbiAxMDkyKVxuR2Vvc3BhdGlhbCBEYXRhIEFic3RyYWN0aW9uIExpYnJhcnkgZXh0ZW5zaW9ucyB0byBSIHN1Y2Nlc3NmdWxseSBsb2FkZWRcbkxvYWRlZCBHREFMIHJ1bnRpbWU6IEdEQUwgMy4xLjQsIHJlbGVhc2VkIDIwMjAvMTAvMjBcblBhdGggdG8gR0RBTCBzaGFyZWQgZmlsZXM6IC9MaWJyYXJ5L0ZyYW1ld29ya3MvUi5mcmFtZXdvcmsvVmVyc2lvbnMvNC4wL1Jlc291cmNlcy9saWJyYXJ5L3JnZGFsL2dkYWxcbkdEQUwgYmluYXJ5IGJ1aWx0IHdpdGggR0VPUzogVFJVRSBcbkxvYWRlZCBQUk9KIHJ1bnRpbWU6IFJlbC4gNi4zLjEsIEZlYnJ1YXJ5IDEwdGgsIDIwMjAsIFtQSl9WRVJTSU9OOiA2MzFdXG5QYXRoIHRvIFBST0ogc2hhcmVkIGZpbGVzOiAvTGlicmFyeS9GcmFtZXdvcmtzL1IuZnJhbWV3b3JrL1ZlcnNpb25zLzQuMC9SZXNvdXJjZXMvbGlicmFyeS9yZ2RhbC9wcm9qXG5MaW5raW5nIHRvIHNwIHZlcnNpb246MS40LTRcblRvIG11dGUgd2FybmluZ3Mgb2YgcG9zc2libGUgR0RBTC9PU1IgZXhwb3J0VG9Qcm9qNCgpIGRlZ3JhZGF0aW9uLFxudXNlIG9wdGlvbnMoXCJyZ2RhbF9zaG93X2V4cG9ydFRvUHJvajRfd2FybmluZ3NcIj1cIm5vbmVcIikgYmVmb3JlIGxvYWRpbmcgcmdkYWwuXG4ifQ== -->
-<pre><code>rgdal: version: 1.5-19, (SVN revision 1092)
-Geospatial Data Abstraction Library extensions to R successfully loaded
-Loaded GDAL runtime: GDAL 3.1.4, released 2020/10/20
-Path to GDAL shared files: /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rgdal/gdal
-GDAL binary built with GEOS: TRUE 
-Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
-Path to PROJ shared files: /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rgdal/proj
-Linking to sp version:1.4-4
-To mute warnings of possible GDAL/OSR exportToProj4() degradation,
-use options(&quot;rgdal_show_exportToProj4_warnings&quot;=&quot;none&quot;) before loading rgdal.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZ2VvcylcbmBgYCJ9 -->
-<pre class="r"><code>library(rgeos)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoicmdlb3MgdmVyc2lvbjogMC41LTUsIChTVk4gcmV2aXNpb24gNjQwKVxuIEdFT1MgcnVudGltZSB2ZXJzaW9uOiAzLjguMS1DQVBJLTEuMTMuMyBcbiBMaW5raW5nIHRvIHNwIHZlcnNpb246IDEuNC0yIFxuIFBvbHlnb24gY2hlY2tpbmc6IFRSVUUgXG5cblxuQXR0YWNoaW5nIHBhY2thZ2U6IOKAmHJnZW9z4oCZXG5cblRoZSBmb2xsb3dpbmcgb2JqZWN0IGlzIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6c2VxaW5y4oCZOlxuXG4gICAgdHJhbnNsYXRlXG4ifQ== -->
-<pre><code>rgeos version: 0.5-5, (SVN revision 640)
- GEOS runtime version: 3.8.1-CAPI-1.13.3 
- Linking to sp version: 1.4-2 
- Polygon checking: TRUE 
-
-
-Attaching package: ‘rgeos’
-
-The following object is masked from ‘package:seqinr’:
-
-    translate</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShwcmV2UilcbmBgYCJ9 -->
-<pre class="r"><code>library(prevR)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3I6IHBhY2thZ2Ugb3IgbmFtZXNwYWNlIGxvYWQgZmFpbGVkIGZvciDigJhwcmV2UuKAmTpcbiBwYWNrYWdlIHNsb3QgbWlzc2luZyBmcm9tIHNpZ25hdHVyZSBmb3IgZ2VuZXJpYyDigJhjb2VyY2XigJlcbmFuZCBjbGFzc2VzIFNURkRGLCBSYXN0ZXJCcmlja1xuY2Fubm90IHVzZSB3aXRoIGR1cGxpY2F0ZSBjbGFzcyBuYW1lcyAodGhlIHBhY2thZ2UgbWF5IG5lZWQgdG8gYmUgcmUtaW5zdGFsbGVkKVxuIn0= -->
-<pre><code>Error: package or namespace load failed for ‘prevR’:
- package slot missing from signature for generic ‘coerce’
-and classes STFDF, RasterBrick
-cannot use with duplicate class names (the package may need to be re-installed)</code></pre>
-<!-- rnb-output-end -->
+<style type="text/css">
+pre, code {white-space:pre !important; overflow-x:auto}
+</style>
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Load in your dataset containing lat-long information</p>
+<div id="load-r-libraries" class="section level1">
+<h1>Load R libraries</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTGFuZHJhY2U8LXJlYWQuY3N2KFwifi9Hb29nbGUgRHJpdmUgRmlsZSBTdHJlYW0vTXkgRHJpdmUvTGFuZ3VhZ2VfYXNzb2MvTGFuZHJhY2VJbmZvLmNzdlwiKVxuXG5gYGAifQ== -->
-<pre class="r"><code>Landrace&lt;-read.csv(&quot;~/Google Drive File Stream/My Drive/Language_assoc/LandraceInfo.csv&quot;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyYXN0ZXIpXG5saWJyYXJ5KHNwKVxubGlicmFyeShyZ2RhbClcbmxpYnJhcnkocmdlb3MpXG5saWJyYXJ5KHByZXZSKVxubGlicmFyeShhbWFwKVxubGlicmFyeShnZW9zcGhlcmUpXG5cbiNpbnN0YWxsLnBhY2thZ2VzKFwicmVtb3Rlc1wiKVxuI3JlbW90ZXM6Omluc3RhbGxfZ2l0aHViKFwia2FwaXR6YXMvV29ybGRDbGltVGlsZXNcIilcbmxpYnJhcnkoV29ybGRDbGltVGlsZXMpICNpZiBub3QgaW5zdGFsbCB1bmNvbW1lbnQgdGhlIGFib3ZlIHR3byBsaW5lcyBhbmQgcnVuIHRoZW0gZmlyc3RcbmBgYCJ9 -->
+<pre class="r"><code>library(raster)
+library(sp)
+library(rgdal)
+library(rgeos)
+library(prevR)
+library(amap)
+library(geosphere)
+
+#install.packages(&quot;remotes&quot;)
+#remotes::install_github(&quot;kapitzas/WorldClimTiles&quot;)
+library(WorldClimTiles) #if not install uncomment the above two lines and run them first</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="load-in-your-dataset-containing-lat-long-information" class="section level1">
+<h1>Load in your dataset containing lat-long information</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJ+L0dvb2dsZSBEcml2ZS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9cIilcbkxhbmRyYWNlPC1yZWFkLnRhYmxlKFwiZm9yRGFmbmUvTGFuZHJhY2VzX01Yb25seV8xNjExLnR4dFwiLHNlcD1cIlxcdFwiLGhlYWRlcj1UKVxuaGVhZChMYW5kcmFjZSlcbmRpbShMYW5kcmFjZSlcblxuI0xhbmRyYWNlPC1MYW5kcmFjZVsxOjUwLCBdXG5cbmBgYCJ9 -->
+<pre class="r"><code>setwd(&quot;~/Google Drive/My Drive/Language_assoc/&quot;)
+Landrace&lt;-read.table(&quot;forDafne/Landraces_MXonly_1611.txt&quot;,sep=&quot;\t&quot;,header=T)
+head(Landrace)
+dim(Landrace)
+
+#Landrace&lt;-Landrace[1:50, ]
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<div id="getting-worldclim-bioclim-data-downloaded" class="section level1">
-<h1>Getting worldClim bioclim data downloaded</h1>
+<p>#1 Getting worldClim bioclim data</p>
+<div id="determine-tiles" class="section level2">
+<h2>1.1 Determine tiles</h2>
 <p><em>See here for what the variables mean: <a href="https://worldclim.org/data/bioclim.html" class="uri">https://worldclim.org/data/bioclim.html</a></em> Data needs to be downloaded for 30 arc sec to your personal laptop. This is the finest resolution available and will take some time to download for the whole world. Since we only need a small area we can use the <code>tile_get</code> to determine what regions we need</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYm91bmRhcnkgPC0gZ2V0RGF0YShcIkdBRE1cIiwgY291bnRyeSA9IFwiTVhcIiwgbGV2ZWwgPSAwKVxudGlsZW5hbWVzIDwtIHRpbGVfbmFtZShib3VuZGFyeSwgbmFtZSA9ICd3b3JsZGNsaW0nKVxudGlsZW5hbWVzXG5cbnNldHdkKFwifi9Hb29nbGUgRHJpdmUgRmlsZSBTdHJlYW0vTXkgRHJpdmUvTGFuZ3VhZ2VfYXNzb2MvXCIpXG53Y3RpbGVzIDwtIHRpbGVfZ2V0KHRpbGVzID0gdGlsZW5hbWVzLCBuYW1lID0gJ3dvcmxkY2xpbScsIHZhciA9IFwiYmlvXCIpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYm91bmRhcnkgPC0gZ2V0RGF0YShcIkdBRE1cIiwgY291bnRyeSA9IFwiTVhcIiwgbGV2ZWwgPSAwKVxudGlsZW5hbWVzIDwtIHRpbGVfbmFtZShib3VuZGFyeSwgbmFtZSA9ICd3b3JsZGNsaW0nKVxudGlsZW5hbWVzXG5cbnNldHdkKFwifi9Hb29nbGUgRHJpdmUgRmlsZSBTdHJlYW0vTXkgRHJpdmUvTGFuZ3VhZ2VfYXNzb2MvXCIpXG4jd2N0aWxlcyA8LSB0aWxlX2dldCh0aWxlcyA9IHRpbGVuYW1lcywgbmFtZSA9ICd3b3JsZGNsaW0nLCB2YXIgPSBcImJpb1wiKVxuYGBgIn0= -->
 <pre class="r"><code>boundary &lt;- getData(&quot;GADM&quot;, country = &quot;MX&quot;, level = 0)
 tilenames &lt;- tile_name(boundary, name = &#39;worldclim&#39;)
 tilenames
 
 setwd(&quot;~/Google Drive File Stream/My Drive/Language_assoc/&quot;)
-wctiles &lt;- tile_get(tiles = tilenames, name = &#39;worldclim&#39;, var = &quot;bio&quot;)</code></pre>
+#wctiles &lt;- tile_get(tiles = tilenames, name = &#39;worldclim&#39;, var = &quot;bio&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<div id="merge-rasters-from-different-tiles" class="section level3">
+<h3>1.1.1 Merge rasters from different tiles</h3>
 <p>The command above will download to your current directory by creating a folder called wc0.5. Combine the three tiles for each bioclim variable</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS9cIilcbmBgYCJ9 -->
-<pre class="r"><code>setwd(&quot;~/Google Drive File Stream/My Drive/Language_assoc/wc0.5/&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIHdvcmtpbmcgZGlyZWN0b3J5IHdhcyBjaGFuZ2VkIHRvIC9Wb2x1bWVzL0dvb2dsZURyaXZlL015IERyaXZlL0xhbmd1YWdlX2Fzc29jL3djMC41IGluc2lkZSBhIG5vdGVib29rIGNodW5rLiBUaGUgd29ya2luZyBkaXJlY3Rvcnkgd2lsbCBiZSByZXNldCB3aGVuIHRoZSBjaHVuayBpcyBmaW5pc2hlZCBydW5uaW5nLiBVc2UgdGhlIGtuaXRyIHJvb3QuZGlyIG9wdGlvbiBpbiB0aGUgc2V0dXAgY2h1bmsgdG8gY2hhbmdlIHRoZSB3b3JraW5nIGRpcmVjdG9yeSBmb3Igbm90ZWJvb2sgY2h1bmtzLlxuIn0= -->
-<pre><code>The working directory was changed to /Volumes/GoogleDrive/My Drive/Language_assoc/wc0.5 inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuQWxsVGlsZXM8LXZlY3RvcihcImxpc3RcIiwxOSlcbmJpb2NsaW1zPC1wYXN0ZTAocmVwKFwiYmlvXCIsMTkpLHNlcSgxLDE5KSxcIl9cIilcblxuZm9yIChmIGluIDE6bGVuZ3RoKEFsbFRpbGVzKSl7XG4gIFxuICBjYXQoXCJ3b3JraW5nIG9uIGJpb0NsaW1cIiwgYmlvY2xpbXNbZl0sXCJcXG5cIilcbiAgYmlvPC1saXN0LmZpbGVzKFwiLi9cIixiaW9jbGltc1tmXSlcbiAgYmlvPC1iaW9bZ3JlcGwoXCIuYmlsXCIsYmlvKV1cbiAgYmlvPC1sYXBwbHkoYmlvLGZ1bmN0aW9uKFgpIHJhc3RlcihYKSlcbiAgQWxsVGlsZXNbW2ZdXTwtZG8uY2FsbChtZXJnZSxiaW8pXG59XG5gYGAifQ== -->
-<pre class="r"><code>AllTiles&lt;-vector(&quot;list&quot;,19)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJ+L0dvb2dsZSBEcml2ZS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS9cIilcblxuXG5BbGxUaWxlczwtdmVjdG9yKFwibGlzdFwiLDE5KVxuYmlvY2xpbXM8LXBhc3RlMChyZXAoXCJiaW9cIiwxOSksc2VxKDEsMTkpLFwiX1wiKVxuXG5mb3IgKGYgaW4gMTpsZW5ndGgoQWxsVGlsZXMpKXtcbiAgXG4gIGNhdChcIndvcmtpbmcgb24gYmlvQ2xpbVwiLCBiaW9jbGltc1tmXSxcIlxcblwiKVxuICBiaW88LWxpc3QuZmlsZXMoXCIuL1wiLGJpb2NsaW1zW2ZdKVxuICBiaW88LWJpb1tncmVwbChcIi5iaWxcIixiaW8pXVxuICBiaW88LWxhcHBseShiaW8sZnVuY3Rpb24oWCkgcmFzdGVyKFgpKVxuICBBbGxUaWxlc1tbZl1dPC1kby5jYWxsKG1lcmdlLGJpbylcbn1cblxubmFtZXMoQWxsVGlsZXMpPC1iaW9jbGltc1xuXG5gYGAifQ== -->
+<pre class="r"><code>setwd(&quot;~/Google Drive/My Drive/Language_assoc/wc0.5/&quot;)
+
+
+AllTiles&lt;-vector(&quot;list&quot;,19)
 bioclims&lt;-paste0(rep(&quot;bio&quot;,19),seq(1,19),&quot;_&quot;)
 
 for (f in 1:length(AllTiles)){
@@ -1864,86 +1862,63 @@ for (f in 1:length(AllTiles)){
   bio&lt;-bio[grepl(&quot;.bil&quot;,bio)]
   bio&lt;-lapply(bio,function(X) raster(X))
   AllTiles[[f]]&lt;-do.call(merge,bio)
-}</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoid29ya2luZyBvbiBiaW9DbGltIGJpbzFfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzJfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzNfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzRfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzVfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzZfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzdfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzhfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzlfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzEwXyBcbndvcmtpbmcgb24gYmlvQ2xpbSBiaW8xMV8gXG53b3JraW5nIG9uIGJpb0NsaW0gYmlvMTJfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzEzXyBcbndvcmtpbmcgb24gYmlvQ2xpbSBiaW8xNF8gXG53b3JraW5nIG9uIGJpb0NsaW0gYmlvMTVfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzE2XyBcbndvcmtpbmcgb24gYmlvQ2xpbSBiaW8xN18gXG53b3JraW5nIG9uIGJpb0NsaW0gYmlvMThfIFxud29ya2luZyBvbiBiaW9DbGltIGJpbzE5XyBcbiJ9 -->
-<pre><code>working on bioClim bio1_ 
-working on bioClim bio2_ 
-working on bioClim bio3_ 
-working on bioClim bio4_ 
-working on bioClim bio5_ 
-working on bioClim bio6_ 
-working on bioClim bio7_ 
-working on bioClim bio8_ 
-working on bioClim bio9_ 
-working on bioClim bio10_ 
-working on bioClim bio11_ 
-working on bioClim bio12_ 
-working on bioClim bio13_ 
-working on bioClim bio14_ 
-working on bioClim bio15_ 
-working on bioClim bio16_ 
-working on bioClim bio17_ 
-working on bioClim bio18_ 
-working on bioClim bio19_ </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMoQWxsVGlsZXMpPC1iaW9jbGltc1xuXG5gYGAifQ== -->
-<pre class="r"><code>names(AllTiles)&lt;-bioclims
+}
+
+names(AllTiles)&lt;-bioclims
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="checks" class="section level3">
+<h3>1.1.2 Checks</h3>
 <p>Check if stuff looks as expected</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChBbGxUaWxlc1tbMV1dKVxuYGBgIn0= -->
-<pre class="r"><code>plot(AllTiles[[1]])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Create a raster stack and extract values for all lat-longs each raster</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUzwtc3RhY2soQWxsVGlsZXMpXG5wdHM8LVNwYXRpYWxQb2ludHMoTGFuZHJhY2VbICxjKFwiTG9uZ2l0dWRlXCIsXCJMYXRpdHVkZVwiKV0pXG5jbGltPC1leHRyYWN0KFMscHRzKVxuY2xpbTwtY2JpbmQoTGFuZHJhY2UsY2xpbSlcbmBgYCJ9 -->
-<pre class="r"><code>S&lt;-stack(AllTiles)
-pts&lt;-SpatialPoints(Landrace[ ,c(&quot;Longitude&quot;,&quot;Latitude&quot;)])
-clim&lt;-extract(S,pts)
-clim&lt;-cbind(Landrace,clim)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChBbGxUaWxlc1tbMV1dKVxucG9pbnRzKHB0cyxjZXg9MC41KVxuYGBgIn0= -->
+<pre class="r"><code>plot(AllTiles[[1]])
+points(pts,cex=0.5)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="getting-language-data." class="section level1">
-<h1>Getting language data.</h1>
+</div>
+<div id="extract-values-from-raster" class="section level2">
+<h2>1.2 Extract values from raster</h2>
+<p>Create a raster stack and extract values for all lat-longs each raster</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUzwtc3RhY2soQWxsVGlsZXMpXG5wdHM8LVNwYXRpYWxQb2ludHMoTGFuZHJhY2VbICxjKFwibG9uZ2l0dWRlXCIsXCJsYXRpdHVkZVwiKV0pXG5jbGltPC1leHRyYWN0KFMscHRzKVxuY2xpbTwtY2JpbmQoTGFuZHJhY2UsY2xpbSlcbmNsaW08LWNsaW1bY29tcGxldGUuY2FzZXMoY2xpbSRUYXhvbklEKSwgXSAjanVzdCBkb3VibGUgY2hlY2tpbmdcbmBgYCJ9 -->
+<pre class="r"><code>S&lt;-stack(AllTiles)
+pts&lt;-SpatialPoints(Landrace[ ,c(&quot;longitude&quot;,&quot;latitude&quot;)])
+clim&lt;-extract(S,pts)
+clim&lt;-cbind(Landrace,clim)
+clim&lt;-clim[complete.cases(clim$TaxonID), ] #just double checking</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="getting-language-data" class="section level1">
+<h1>2 Getting language data</h1>
 <p>Here the data is of the from SpatialPolygons, so we use a different set of commands to read in the dataset</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvY1wiKVxuYGBgIn0= -->
-<pre class="r"><code>setwd(&quot;~/Google Drive File Stream/My Drive/Language_assoc&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVGhlIHdvcmtpbmcgZGlyZWN0b3J5IHdhcyBjaGFuZ2VkIHRvIC9Wb2x1bWVzL0dvb2dsZURyaXZlL015IERyaXZlL0xhbmd1YWdlX2Fzc29jIGluc2lkZSBhIG5vdGVib29rIGNodW5rLiBUaGUgd29ya2luZyBkaXJlY3Rvcnkgd2lsbCBiZSByZXNldCB3aGVuIHRoZSBjaHVuayBpcyBmaW5pc2hlZCBydW5uaW5nLiBVc2UgdGhlIGtuaXRyIHJvb3QuZGlyIG9wdGlvbiBpbiB0aGUgc2V0dXAgY2h1bmsgdG8gY2hhbmdlIHRoZSB3b3JraW5nIGRpcmVjdG9yeSBmb3Igbm90ZWJvb2sgY2h1bmtzLlxuIn0= -->
-<pre><code>The working directory was changed to /Volumes/GoogleDrive/My Drive/Language_assoc inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGFuZzwtcmVhZE9HUihkc249cGF0aC5leHBhbmQoXCJpbmRpZ2Vub3VzTGFuZ3VhZ2VzXCIpKVxuYGBgIn0= -->
-<pre class="r"><code>lang&lt;-readOGR(dsn=path.expand(&quot;indigenousLanguages&quot;))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiT0dSIGRhdGEgc291cmNlIHdpdGggZHJpdmVyOiBFU1JJIFNoYXBlZmlsZSBcblNvdXJjZTogXCIvVm9sdW1lcy9Hb29nbGVEcml2ZS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9pbmRpZ2Vub3VzTGFuZ3VhZ2VzXCIsIGxheWVyOiBcImluZGlnZW5vdXNMYW5ndWFnZXNcIlxud2l0aCA5MzggZmVhdHVyZXNcbkl0IGhhcyA3IGZpZWxkc1xuIn0= -->
-<pre><code>OGR data source with driver: ESRI Shapefile 
-Source: &quot;/Volumes/GoogleDrive/My Drive/Language_assoc/indigenousLanguages&quot;, layer: &quot;indigenousLanguages&quot;
-with 938 features
-It has 7 fields</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG9seXMgPSBhdHRyKGxhbmcsJ3BvbHlnb25zJylcbm5hbWVzKHBvbHlzKTwtbGFuZyROYW1lXG5cblxuYGBgIn0= -->
-<pre class="r"><code>polys = attr(lang,&#39;polygons&#39;)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJ+L0dvb2dsZSBEcml2ZS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9cIilcbmxhbmc8LXJlYWRPR1IoZHNuPXBhdGguZXhwYW5kKFwiaW5kaWdlbm91c0xhbmd1YWdlc1wiKSlcbnBvbHlzID0gYXR0cihsYW5nLCdwb2x5Z29ucycpXG5uYW1lcyhwb2x5cyk8LWxhbmckTmFtZVxuXG5cbmBgYCJ9 -->
+<pre class="r"><code>setwd(&quot;~/Google Drive/My Drive/Language_assoc/&quot;)
+lang&lt;-readOGR(dsn=path.expand(&quot;indigenousLanguages&quot;))
+polys = attr(lang,&#39;polygons&#39;)
 names(polys)&lt;-lang$Name
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<div id="pulling-out-languages-by-each-point" class="section level2">
+<h2>2.1 Pulling out languages by each point</h2>
 <p>Determine if point is within a polygon</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubnBvbHlzID0gbGVuZ3RoKHBvbHlzKVxucG9seUlEPC12ZWN0b3IoXCJsaXN0XCIsbnBvbHlzKVxuZm9yIChpIGluIDE6bnBvbHlzKXtcbiAgcG9seSA9IHBvbHlzW1tpXV1cbiAgcG9seXMyID0gYXR0cihwb2x5LCdQb2x5Z29ucycpXG4gIG5wb2x5czIgPSBsZW5ndGgocG9seXMyKVxuICBmb3IgKGogaW4gMTpucG9seXMyKXtcbiAgICAgXG4gICAgIGNvb3JkcyA9IGNvb3JkaW5hdGVzKHBvbHlzMltbal1dKVxuICAgICBvdXQ8LXBvaW50LmluLnBvbHlnb24oTGFuZHJhY2UkTG9uZ2l0dWRlLExhbmRyYWNlJExhdGl0dWRlLGNvb3Jkc1sgLDFdLGNvb3Jkc1sgLDJdKVxuICAgICBcbiAgfVxuICBwb2x5SURbW2ldXTwtb3V0XG4gIFxuICBcbn1cbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubnBvbHlzID0gbGVuZ3RoKHBvbHlzKVxucG9seUlEPC12ZWN0b3IoXCJsaXN0XCIsbnBvbHlzKVxuZm9yIChpIGluIDE6bnBvbHlzKXtcbiAgcG9seSA9IHBvbHlzW1tpXV1cbiAgcG9seXMyID0gYXR0cihwb2x5LCdQb2x5Z29ucycpXG4gIG5wb2x5czIgPSBsZW5ndGgocG9seXMyKVxuICBmb3IgKGogaW4gMTpucG9seXMyKXtcbiAgICAgXG4gICAgIGNvb3JkcyA9IGNvb3JkaW5hdGVzKHBvbHlzMltbal1dKVxuICAgICBvdXQ8LXBvaW50LmluLnBvbHlnb24oTGFuZHJhY2UkbG9uZ2l0dWRlLExhbmRyYWNlJGxhdGl0dWRlLGNvb3Jkc1sgLDFdLGNvb3Jkc1sgLDJdKVxuICAgICBcbiAgfVxuICBwb2x5SURbW2ldXTwtb3V0XG4gIFxuICBcbn1cbmBgYCJ9 -->
 <pre class="r"><code>npolys = length(polys)
 polyID&lt;-vector(&quot;list&quot;,npolys)
 for (i in 1:npolys){
@@ -1953,7 +1928,7 @@ for (i in 1:npolys){
   for (j in 1:npolys2){
      
      coords = coordinates(polys2[[j]])
-     out&lt;-point.in.polygon(Landrace$Longitude,Landrace$Latitude,coords[ ,1],coords[ ,2])
+     out&lt;-point.in.polygon(Landrace$longitude,Landrace$latitude,coords[ ,1],coords[ ,2])
      
   }
   polyID[[i]]&lt;-out
@@ -1963,120 +1938,100 @@ for (i in 1:npolys){
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Extract the language of the sample location &amp; keep only languages are present in atleast one location</p>
+<p>Extract the language of the sample location &amp; keep only languages that are present in atleast one location Also check if there are any samples that don’t fall in any of the polygons</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMocG9seUlEKTwtbGFuZyROYW1lXG5wb2x5SUQ8LWRvLmNhbGwoY2JpbmQscG9seUlEKVxucG9seUlEX3ByPC1wb2x5SURbICxjb2xTdW1zKHBvbHlJRCkhPTBdXG5yb3duYW1lcyhwb2x5SURfcHIpPC1MYW5kcmFjZSRHQlMuVGF4b24uSURcbmhlYWQocG9seUlEX3ByKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubmFtZXMocG9seUlEKTwtbGFuZyROYW1lXG5wb2x5SUQ8LWRvLmNhbGwoY2JpbmQscG9seUlEKVxuXG5wb2x5SURfcHI8LXBvbHlJRFsgLGNvbFN1bXMocG9seUlEKSE9MF1cbnJvd25hbWVzKHBvbHlJRF9wcik8LUxhbmRyYWNlJFRheG9uSURcbnBvbHlJRF9wcjwtcG9seUlEX3ByW3Jvd1N1bXMocG9seUlEX3ByKSE9MCwgXVxuaGVhZChwb2x5SURfcHIpXG4jd3JpdGUudGFibGUocG9seUlEX3ByLGZpbGU9XCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5ndWFnZXNCeUxhbmRyYWNlLnR4dFwiLHNlcD1cIlxcdFwiLHJvdy5uYW1lcyA9IFQscXVvdGU9RilcbmBgYCJ9 -->
 <pre class="r"><code>names(polyID)&lt;-lang$Name
 polyID&lt;-do.call(cbind,polyID)
+
 polyID_pr&lt;-polyID[ ,colSums(polyID)!=0]
-rownames(polyID_pr)&lt;-Landrace$GBS.Taxon.ID
-head(polyID_pr)</code></pre>
+rownames(polyID_pr)&lt;-Landrace$TaxonID
+polyID_pr&lt;-polyID_pr[rowSums(polyID_pr)!=0, ]
+head(polyID_pr)
+#write.table(polyID_pr,file=&quot;~/Google Drive File Stream/My Drive/Language_assoc/LanguagesByLandrace.txt&quot;,sep=&quot;\t&quot;,row.names = T,quote=F)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgICAgICAgICAgICAgIEd1YXJhbmkgVGVwZWh1w6FuIChOb3J0aGVybikgS+KAmWljaGXigJkgUXVlY2h1YSBHdWFtYXJlcyBRdWVjaHVhIFpvcXVlIFBvcW9tY2hp4oCZIFRlY3VleGUgTmFodWF0bCBUb3RvcmFtZXMgTWFtXG4xM1MwNTg5MDIuMjUwMzk0NDEyICAgICAgICAgMCAgICAgICAgICAgICAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgMCAgICAgICAwICAgICAwICAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgICAxICAgMFxuMTNTMDU4OTA0LjI1MDM5NDQxMyAgICAgICAgIDAgICAgICAgICAgICAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgIDAgICAgICAgMCAgICAgMCAgICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAgMSAgIDBcbjEzUzA1ODkwNS4yNTAzOTQ0MTQgICAgICAgICAwICAgICAgICAgICAgICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgIDAgICAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgIDEgICAwXG5SSU1NQTA2OTYuMS4yNTAwNDkxMjUgICAgICAgMCAgICAgICAgICAgICAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgMCAgICAgICAwICAgICAwICAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgICAwICAgMFxuUklNTUEwNzAzLjEuMjUwMDQ5MjA2ICAgICAgIDAgICAgICAgICAgICAgICAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgIDAgICAgICAgMCAgICAgMCAgICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgIDBcblJJTU1BMDcyMC4xLjI1MDA0OTE0NyAgICAgICAwICAgICAgICAgICAgICAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgIDAgICAgICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgIDAgICAwXG4gICAgICAgICAgICAgICAgICAgICAgVGVwZWh1w6FuIFlhcXVpIFRvdG9uYWMgTmFodWF0bCBDaOKAmW9ydGnigJkgUHVyZXBlY2hhIEd1bmEgKER1bGUpIFRvdG9uYWNvIFRhcGFjaHVsdGVjbyAobWl4ZS16b3F1ZSkgQ2F4Y2FuXG4xM1MwNTg5MDIuMjUwMzk0NDEyICAgICAgICAgIDAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAwICAgICAgICAgMCAgICAgICAgICAgMCAgICAgICAgMCAgICAgICAgICAgICAgICAgICAgICAgICAwICAgICAgMFxuMTNTMDU4OTA0LjI1MDM5NDQxMyAgICAgICAgICAwICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgMCAgICAgICAgIDAgICAgICAgICAgIDAgICAgICAgIDAgICAgICAgICAgICAgICAgICAgICAgICAgMCAgICAgIDBcbjEzUzA1ODkwNS4yNTAzOTQ0MTQgICAgICAgICAgMCAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgIDAgICAgICAgICAwICAgICAgICAgICAwICAgICAgICAwICAgICAgICAgICAgICAgICAgICAgICAgIDAgICAgICAwXG5SSU1NQTA2OTYuMS4yNTAwNDkxMjUgICAgICAgIDAgICAgIDAgICAgICAgMCAgICAgICAwICAgICAgICAwICAgICAgICAgMCAgICAgICAgICAgMCAgICAgICAgMCAgICAgICAgICAgICAgICAgICAgICAgICAwICAgICAgMFxuUklNTUEwNzAzLjEuMjUwMDQ5MjA2ICAgICAgICAwICAgICAwICAgICAgIDAgICAgICAgMCAgICAgICAgMCAgICAgICAgIDAgICAgICAgICAgIDAgICAgICAgIDAgICAgICAgICAgICAgICAgICAgICAgICAgMCAgICAgIDBcblJJTU1BMDcyMC4xLjI1MDA0OTE0NyAgICAgICAgMCAgICAgMCAgICAgICAwICAgICAgIDAgICAgICAgIDAgICAgICAgICAwICAgICAgICAgICAwICAgICAgICAwICAgICAgICAgICAgICAgICAgICAgICAgIDAgICAgICAwXG4gICAgICAgICAgICAgICAgICAgICAgTmFodWF0bCBQb3FvbWFtIEthcWNoaWtlbCBPdG9taSBNYXlhIFl1Y2F0ZWNvIE1heW8gV2F5dXUgVGFtYXVsaXBlY28gdHJpYmVzIFJhcmFtdXJpIFR6b3R6aWwgQ2FoaXRhIE90b21pXG4xM1MwNTg5MDIuMjUwMzk0NDEyICAgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAwICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG4xM1MwNTg5MDQuMjUwMzk0NDEzICAgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAwICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG4xM1MwNTg5MDUuMjUwMzk0NDE0ICAgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAwICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG5SSU1NQTA2OTYuMS4yNTAwNDkxMjUgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAwICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG5SSU1NQTA3MDMuMS4yNTAwNDkyMDYgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAxICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG5SSU1NQTA3MjAuMS4yNTAwNDkxNDcgICAgICAgMCAgICAgICAwICAgICAgICAgMCAgICAgMCAgICAgICAgICAgICAwICAgIDAgICAgIDAgICAgICAgICAgICAgICAgICAwICAgICAgICAwICAgICAgIDAgICAgICAwICAgICAwXG4gICAgICAgICAgICAgICAgICAgICAgWmFwb3RlY28gUeKAmWVxY2hp4oCZIE9vYiBObydvayAoTG93ZXIgUGltYSlcbjEzUzA1ODkwMi4yNTAzOTQ0MTIgICAgICAgICAgMCAgICAgICAgMCAgICAgICAgICAgICAgICAgICAgICAwXG4xM1MwNTg5MDQuMjUwMzk0NDEzICAgICAgICAgIDAgICAgICAgIDAgICAgICAgICAgICAgICAgICAgICAgMFxuMTNTMDU4OTA1LjI1MDM5NDQxNCAgICAgICAgICAwICAgICAgICAwICAgICAgICAgICAgICAgICAgICAgIDBcblJJTU1BMDY5Ni4xLjI1MDA0OTEyNSAgICAgICAgMCAgICAgICAgMSAgICAgICAgICAgICAgICAgICAgICAwXG5SSU1NQTA3MDMuMS4yNTAwNDkyMDYgICAgICAgIDAgICAgICAgIDAgICAgICAgICAgICAgICAgICAgICAgMFxuUklNTUEwNzIwLjEuMjUwMDQ5MTQ3ICAgICAgICAwICAgICAgICAxICAgICAgICAgICAgICAgICAgICAgIDBcbiJ9 -->
-<pre><code>                      Guarani Tepehuán (Northern) K’iche’ Quechua Guamares Quechua Zoque Poqomchi’ Tecuexe Nahuatl Totorames Mam
-13S058902.250394412         0                   0       0       0        0       0     0         0       0       0         1   0
-13S058904.250394413         0                   0       0       0        0       0     0         0       0       0         1   0
-13S058905.250394414         0                   0       0       0        0       0     0         0       0       0         1   0
-RIMMA0696.1.250049125       0                   0       0       0        0       0     0         0       0       0         0   0
-RIMMA0703.1.250049206       0                   0       0       0        0       0     0         0       0       0         0   0
-RIMMA0720.1.250049147       0                   0       0       0        0       0     0         0       0       0         0   0
-                      Tepehuán Yaqui Totonac Nahuatl Ch’orti’ Purepecha Guna (Dule) Totonaco Tapachulteco (mixe-zoque) Caxcan
-13S058902.250394412          0     0       0       0        0         0           0        0                         0      0
-13S058904.250394413          0     0       0       0        0         0           0        0                         0      0
-13S058905.250394414          0     0       0       0        0         0           0        0                         0      0
-RIMMA0696.1.250049125        0     0       0       0        0         0           0        0                         0      0
-RIMMA0703.1.250049206        0     0       0       0        0         0           0        0                         0      0
-RIMMA0720.1.250049147        0     0       0       0        0         0           0        0                         0      0
-                      Nahuatl Poqomam Kaqchikel Otomi Maya Yucateco Mayo Wayuu Tamaulipeco tribes Raramuri Tzotzil Cahita Otomi
-13S058902.250394412         0       0         0     0             0    0     0                  0        0       0      0     0
-13S058904.250394413         0       0         0     0             0    0     0                  0        0       0      0     0
-13S058905.250394414         0       0         0     0             0    0     0                  0        0       0      0     0
-RIMMA0696.1.250049125       0       0         0     0             0    0     0                  0        0       0      0     0
-RIMMA0703.1.250049206       0       0         0     0             1    0     0                  0        0       0      0     0
-RIMMA0720.1.250049147       0       0         0     0             0    0     0                  0        0       0      0     0
-                      Zapoteco Q’eqchi’ Oob No&#39;ok (Lower Pima)
-13S058902.250394412          0        0                      0
-13S058904.250394413          0        0                      0
-13S058905.250394414          0        0                      0
-RIMMA0696.1.250049125        0        1                      0
-RIMMA0703.1.250049206        0        0                      0
-RIMMA0720.1.250049147        0        1                      0</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud3JpdGUudGFibGUocG9seUlEX3ByLGZpbGU9XCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5ndWFnZXNCeUxhbmRyYWNlLnR4dFwiLHNlcD1cIlxcdFwiLHJvdy5uYW1lcyA9IFQscXVvdGU9RilcblxuYGBgIn0= -->
-<pre class="r"><code>write.table(polyID_pr,file=&quot;~/Google Drive File Stream/My Drive/Language_assoc/LanguagesByLandrace.txt&quot;,sep=&quot;\t&quot;,row.names = T,quote=F)
-</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="check-that-the-dimensions-of-the-two-datasets-are-equal.-if-not-adjust-it" class="section level1">
+<h1>3. Check that the dimensions of the two datasets are equal. If not adjust it</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubnJvdyhwb2x5SURfcHIpPT1ucm93KGNsaW0pXG5gYGAifQ== -->
+<pre class="r"><code>nrow(polyID_pr)==nrow(clim)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
 <div id="caluclate-distance-measures-for-all-our-covariates" class="section level1">
-<h1>Caluclate distance measures for all our covariates</h1>
-<ol style="list-style-type: decimal">
-<li>Distance for climate data. This is numeric continous. We only need the 19 bioclims and elevation and we will use euclidean distance.</li>
-</ol>
+<h1>4. Caluclate distance measures for all our covariates</h1>
+<div id="climate-data" class="section level2">
+<h2>4.1 Climate data</h2>
+<p>Distance for climate data. This is numeric continuous. We only need the 19 bioclims and elevation and we will use euclidean distance.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2xpbU9ubHk8LWNsaW1bICwtYygxOjUsNzoxMCldXG5oZWFkKGNsaW1Pbmx5KVxuYGBgIn0= -->
-<pre class="r"><code>climOnly&lt;-clim[ ,-c(1:5,7:10)]
-head(climOnly)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5jbGltT25seTwtY2xpbVsgLC1jKDE6MTIpXVxuY2xpbU9ubHlfc2M8LXNjYWxlKGNsaW1Pbmx5LHNjYWxlID0gVCxjZW50ZXIgPSBUKVxuaGVhZChjbGltT25seSlcbiNyb3duYW1lcyhjbGltT25seSk8LWNsaW0kR0JTLlRheG9uLklEXG5jbGltLmRpc3Q8LWRpc3QoY2xpbU9ubHksbWV0aG9kID0gXCJldWNsaWRlYW5cIilcblxuI2NvbnZlcnQgdG8gc3F1YXJlIG1hdHJpeFxuY2xpbS5kaXN0PC1hcy5tYXRyaXgoY2xpbS5kaXN0KVxuYGBgIn0= -->
+<pre class="r"><code>
+climOnly&lt;-clim[ ,-c(1:12)]
+climOnly_sc&lt;-scale(climOnly,scale = T,center = T)
+head(climOnly)
+#rownames(climOnly)&lt;-clim$GBS.Taxon.ID
+clim.dist&lt;-dist(climOnly,method = &quot;euclidean&quot;)
+
+#convert to square matrix
+clim.dist&lt;-as.matrix(clim.dist)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6NiwibmNvbCI6MjB9LCJyZGYiOiJINHNJQUFBQUFBQUFBMldVUFc4VFFSQ0dONWVjU1N3bEJKRWFwWVBHVmh6bnc2bHlrWUFDSVRCUmdpSkE0UE5INGd2bjI3VjlGaEVJWkJvYUdrdFVDQ1FRQlJVRlB5RS9nWXFLSWo4aEpWVmcxek5yN2N5ZHRIcjJuZDEzZG1aUDJ0MmJCK1g4UVY0SU1TMW1oQ2VtZlQwVi92N2U3VUpGaUJsUGl5bTlNR2Q0b2pkZDFaTWxQZWIxeU9seHhSblhjRnpYWThHc0IzTFpaQk5aMW9CcUVUa1UrSUh2U1FCeHpvZXdLYWpCL21DZitlN2hlb2E0L3dIcWFrQjkzMzlEblBQVEh2RExEK0RIdTlTWGZvVjRoaXZBd1RtSlQzemhHY1E1RDJ2QXhpbXdmVXA5UjdqT1djZSsyc3RBdkorSnI0djljeXJjMzdVTXFLK0RkWEJLUEsrRC9Tcm02NDR3SDZNNlIxMUZLdW83aGp3WnhwWllkeUtvYjRUMWMzNytBL3dRQTcvVnFFOWkvWndLKzR3d1QzOUVmTnZRaHVBTWJpRjNzTTdkZ0o3M0NQdmd2SU8rK3piUGtQcmV6VUk4dzcvQUlSUVF2R2Y5M2NCOG5IWHM4ekgyR1o5UjM5c1RpSE8rUXQ5cjdPL05UK3FyWWo1T05RSSt4Zk5mL2tJYmVXRDhKT3kwK25xeUtNd2pBOEhablRpTjBrR3paVGZWSTFsNjVvaFZWNVJkc2VhS2RWZHN1R0xURlJWWGJGbVJNNGV1RUZVaWFwV29NbEZyUkswVHRVSFVKbEVWb25RdDlMYm1ldkpGMGQ2WWVZNDkrQ25tV2FiWDJvakR2cjFXRzh3M3d6UXNIdmEwWDZzTFpya2tWUnJKUkpzODgrRDd6RHpWWTRITGc4UlUwaXcwMm9Qa2VhRmtEaGd2dzVoSDVwejVFaHpwL2NOVXZtMjJsUnhGeWVSdngyRzlGYU5ZMEIyUEd5NnFYcFNrdGhNZDdSZFRtWVoyWDc0aFl4c1o5eVl1L2dNWDl0SW01d1lBQUE9PSJ9 -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["Altitude"],"name":[1],"type":["int"],"align":["right"]},{"label":["bio1_"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["bio2_"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["bio3_"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["bio4_"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["bio5_"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["bio6_"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["bio7_"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["bio8_"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["bio9_"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["bio10_"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["bio11_"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["bio12_"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["bio13_"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["bio14_"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["bio15_"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["bio16_"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["bio17_"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["bio18_"],"name":[19],"type":["dbl"],"align":["right"]},{"label":["bio19_"],"name":[20],"type":["dbl"],"align":["right"]}],"data":[{"1":"17","2":"249","3":"113","4":"60","5":"2923","6":"330","7":"143","8":"187","9":"280","10":"238","11":"281","12":"210","13":"1032","14":"253","15":"1","16":"105","17":"705","18":"12","19":"559","20":"67","_rn_":"1"},{"1":"17","2":"249","3":"113","4":"60","5":"2923","6":"330","7":"143","8":"187","9":"280","10":"238","11":"281","12":"210","13":"1032","14":"253","15":"1","16":"105","17":"705","18":"12","19":"559","20":"67","_rn_":"2"},{"1":"17","2":"249","3":"113","4":"60","5":"2923","6":"330","7":"143","8":"187","9":"280","10":"238","11":"281","12":"210","13":"1032","14":"253","15":"1","16":"105","17":"705","18":"12","19":"559","20":"67","_rn_":"3"},{"1":"30","2":"251","3":"88","4":"61","5":"1749","6":"323","7":"179","8":"144","9":"258","10":"248","11":"271","12":"226","13":"1847","14":"268","15":"42","16":"52","17":"735","18":"149","19":"442","20":"265","_rn_":"4"},{"1":"30","2":"257","3":"132","4":"68","5":"2027","6":"351","7":"158","8":"193","9":"274","10":"237","11":"277","12":"228","13":"1243","14":"201","15":"35","16":"62","17":"542","18":"111","19":"472","20":"120","_rn_":"5"},{"1":"39","2":"264","3":"86","4":"65","5":"1619","6":"330","7":"198","8":"132","9":"276","10":"260","11":"279","12":"240","13":"2352","14":"313","15":"73","16":"43","17":"876","18":"231","19":"491","20":"429","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10],"total":[20]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucm93bmFtZXMoY2xpbU9ubHkpPC1jbGltJEdCUy5UYXhvbi5JRFxuY2xpbS5kaXN0PC1kaXN0KGNsaW1Pbmx5LG1ldGhvZCA9IFwiZXVjbGlkZWFuXCIpXG5gYGAifQ== -->
-<pre class="r"><code>rownames(climOnly)&lt;-clim$GBS.Taxon.ID
-clim.dist&lt;-dist(climOnly,method = &quot;euclidean&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRm91bmQgbW9yZSB0aGFuIG9uZSBjbGFzcyBcImRpc3RcIiBpbiBjYWNoZTsgdXNpbmcgdGhlIGZpcnN0LCBmcm9tIG5hbWVzcGFjZSAnQmlvY0dlbmVyaWNzJ1xuQWxzbyBkZWZpbmVkIGJ5IOKAmHNwYW3igJlcbkZvdW5kIG1vcmUgdGhhbiBvbmUgY2xhc3MgXCJkaXN0XCIgaW4gY2FjaGU7IHVzaW5nIHRoZSBmaXJzdCwgZnJvbSBuYW1lc3BhY2UgJ0Jpb2NHZW5lcmljcydcbkFsc28gZGVmaW5lZCBieSDigJhzcGFt4oCZXG5Gb3VuZCBtb3JlIHRoYW4gb25lIGNsYXNzIFwiZGlzdFwiIGluIGNhY2hlOyB1c2luZyB0aGUgZmlyc3QsIGZyb20gbmFtZXNwYWNlICdCaW9jR2VuZXJpY3MnXG5BbHNvIGRlZmluZWQgYnkg4oCYc3BhbeKAmVxuRm91bmQgbW9yZSB0aGFuIG9uZSBjbGFzcyBcImRpc3RcIiBpbiBjYWNoZTsgdXNpbmcgdGhlIGZpcnN0LCBmcm9tIG5hbWVzcGFjZSAnQmlvY0dlbmVyaWNzJ1xuQWxzbyBkZWZpbmVkIGJ5IOKAmHNwYW3igJlcbkZvdW5kIG1vcmUgdGhhbiBvbmUgY2xhc3MgXCJkaXN0XCIgaW4gY2FjaGU7IHVzaW5nIHRoZSBmaXJzdCwgZnJvbSBuYW1lc3BhY2UgJ0Jpb2NHZW5lcmljcydcbkFsc28gZGVmaW5lZCBieSDigJhzcGFt4oCZXG4ifQ== -->
-<pre><code>Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
-Also defined by ‘spam’
-Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
-Also defined by ‘spam’
-Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
-Also defined by ‘spam’
-Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
-Also defined by ‘spam’
-Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
-Also defined by ‘spam’</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2xpbS5kaXN0PC1hcy5tYXRyaXgoY2xpbS5kaXN0KVxuYGBgIn0= -->
-<pre class="r"><code>clim.dist&lt;-as.matrix(clim.dist)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRm91bmQgbW9yZSB0aGFuIG9uZSBjbGFzcyBcImRpc3RcIiBpbiBjYWNoZTsgdXNpbmcgdGhlIGZpcnN0LCBmcm9tIG5hbWVzcGFjZSAnQmlvY0dlbmVyaWNzJ1xuQWxzbyBkZWZpbmVkIGJ5IOKAmHNwYW3igJlcbkZvdW5kIG1vcmUgdGhhbiBvbmUgY2xhc3MgXCJkaXN0XCIgaW4gY2FjaGU7IHVzaW5nIHRoZSBmaXJzdCwgZnJvbSBuYW1lc3BhY2UgJ0Jpb2NHZW5lcmljcydcbkFsc28gZGVmaW5lZCBieSDigJhzcGFt4oCZXG4ifQ== -->
-<pre><code>Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
-Also defined by ‘spam’
-Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;BiocGenerics&#39;
-Also defined by ‘spam’</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<ol start="2" style="list-style-type: decimal">
-<li>Distance metric to use for ordinal data such as the 0,1,2,3 from language. Several approaches : -Recode 0 as 4 and use kendall distance. -Recode all values other than 1 to 0 and use euclidean -Recode 2 &amp; 3 as 0.5 and then use euclidean</li>
-</ol>
-<p><em>Let’s go with the 3rd approach for now</em></p>
-<ol start="3" style="list-style-type: decimal">
-<li>Geodesic Distance metric for lat-long on WGS84</li>
-</ol>
+</div>
+<div id="altitude-as-this-has-been-shown-to-be-imp-for-maize" class="section level2">
+<h2>4.2 Altitude (as this has been shown to be imp for Maize)</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGYgPSBjbGltWyAsYyhcIkxvbmdpdHVkZVwiLFwiTGF0aXR1ZGVcIildICMgdGhlIG9yZGVyIHNob3VsZCBiZSBsb25naXR1ZGUsIGxhdGl0dWRlXG5HZW9EaXN0PC1kaXN0bShkZiwgZGYsIGRpc3RHZW8pXG5yb3duYW1lcyhHZW9EaXN0KTwtY29sbmFtZXMoR2VvRGlzdClcbmRpbShHZW9EaXN0KVxuYGBgIn0= -->
-<pre class="r"><code>df = clim[ ,c(&quot;Longitude&quot;,&quot;Latitude&quot;)] # the order should be longitude, latitude
-GeoDist&lt;-distm(df, df, distGeo)
-rownames(GeoDist)&lt;-colnames(GeoDist)
-dim(GeoDist)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYWx0PC1jbGltJGVsZXZhdGlvblxuYWx0PC1zY2FsZShhbHQsY2VudGVyID0gVCxzY2FsZSA9IFQpXG5hbHQuZGlzdDwtZGlzdChhbHQsbWV0aG9kPVwiZXVjbGlkZWFuXCIpXG5hbHQuZGlzdDwtYXMubWF0cml4KGFsdC5kaXN0KVxuYGBgIn0= -->
+<pre class="r"><code>alt&lt;-clim$elevation
+alt&lt;-scale(alt,center = T,scale = T)
+alt.dist&lt;-dist(alt,method=&quot;euclidean&quot;)
+alt.dist&lt;-as.matrix(alt.dist)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI5NCAyOTRcbiJ9 -->
-<pre><code>[1] 294 294</code></pre>
-<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="language-data" class="section level2">
+<h2>4.3 Language data</h2>
+<p>Distance metric to use for ordinal data such as the 0,1,2,3 from language. Several approaches : -Recode 0 as 4 and use kendall distance. -Recode all values other than 1 to 0 and use euclidean -Recode 2 &amp; 3 as 0.5 and then use euclidean, 0 is 0 and 1 is 1.</p>
+<p><em>Let’s go with the 3rd approach for now</em></p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG9seUlEX3ByW3BvbHlJRF9wcj09Ml08LTAuNVxucG9seUlEX3ByW3BvbHlJRF9wcj09M108LTAuNVxuXG5sYW5nLmRpc3Q8LWRpc3QocG9seUlEX3ByLG1ldGhvZD1cImV1Y2xpZGVhblwiKVxubGFuZy5kaXN0PC1hcy5tYXRyaXgobGFuZy5kaXN0KVxuYGBgIn0= -->
+<pre class="r"><code>polyID_pr[polyID_pr==2]&lt;-0.5
+polyID_pr[polyID_pr==3]&lt;-0.5
+
+lang.dist&lt;-dist(polyID_pr,method=&quot;euclidean&quot;)
+lang.dist&lt;-as.matrix(lang.dist)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="geography" class="section level2">
+<h2>4.4 Geography</h2>
+<p>Geodesic Distance metric for lat-long on WGS84</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGYgPSBjbGltWyAsYyhcImxvbmdpdHVkZVwiLFwibGF0aXR1ZGVcIildICMgdGhlIG9yZGVyIHNob3VsZCBiZSBsb25naXR1ZGUsIGxhdGl0dWRlXG5HZW9EaXN0PC1kaXN0bShkZiwgZGYsIGRpc3RHZW8pXG4jcm93bmFtZXMoR2VvRGlzdCk8LWNvbG5hbWVzKEdlb0Rpc3QpXG5kaW0oR2VvRGlzdClcblxuXG5gYGAifQ== -->
+<pre class="r"><code>df = clim[ ,c(&quot;longitude&quot;,&quot;latitude&quot;)] # the order should be longitude, latitude
+GeoDist&lt;-distm(df, df, distGeo)
+#rownames(GeoDist)&lt;-colnames(GeoDist)
+dim(GeoDist)
+</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRXh0cmFjdGluZyBkYXRhIGZyb20gcmFzdGVyIGFuZCBmcm9tIHBvbHlnb25zIgpEYXRlOiAxOS1qYW4Kb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCgpgYGB7cn0KbGlicmFyeShyYXN0ZXIpCmxpYnJhcnkoc3ApCmxpYnJhcnkocmdkYWwpCmxpYnJhcnkocmdlb3MpCmxpYnJhcnkocHJldlIpCmxpYnJhcnkoYW1hcCkKbGlicmFyeShnZW9zcGhlcmUpCgojaW5zdGFsbC5wYWNrYWdlcygicmVtb3RlcyIpCiNyZW1vdGVzOjppbnN0YWxsX2dpdGh1Yigia2FwaXR6YXMvV29ybGRDbGltVGlsZXMiKQpsaWJyYXJ5KFdvcmxkQ2xpbVRpbGVzKSAjaWYgbm90IGluc3RhbGwgdW5jb21tZW50IHRoZSBhYm92ZSB0d28gbGluZXMgYW5kIHJ1biB0aGVtIGZpcnN0CmBgYAoKTG9hZCBpbiB5b3VyIGRhdGFzZXQgY29udGFpbmluZyBsYXQtbG9uZyBpbmZvcm1hdGlvbgpgYGB7cn0KTGFuZHJhY2U8LXJlYWQuY3N2KCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5kcmFjZUluZm8uY3N2IikKCmBgYAoKIyBHZXR0aW5nIHdvcmxkQ2xpbSBiaW9jbGltIGRhdGEgZG93bmxvYWRlZCAjCgoqU2VlIGhlcmUgZm9yIHdoYXQgdGhlIHZhcmlhYmxlcyBtZWFuOiBodHRwczovL3dvcmxkY2xpbS5vcmcvZGF0YS9iaW9jbGltLmh0bWwqCkRhdGEgbmVlZHMgdG8gYmUgZG93bmxvYWRlZCBmb3IgMzAgYXJjIHNlYyB0byB5b3VyIHBlcnNvbmFsIGxhcHRvcC4gVGhpcyBpcyB0aGUgZmluZXN0IHJlc29sdXRpb24gYXZhaWxhYmxlIGFuZCB3aWxsIHRha2Ugc29tZSB0aW1lIHRvIGRvd25sb2FkIGZvciB0aGUgd2hvbGUgd29ybGQuIFNpbmNlIHdlIG9ubHkgbmVlZCBhIHNtYWxsIGFyZWEgd2UgY2FuIHVzZSB0aGUgYHRpbGVfZ2V0YCB0byBkZXRlcm1pbmUgd2hhdCByZWdpb25zIHdlIG5lZWQKCmBgYHtyfQpib3VuZGFyeSA8LSBnZXREYXRhKCJHQURNIiwgY291bnRyeSA9ICJNWCIsIGxldmVsID0gMCkKdGlsZW5hbWVzIDwtIHRpbGVfbmFtZShib3VuZGFyeSwgbmFtZSA9ICd3b3JsZGNsaW0nKQp0aWxlbmFtZXMKCnNldHdkKCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy8iKQp3Y3RpbGVzIDwtIHRpbGVfZ2V0KHRpbGVzID0gdGlsZW5hbWVzLCBuYW1lID0gJ3dvcmxkY2xpbScsIHZhciA9ICJiaW8iKQpgYGAKClRoZSBjb21tYW5kIGFib3ZlIHdpbGwgZG93bmxvYWQgdG8geW91ciBjdXJyZW50IGRpcmVjdG9yeSBieSBjcmVhdGluZyBhIGZvbGRlciBjYWxsZWQgd2MwLjUuCkNvbWJpbmUgdGhlIHRocmVlIHRpbGVzIGZvciBlYWNoIGJpb2NsaW0gdmFyaWFibGUKYGBge3J9CnNldHdkKCJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy93YzAuNS8iKQoKCkFsbFRpbGVzPC12ZWN0b3IoImxpc3QiLDE5KQpiaW9jbGltczwtcGFzdGUwKHJlcCgiYmlvIiwxOSksc2VxKDEsMTkpLCJfIikKCmZvciAoZiBpbiAxOmxlbmd0aChBbGxUaWxlcykpewogIAogIGNhdCgid29ya2luZyBvbiBiaW9DbGltIiwgYmlvY2xpbXNbZl0sIlxuIikKICBiaW88LWxpc3QuZmlsZXMoIi4vIixiaW9jbGltc1tmXSkKICBiaW88LWJpb1tncmVwbCgiLmJpbCIsYmlvKV0KICBiaW88LWxhcHBseShiaW8sZnVuY3Rpb24oWCkgcmFzdGVyKFgpKQogIEFsbFRpbGVzW1tmXV08LWRvLmNhbGwobWVyZ2UsYmlvKQp9CgpuYW1lcyhBbGxUaWxlcyk8LWJpb2NsaW1zCgpgYGAKCkNoZWNrIGlmIHN0dWZmIGxvb2tzIGFzIGV4cGVjdGVkCmBgYHtyfQpwbG90KEFsbFRpbGVzW1sxXV0pCmBgYAoKQ3JlYXRlIGEgcmFzdGVyIHN0YWNrIGFuZCBleHRyYWN0IHZhbHVlcyBmb3IgYWxsIGxhdC1sb25ncyBlYWNoIHJhc3RlcgpgYGB7cn0KUzwtc3RhY2soQWxsVGlsZXMpCnB0czwtU3BhdGlhbFBvaW50cyhMYW5kcmFjZVsgLGMoIkxvbmdpdHVkZSIsIkxhdGl0dWRlIildKQpjbGltPC1leHRyYWN0KFMscHRzKQpjbGltPC1jYmluZChMYW5kcmFjZSxjbGltKQpgYGAKCgojIEdldHRpbmcgbGFuZ3VhZ2UgZGF0YS4jCgoKSGVyZSB0aGUgZGF0YSBpcyBvZiB0aGUgZnJvbSBTcGF0aWFsUG9seWdvbnMsIHNvIHdlIHVzZSBhIGRpZmZlcmVudCBzZXQgb2YgY29tbWFuZHMgdG8gcmVhZCBpbiB0aGUgZGF0YXNldApgYGB7cn0Kc2V0d2QoIn4vR29vZ2xlIERyaXZlIEZpbGUgU3RyZWFtL015IERyaXZlL0xhbmd1YWdlX2Fzc29jIikKbGFuZzwtcmVhZE9HUihkc249cGF0aC5leHBhbmQoImluZGlnZW5vdXNMYW5ndWFnZXMiKSkKcG9seXMgPSBhdHRyKGxhbmcsJ3BvbHlnb25zJykKbmFtZXMocG9seXMpPC1sYW5nJE5hbWUKCgpgYGAKCkRldGVybWluZSBpZiBwb2ludCBpcyB3aXRoaW4gYSBwb2x5Z29uCmBgYHtyfQpucG9seXMgPSBsZW5ndGgocG9seXMpCnBvbHlJRDwtdmVjdG9yKCJsaXN0IixucG9seXMpCmZvciAoaSBpbiAxOm5wb2x5cyl7CiAgcG9seSA9IHBvbHlzW1tpXV0KICBwb2x5czIgPSBhdHRyKHBvbHksJ1BvbHlnb25zJykKICBucG9seXMyID0gbGVuZ3RoKHBvbHlzMikKICBmb3IgKGogaW4gMTpucG9seXMyKXsKICAgICAKICAgICBjb29yZHMgPSBjb29yZGluYXRlcyhwb2x5czJbW2pdXSkKICAgICBvdXQ8LXBvaW50LmluLnBvbHlnb24oTGFuZHJhY2UkTG9uZ2l0dWRlLExhbmRyYWNlJExhdGl0dWRlLGNvb3Jkc1sgLDFdLGNvb3Jkc1sgLDJdKQogICAgIAogIH0KICBwb2x5SURbW2ldXTwtb3V0CiAgCiAgCn0KYGBgCgpFeHRyYWN0IHRoZSBsYW5ndWFnZSBvZiB0aGUgc2FtcGxlIGxvY2F0aW9uICYga2VlcCBvbmx5IGxhbmd1YWdlcyBhcmUgcHJlc2VudCBpbiBhdGxlYXN0IG9uZSBsb2NhdGlvbgpgYGB7cn0KbmFtZXMocG9seUlEKTwtbGFuZyROYW1lCnBvbHlJRDwtZG8uY2FsbChjYmluZCxwb2x5SUQpCnBvbHlJRF9wcjwtcG9seUlEWyAsY29sU3Vtcyhwb2x5SUQpIT0wXQpyb3duYW1lcyhwb2x5SURfcHIpPC1MYW5kcmFjZSRHQlMuVGF4b24uSUQKaGVhZChwb2x5SURfcHIpCndyaXRlLnRhYmxlKHBvbHlJRF9wcixmaWxlPSJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5ndWFnZXNCeUxhbmRyYWNlLnR4dCIsc2VwPSJcdCIscm93Lm5hbWVzID0gVCxxdW90ZT1GKQoKYGBgCgojIENhbHVjbGF0ZSBkaXN0YW5jZSBtZWFzdXJlcyBmb3IgYWxsIG91ciBjb3ZhcmlhdGVzICMgCgoxKSBEaXN0YW5jZSBmb3IgY2xpbWF0ZSBkYXRhLiBUaGlzIGlzIG51bWVyaWMgY29udGlub3VzLiBXZSBvbmx5IG5lZWQgdGhlIDE5IGJpb2NsaW1zIGFuZCBlbGV2YXRpb24gYW5kIHdlIHdpbGwgdXNlIGV1Y2xpZGVhbiBkaXN0YW5jZS4KYGBge3J9CmNsaW1Pbmx5PC1jbGltWyAsLWMoMTo1LDc6MTApXQpoZWFkKGNsaW1Pbmx5KQpyb3duYW1lcyhjbGltT25seSk8LWNsaW0kR0JTLlRheG9uLklECmNsaW0uZGlzdDwtZGlzdChjbGltT25seSxtZXRob2QgPSAiZXVjbGlkZWFuIikKI2NvbnZlcnQgdG8gc3F1YXJlIG1hdHJpeApjbGltLmRpc3Q8LWFzLm1hdHJpeChjbGltLmRpc3QpCmBgYAoKMikgRGlzdGFuY2UgbWV0cmljIHRvIHVzZSBmb3Igb3JkaW5hbCBkYXRhIHN1Y2ggYXMgdGhlIDAsMSwyLDMgZnJvbSBsYW5ndWFnZS4gClNldmVyYWwgYXBwcm9hY2hlcyA6Ci1SZWNvZGUgMCBhcyA0IGFuZCB1c2Uga2VuZGFsbCBkaXN0YW5jZS4KLVJlY29kZSBhbGwgdmFsdWVzIG90aGVyIHRoYW4gMSB0byAwIGFuZCB1c2UgZXVjbGlkZWFuCi1SZWNvZGUgMiAmIDMgYXMgMC41IGFuZCB0aGVuIHVzZSBldWNsaWRlYW4KCipMZXQncyBnbyB3aXRoIHRoZSAzcmQgYXBwcm9hY2ggZm9yIG5vdyoKCjMpIEdlb2Rlc2ljIERpc3RhbmNlIG1ldHJpYyBmb3IgbGF0LWxvbmcgb24gV0dTODQKYGBge3J9CmRmID0gY2xpbVsgLGMoIkxvbmdpdHVkZSIsIkxhdGl0dWRlIildICMgdGhlIG9yZGVyIHNob3VsZCBiZSBsb25naXR1ZGUsIGxhdGl0dWRlCkdlb0Rpc3Q8LWRpc3RtKGRmLCBkZiwgZGlzdEdlbykKcm93bmFtZXMoR2VvRGlzdCk8LWNvbG5hbWVzKEdlb0Rpc3QpCmRpbShHZW9EaXN0KQoKCmBgYAo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRXh0cmFjdCBmcm9tIHJhc3RlciAmIHBvbHkgYW5kIGdldCBkaXN0TWF0cyIKYXV0aG9yOiAiTWl0cmEgTWVub24iCmRhdGU6ICdgciBTeXMuRGF0ZSgpYCcKb3V0cHV0OgogIGh0bWxfZG9jdW1lbnQ6CiAgICBjb2RlX2ZvbGRpbmc6IGhpZGUKICAgIGNvbGxhcHNlZDogbm8KICAgIGRmX3ByaW50OiBwYWdlZAogICAgbnVtYmVyX3NlY3Rpb25zOiB5ZXMKICAgIHRoZW1lOiBwYXBlcgogICAgdG9jOiB5ZXMKICAgIHRvY19kZXB0aDogNQogICAgdG9jX2Zsb2F0OiB5ZXMKICBodG1sX25vdGVib29rOgogICAgdG9jOiB5ZXMKICAgIHRvY19kZXB0aDogNQplZGl0b3Jfb3B0aW9uczogCiAgY2h1bmtfb3V0cHV0X3R5cGU6IGNvbnNvbGUKLS0tCgpgYGB7Y3NzLCBlY2hvPUZBTFNFfQpwcmUsIGNvZGUge3doaXRlLXNwYWNlOnByZSAhaW1wb3J0YW50OyBvdmVyZmxvdy14OmF1dG99CmBgYAoKIyBMb2FkIFIgbGlicmFyaWVzCmBgYHtyfQpsaWJyYXJ5KHJhc3RlcikKbGlicmFyeShzcCkKbGlicmFyeShyZ2RhbCkKbGlicmFyeShyZ2VvcykKbGlicmFyeShwcmV2UikKbGlicmFyeShhbWFwKQpsaWJyYXJ5KGdlb3NwaGVyZSkKCiNpbnN0YWxsLnBhY2thZ2VzKCJyZW1vdGVzIikKI3JlbW90ZXM6Omluc3RhbGxfZ2l0aHViKCJrYXBpdHphcy9Xb3JsZENsaW1UaWxlcyIpCmxpYnJhcnkoV29ybGRDbGltVGlsZXMpICNpZiBub3QgaW5zdGFsbCB1bmNvbW1lbnQgdGhlIGFib3ZlIHR3byBsaW5lcyBhbmQgcnVuIHRoZW0gZmlyc3QKYGBgCgojIExvYWQgaW4geW91ciBkYXRhc2V0IGNvbnRhaW5pbmcgbGF0LWxvbmcgaW5mb3JtYXRpb24KCmBgYHtyfQpzZXR3ZCgifi9Hb29nbGUgRHJpdmUvTXkgRHJpdmUvTGFuZ3VhZ2VfYXNzb2MvIikKTGFuZHJhY2U8LXJlYWQudGFibGUoImZvckRhZm5lL0xhbmRyYWNlc19NWG9ubHlfMTYxMS50eHQiLHNlcD0iXHQiLGhlYWRlcj1UKQpoZWFkKExhbmRyYWNlKQpkaW0oTGFuZHJhY2UpCgojTGFuZHJhY2U8LUxhbmRyYWNlWzE6NTAsIF0KCmBgYAoKIzEgR2V0dGluZyB3b3JsZENsaW0gYmlvY2xpbSBkYXRhIAoKIyMgMS4xIERldGVybWluZSB0aWxlcyAKKlNlZSBoZXJlIGZvciB3aGF0IHRoZSB2YXJpYWJsZXMgbWVhbjogaHR0cHM6Ly93b3JsZGNsaW0ub3JnL2RhdGEvYmlvY2xpbS5odG1sKgpEYXRhIG5lZWRzIHRvIGJlIGRvd25sb2FkZWQgZm9yIDMwIGFyYyBzZWMgdG8geW91ciBwZXJzb25hbCBsYXB0b3AuIFRoaXMgaXMgdGhlIGZpbmVzdCByZXNvbHV0aW9uIGF2YWlsYWJsZSBhbmQgd2lsbCB0YWtlIHNvbWUgdGltZSB0byBkb3dubG9hZCBmb3IgdGhlIHdob2xlIHdvcmxkLiBTaW5jZSB3ZSBvbmx5IG5lZWQgYSBzbWFsbCBhcmVhIHdlIGNhbiB1c2UgdGhlIGB0aWxlX2dldGAgdG8gZGV0ZXJtaW5lIHdoYXQgcmVnaW9ucyB3ZSBuZWVkCgoKYGBge3J9CmJvdW5kYXJ5IDwtIGdldERhdGEoIkdBRE0iLCBjb3VudHJ5ID0gIk1YIiwgbGV2ZWwgPSAwKQp0aWxlbmFtZXMgPC0gdGlsZV9uYW1lKGJvdW5kYXJ5LCBuYW1lID0gJ3dvcmxkY2xpbScpCnRpbGVuYW1lcwoKc2V0d2QoIn4vR29vZ2xlIERyaXZlIEZpbGUgU3RyZWFtL015IERyaXZlL0xhbmd1YWdlX2Fzc29jLyIpCiN3Y3RpbGVzIDwtIHRpbGVfZ2V0KHRpbGVzID0gdGlsZW5hbWVzLCBuYW1lID0gJ3dvcmxkY2xpbScsIHZhciA9ICJiaW8iKQpgYGAKCgojIyMgMS4xLjEgTWVyZ2UgcmFzdGVycyBmcm9tIGRpZmZlcmVudCB0aWxlcwpUaGUgY29tbWFuZCBhYm92ZSB3aWxsIGRvd25sb2FkIHRvIHlvdXIgY3VycmVudCBkaXJlY3RvcnkgYnkgY3JlYXRpbmcgYSBmb2xkZXIgY2FsbGVkIHdjMC41LgpDb21iaW5lIHRoZSB0aHJlZSB0aWxlcyBmb3IgZWFjaCBiaW9jbGltIHZhcmlhYmxlCmBgYHtyfQpzZXR3ZCgifi9Hb29nbGUgRHJpdmUvTXkgRHJpdmUvTGFuZ3VhZ2VfYXNzb2Mvd2MwLjUvIikKCgpBbGxUaWxlczwtdmVjdG9yKCJsaXN0IiwxOSkKYmlvY2xpbXM8LXBhc3RlMChyZXAoImJpbyIsMTkpLHNlcSgxLDE5KSwiXyIpCgpmb3IgKGYgaW4gMTpsZW5ndGgoQWxsVGlsZXMpKXsKICAKICBjYXQoIndvcmtpbmcgb24gYmlvQ2xpbSIsIGJpb2NsaW1zW2ZdLCJcbiIpCiAgYmlvPC1saXN0LmZpbGVzKCIuLyIsYmlvY2xpbXNbZl0pCiAgYmlvPC1iaW9bZ3JlcGwoIi5iaWwiLGJpbyldCiAgYmlvPC1sYXBwbHkoYmlvLGZ1bmN0aW9uKFgpIHJhc3RlcihYKSkKICBBbGxUaWxlc1tbZl1dPC1kby5jYWxsKG1lcmdlLGJpbykKfQoKbmFtZXMoQWxsVGlsZXMpPC1iaW9jbGltcwoKYGBgCiMjIyAxLjEuMiBDaGVja3MKQ2hlY2sgaWYgc3R1ZmYgbG9va3MgYXMgZXhwZWN0ZWQKYGBge3J9CnBsb3QoQWxsVGlsZXNbWzFdXSkKcG9pbnRzKHB0cyxjZXg9MC41KQpgYGAKCiMjIDEuMiBFeHRyYWN0IHZhbHVlcyBmcm9tIHJhc3RlcgpDcmVhdGUgYSByYXN0ZXIgc3RhY2sgYW5kIGV4dHJhY3QgdmFsdWVzIGZvciBhbGwgbGF0LWxvbmdzIGVhY2ggcmFzdGVyCmBgYHtyfQpTPC1zdGFjayhBbGxUaWxlcykKcHRzPC1TcGF0aWFsUG9pbnRzKExhbmRyYWNlWyAsYygibG9uZ2l0dWRlIiwibGF0aXR1ZGUiKV0pCmNsaW08LWV4dHJhY3QoUyxwdHMpCmNsaW08LWNiaW5kKExhbmRyYWNlLGNsaW0pCmNsaW08LWNsaW1bY29tcGxldGUuY2FzZXMoY2xpbSRUYXhvbklEKSwgXSAjanVzdCBkb3VibGUgY2hlY2tpbmcKYGBgCgoKIyAyIEdldHRpbmcgbGFuZ3VhZ2UgZGF0YQoKCkhlcmUgdGhlIGRhdGEgaXMgb2YgdGhlIGZyb20gU3BhdGlhbFBvbHlnb25zLCBzbyB3ZSB1c2UgYSBkaWZmZXJlbnQgc2V0IG9mIGNvbW1hbmRzIHRvIHJlYWQgaW4gdGhlIGRhdGFzZXQKYGBge3J9CnNldHdkKCJ+L0dvb2dsZSBEcml2ZS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy8iKQpsYW5nPC1yZWFkT0dSKGRzbj1wYXRoLmV4cGFuZCgiaW5kaWdlbm91c0xhbmd1YWdlcyIpKQpwb2x5cyA9IGF0dHIobGFuZywncG9seWdvbnMnKQpuYW1lcyhwb2x5cyk8LWxhbmckTmFtZQoKCmBgYAoKIyMgMi4xIFB1bGxpbmcgb3V0IGxhbmd1YWdlcyBieSBlYWNoIHBvaW50CkRldGVybWluZSBpZiBwb2ludCBpcyB3aXRoaW4gYSBwb2x5Z29uCmBgYHtyfQpucG9seXMgPSBsZW5ndGgocG9seXMpCnBvbHlJRDwtdmVjdG9yKCJsaXN0IixucG9seXMpCmZvciAoaSBpbiAxOm5wb2x5cyl7CiAgcG9seSA9IHBvbHlzW1tpXV0KICBwb2x5czIgPSBhdHRyKHBvbHksJ1BvbHlnb25zJykKICBucG9seXMyID0gbGVuZ3RoKHBvbHlzMikKICBmb3IgKGogaW4gMTpucG9seXMyKXsKICAgICAKICAgICBjb29yZHMgPSBjb29yZGluYXRlcyhwb2x5czJbW2pdXSkKICAgICBvdXQ8LXBvaW50LmluLnBvbHlnb24oTGFuZHJhY2UkbG9uZ2l0dWRlLExhbmRyYWNlJGxhdGl0dWRlLGNvb3Jkc1sgLDFdLGNvb3Jkc1sgLDJdKQogICAgIAogIH0KICBwb2x5SURbW2ldXTwtb3V0CiAgCiAgCn0KYGBgCgpFeHRyYWN0IHRoZSBsYW5ndWFnZSBvZiB0aGUgc2FtcGxlIGxvY2F0aW9uICYga2VlcCBvbmx5IGxhbmd1YWdlcyB0aGF0IGFyZSBwcmVzZW50IGluIGF0bGVhc3Qgb25lIGxvY2F0aW9uCkFsc28gY2hlY2sgaWYgdGhlcmUgYXJlIGFueSBzYW1wbGVzIHRoYXQgZG9uJ3QgZmFsbCBpbiBhbnkgb2YgdGhlIHBvbHlnb25zCmBgYHtyfQpuYW1lcyhwb2x5SUQpPC1sYW5nJE5hbWUKcG9seUlEPC1kby5jYWxsKGNiaW5kLHBvbHlJRCkKCnBvbHlJRF9wcjwtcG9seUlEWyAsY29sU3Vtcyhwb2x5SUQpIT0wXQpyb3duYW1lcyhwb2x5SURfcHIpPC1MYW5kcmFjZSRUYXhvbklECnBvbHlJRF9wcjwtcG9seUlEX3ByW3Jvd1N1bXMocG9seUlEX3ByKSE9MCwgXQpoZWFkKHBvbHlJRF9wcikKI3dyaXRlLnRhYmxlKHBvbHlJRF9wcixmaWxlPSJ+L0dvb2dsZSBEcml2ZSBGaWxlIFN0cmVhbS9NeSBEcml2ZS9MYW5ndWFnZV9hc3NvYy9MYW5ndWFnZXNCeUxhbmRyYWNlLnR4dCIsc2VwPSJcdCIscm93Lm5hbWVzID0gVCxxdW90ZT1GKQpgYGAKCiMgMy4gQ2hlY2sgdGhhdCB0aGUgZGltZW5zaW9ucyBvZiB0aGUgdHdvIGRhdGFzZXRzIGFyZSBlcXVhbC4gSWYgbm90IGFkanVzdCBpdApgYGB7cn0KbnJvdyhwb2x5SURfcHIpPT1ucm93KGNsaW0pCmBgYAoKIyA0LiBDYWx1Y2xhdGUgZGlzdGFuY2UgbWVhc3VyZXMgZm9yIGFsbCBvdXIgY292YXJpYXRlcyAKCiMjIDQuMSBDbGltYXRlIGRhdGEKIERpc3RhbmNlIGZvciBjbGltYXRlIGRhdGEuIFRoaXMgaXMgbnVtZXJpYyBjb250aW51b3VzLiBXZSBvbmx5IG5lZWQgdGhlIDE5IGJpb2NsaW1zIGFuZCBlbGV2YXRpb24gYW5kIHdlIHdpbGwgdXNlIGV1Y2xpZGVhbiBkaXN0YW5jZS4KYGBge3J9CgpjbGltT25seTwtY2xpbVsgLC1jKDE6MTIpXQpjbGltT25seV9zYzwtc2NhbGUoY2xpbU9ubHksc2NhbGUgPSBULGNlbnRlciA9IFQpCmhlYWQoY2xpbU9ubHkpCiNyb3duYW1lcyhjbGltT25seSk8LWNsaW0kR0JTLlRheG9uLklECmNsaW0uZGlzdDwtZGlzdChjbGltT25seSxtZXRob2QgPSAiZXVjbGlkZWFuIikKCiNjb252ZXJ0IHRvIHNxdWFyZSBtYXRyaXgKY2xpbS5kaXN0PC1hcy5tYXRyaXgoY2xpbS5kaXN0KQpgYGAKCiMjIDQuMiBBbHRpdHVkZSAoYXMgdGhpcyBoYXMgYmVlbiBzaG93biB0byBiZSBpbXAgZm9yIE1haXplKQpgYGB7cn0KYWx0PC1jbGltJGVsZXZhdGlvbgphbHQ8LXNjYWxlKGFsdCxjZW50ZXIgPSBULHNjYWxlID0gVCkKYWx0LmRpc3Q8LWRpc3QoYWx0LG1ldGhvZD0iZXVjbGlkZWFuIikKYWx0LmRpc3Q8LWFzLm1hdHJpeChhbHQuZGlzdCkKYGBgCgojIyA0LjMgTGFuZ3VhZ2UgZGF0YQoKRGlzdGFuY2UgbWV0cmljIHRvIHVzZSBmb3Igb3JkaW5hbCBkYXRhIHN1Y2ggYXMgdGhlIDAsMSwyLDMgZnJvbSBsYW5ndWFnZS4gClNldmVyYWwgYXBwcm9hY2hlcyA6Ci1SZWNvZGUgMCBhcyA0IGFuZCB1c2Uga2VuZGFsbCBkaXN0YW5jZS4KLVJlY29kZSBhbGwgdmFsdWVzIG90aGVyIHRoYW4gMSB0byAwIGFuZCB1c2UgZXVjbGlkZWFuCi1SZWNvZGUgMiAmIDMgYXMgMC41IGFuZCB0aGVuIHVzZSBldWNsaWRlYW4sIDAgaXMgMCBhbmQgMSBpcyAxLgoKKkxldCdzIGdvIHdpdGggdGhlIDNyZCBhcHByb2FjaCBmb3Igbm93KgpgYGB7cn0KcG9seUlEX3ByW3BvbHlJRF9wcj09Ml08LTAuNQpwb2x5SURfcHJbcG9seUlEX3ByPT0zXTwtMC41CgpsYW5nLmRpc3Q8LWRpc3QocG9seUlEX3ByLG1ldGhvZD0iZXVjbGlkZWFuIikKbGFuZy5kaXN0PC1hcy5tYXRyaXgobGFuZy5kaXN0KQpgYGAKCiMjIDQuNCBHZW9ncmFwaHkKCkdlb2Rlc2ljIERpc3RhbmNlIG1ldHJpYyBmb3IgbGF0LWxvbmcgb24gV0dTODQKYGBge3J9CmRmID0gY2xpbVsgLGMoImxvbmdpdHVkZSIsImxhdGl0dWRlIildICMgdGhlIG9yZGVyIHNob3VsZCBiZSBsb25naXR1ZGUsIGxhdGl0dWRlCkdlb0Rpc3Q8LWRpc3RtKGRmLCBkZiwgZGlzdEdlbykKI3Jvd25hbWVzKEdlb0Rpc3QpPC1jb2xuYW1lcyhHZW9EaXN0KQpkaW0oR2VvRGlzdCkKCgpgYGAK</div>
 
 
 
@@ -2123,7 +2078,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("getData.Rmd");
+  window.initializeSourceEmbed("getData-Dist.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

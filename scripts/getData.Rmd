@@ -1,11 +1,29 @@
 ---
-title: "Extracting data from raster and from polygons"
-Date: 19-jan
-output: html_notebook
+title: "Extract from raster & poly and get distMats"
+author: "Mitra Menon"
+date: '`r Sys.Date()`'
+output:
+  html_document:
+    code_folding: hide
+    collapsed: no
+    df_print: paged
+    number_sections: yes
+    theme: paper
+    toc: yes
+    toc_depth: 5
+    toc_float: yes
+  html_notebook:
+    toc: yes
+    toc_depth: 5
+editor_options: 
+  chunk_output_type: console
 ---
 
+```{css, echo=FALSE}
+pre, code {white-space:pre !important; overflow-x:auto}
+```
 
-
+# Load R libraries
 ```{r}
 library(raster)
 library(sp)
@@ -20,16 +38,24 @@ library(geosphere)
 library(WorldClimTiles) #if not install uncomment the above two lines and run them first
 ```
 
-Load in your dataset containing lat-long information
+# Load in your dataset containing lat-long information
+
 ```{r}
-Landrace<-read.csv("~/Google Drive File Stream/My Drive/Language_assoc/LandraceInfo.csv")
+setwd("~/Google Drive/My Drive/Language_assoc/")
+Landrace<-read.table("forDafne/Landraces_MXonly_1611.txt",sep="\t",header=T)
+head(Landrace)
+dim(Landrace)
+
+#Landrace<-Landrace[1:50, ]
 
 ```
 
-# Getting worldClim bioclim data downloaded #
+#1 Getting worldClim bioclim data 
 
+## 1.1 Determine tiles 
 *See here for what the variables mean: https://worldclim.org/data/bioclim.html*
 Data needs to be downloaded for 30 arc sec to your personal laptop. This is the finest resolution available and will take some time to download for the whole world. Since we only need a small area we can use the `tile_get` to determine what regions we need
+
 
 ```{r}
 boundary <- getData("GADM", country = "MX", level = 0)
@@ -37,13 +63,15 @@ tilenames <- tile_name(boundary, name = 'worldclim')
 tilenames
 
 setwd("~/Google Drive File Stream/My Drive/Language_assoc/")
-wctiles <- tile_get(tiles = tilenames, name = 'worldclim', var = "bio")
+#wctiles <- tile_get(tiles = tilenames, name = 'worldclim', var = "bio")
 ```
 
+
+### 1.1.1 Merge rasters from different tiles
 The command above will download to your current directory by creating a folder called wc0.5.
 Combine the three tiles for each bioclim variable
 ```{r}
-setwd("~/Google Drive File Stream/My Drive/Language_assoc/wc0.5/")
+setwd("~/Google Drive/My Drive/Language_assoc/wc0.5/")
 
 
 AllTiles<-vector("list",19)
@@ -61,27 +89,30 @@ for (f in 1:length(AllTiles)){
 names(AllTiles)<-bioclims
 
 ```
-
+### 1.1.2 Checks
 Check if stuff looks as expected
 ```{r}
 plot(AllTiles[[1]])
+points(pts,cex=0.5)
 ```
 
+## 1.2 Extract values from raster
 Create a raster stack and extract values for all lat-longs each raster
 ```{r}
 S<-stack(AllTiles)
-pts<-SpatialPoints(Landrace[ ,c("Longitude","Latitude")])
+pts<-SpatialPoints(Landrace[ ,c("longitude","latitude")])
 clim<-extract(S,pts)
 clim<-cbind(Landrace,clim)
+clim<-clim[complete.cases(clim$TaxonID), ] #just double checking
 ```
 
 
-# Getting language data.#
+# 2 Getting language data
 
 
 Here the data is of the from SpatialPolygons, so we use a different set of commands to read in the dataset
 ```{r}
-setwd("~/Google Drive File Stream/My Drive/Language_assoc")
+setwd("~/Google Drive/My Drive/Language_assoc/")
 lang<-readOGR(dsn=path.expand("indigenousLanguages"))
 polys = attr(lang,'polygons')
 names(polys)<-lang$Name
@@ -89,6 +120,7 @@ names(polys)<-lang$Name
 
 ```
 
+## 2.1 Pulling out languages by each point
 Determine if point is within a polygon
 ```{r}
 npolys = length(polys)
@@ -100,7 +132,7 @@ for (i in 1:npolys){
   for (j in 1:npolys2){
      
      coords = coordinates(polys2[[j]])
-     out<-point.in.polygon(Landrace$Longitude,Landrace$Latitude,coords[ ,1],coords[ ,2])
+     out<-point.in.polygon(Landrace$longitude,Landrace$latitude,coords[ ,1],coords[ ,2])
      
   }
   polyID[[i]]<-out
@@ -109,42 +141,72 @@ for (i in 1:npolys){
 }
 ```
 
-Extract the language of the sample location & keep only languages are present in atleast one location
+Extract the language of the sample location & keep only languages that are present in atleast one location
+Also check if there are any samples that don't fall in any of the polygons
 ```{r}
 names(polyID)<-lang$Name
 polyID<-do.call(cbind,polyID)
-polyID_pr<-polyID[ ,colSums(polyID)!=0]
-rownames(polyID_pr)<-Landrace$GBS.Taxon.ID
-head(polyID_pr)
-write.table(polyID_pr,file="~/Google Drive File Stream/My Drive/Language_assoc/LanguagesByLandrace.txt",sep="\t",row.names = T,quote=F)
 
+polyID_pr<-polyID[ ,colSums(polyID)!=0]
+rownames(polyID_pr)<-Landrace$TaxonID
+polyID_pr<-polyID_pr[rowSums(polyID_pr)!=0, ]
+head(polyID_pr)
+#write.table(polyID_pr,file="~/Google Drive File Stream/My Drive/Language_assoc/LanguagesByLandrace.txt",sep="\t",row.names = T,quote=F)
 ```
 
-# Caluclate distance measures for all our covariates # 
-
-1) Distance for climate data. This is numeric continous. We only need the 19 bioclims and elevation and we will use euclidean distance.
+# 3. Check that the dimensions of the two datasets are equal. If not adjust it
 ```{r}
-climOnly<-clim[ ,-c(1:5,7:10)]
+nrow(polyID_pr)==nrow(clim)
+```
+
+# 4. Caluclate distance measures for all our covariates 
+
+## 4.1 Climate data
+ Distance for climate data. This is numeric continuous. We only need the 19 bioclims and elevation and we will use euclidean distance.
+```{r}
+
+climOnly<-clim[ ,-c(1:12)]
+climOnly_sc<-scale(climOnly,scale = T,center = T)
 head(climOnly)
-rownames(climOnly)<-clim$GBS.Taxon.ID
+#rownames(climOnly)<-clim$GBS.Taxon.ID
 clim.dist<-dist(climOnly,method = "euclidean")
+
 #convert to square matrix
 clim.dist<-as.matrix(clim.dist)
 ```
 
-2) Distance metric to use for ordinal data such as the 0,1,2,3 from language. 
+## 4.2 Altitude (as this has been shown to be imp for Maize)
+```{r}
+alt<-clim$elevation
+alt<-scale(alt,center = T,scale = T)
+alt.dist<-dist(alt,method="euclidean")
+alt.dist<-as.matrix(alt.dist)
+```
+
+## 4.3 Language data
+
+Distance metric to use for ordinal data such as the 0,1,2,3 from language. 
 Several approaches :
 -Recode 0 as 4 and use kendall distance.
 -Recode all values other than 1 to 0 and use euclidean
--Recode 2 & 3 as 0.5 and then use euclidean
+-Recode 2 & 3 as 0.5 and then use euclidean, 0 is 0 and 1 is 1.
 
 *Let's go with the 3rd approach for now*
-
-3) Geodesic Distance metric for lat-long on WGS84
 ```{r}
-df = clim[ ,c("Longitude","Latitude")] # the order should be longitude, latitude
+polyID_pr[polyID_pr==2]<-0.5
+polyID_pr[polyID_pr==3]<-0.5
+
+lang.dist<-dist(polyID_pr,method="euclidean")
+lang.dist<-as.matrix(lang.dist)
+```
+
+## 4.4 Geography
+
+Geodesic Distance metric for lat-long on WGS84
+```{r}
+df = clim[ ,c("longitude","latitude")] # the order should be longitude, latitude
 GeoDist<-distm(df, df, distGeo)
-rownames(GeoDist)<-colnames(GeoDist)
+#rownames(GeoDist)<-colnames(GeoDist)
 dim(GeoDist)
 
 
